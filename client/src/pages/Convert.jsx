@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Footer from "../components/Footer"
-import qs from 'qs'
 import PropTypes from 'prop-types'
 import NavigationBar from "../components/Navigation"
 
@@ -130,10 +129,7 @@ const Convert = ({user}) => {
                     params: {
                         playlistId: playlistId,
                         uri: trackUris
-                    },
-                    paramsSerializer: params => {
-                        return qs.stringify(params);
-                    }
+                    },                    
                 });
                 console.log(response);                
             } else {
