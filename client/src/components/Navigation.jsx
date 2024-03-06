@@ -3,6 +3,10 @@ import PropTypes from 'prop-types'
 import ConnectButton from './ConnectButton'
 
 const NavigationBar = ({user}) => {
+
+    const openSourceCode = () => {
+        window.open('https://github.com/faticamer/playlist-converter/tree/main')
+    }
     return (        
         <nav className='relative mx-auto p-4 text-white bg-spotifyDarkGrey'>
             <div className='flex items-center justify-between'>
@@ -10,7 +14,7 @@ const NavigationBar = ({user}) => {
                     <a href="/" className='text-2xl font-bold nunito-sans-bold'>Playlistify</a>
                 </div>
                 <div className='flex flex-row justify-between items-center gap-5 nunito-sans-regular'>
-                    <div>
+                    <div onClick={openSourceCode}>
                         <button className='flex flex-row justify-center items-center rounded-full outline outline-1 hover:outline-2 p-2'><img src={github} alt="GitHub Logo" className='w-8 h-8 mr-3'/>Source Code</button>
                     </div>
                     <ConnectButton user={user} />

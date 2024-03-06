@@ -164,7 +164,7 @@ const Convert = ({user}) => {
             console.log(`Artists: ${artists} and Titles: ${titles}`);
             const spotifyIds = await searchTrackOnSpotify(artists, titles)
             console.log('Spotify ids: ', spotifyIds);            
-            // await addTracksToPlaylistModified(playlistId, spotifyIds)
+            await addTracksToPlaylistModified(playlistId, spotifyIds)
             console.log('Completed');
         } catch (error) {
             console.error('There was an error in some module. ', error.message)
