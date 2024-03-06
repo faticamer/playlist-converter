@@ -1,7 +1,6 @@
 import github from '../assets/github-mark-white.svg'
 import PropTypes from 'prop-types'
 import ConnectButton from './ConnectButton'
-import GreetMessage from './GreetMessage'
 
 const NavigationBar = ({user}) => {
     return (        
@@ -14,13 +13,8 @@ const NavigationBar = ({user}) => {
                     <div>
                         <button className='flex flex-row justify-center items-center rounded-full outline outline-1 hover:outline-2 p-2'><img src={github} alt="GitHub Logo" className='w-8 h-8 mr-3'/>Source Code</button>
                     </div>
-                    { user ? (
-                        <GreetMessage user={user}/>
-                    ) : 
-                    (
-                        <ConnectButton />
-                    )}
-                </div>            
+                    <ConnectButton user={user} />
+                </div>
             </div>
         </nav>
     )
