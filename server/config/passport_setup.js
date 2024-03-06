@@ -15,7 +15,13 @@ passport.use(
     {
       clientID: process.env.SPOTIFY_CLIENT_ID,
       clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-      callbackURL: 'http://localhost:5555/auth/spotify/callback'
+      callbackURL: 'http://localhost:5555/auth/spotify/callback',
+      scope: [
+        'user-read-email',
+        'user-read-private',
+        'playlist-modify-public',
+        'playlist-modify-private'
+      ]
     },
     function(accessToken, refreshToken, expires_in, profile, done) {
       done(null, { accessToken, profile })

@@ -10,14 +10,16 @@ const getToken = async () => {
     try {
         // Make POST request to SPOTIFY API for access token, sending relevant information
         const token_url = 'https://accounts.spotify.com/api/token'
-        const data = qs.stringify({'grant_type' : 'client_credentials'})
+        const params = new URLSearchParams();
+        params.append('grant_type', 'client_credentials');
 
-        const response = await axios.post(token_url, data, {
-            headers : {
-                'Authorization' : `Basic ${auth_token}`,
-                'Content-Type' : 'application/x-www-form-urlencoded'
+        const response = await axios.post(token_url, params, {
+            headers: {
+                'Authorization': `Basic ${auth_token}`,
+                'Content-Type': 'application/x-www-form-urlencoded'
             }
-        })
+        });
+
         return response.data.access_token
     } catch (error) {
         console.error(error)
