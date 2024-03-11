@@ -28,12 +28,7 @@ router.get('/spotify/login/success', (req, res) => {
     }
 })
 
-router.get('/spotify', passport.authenticate('spotify', {
-    scope : [
-        'playlist-modify-public',
-        'playlist-modify-private'
-    ]
-}));
+router.get('/spotify', passport.authenticate('spotify'));
 
 router.get(
     '/spotify/callback',

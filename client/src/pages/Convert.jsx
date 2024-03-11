@@ -34,7 +34,7 @@ const Convert = ({user}) => {
         return chunkedArray
     }
 
-    // Routine that performs an API call to the youtube route and returns the list of titles from
+    // Performs an API call to the youtube route and returns the list of titles from
     // a YouTube playlist
     async function fetchTitlesFromYoutube () {
         try {
@@ -43,7 +43,6 @@ const Convert = ({user}) => {
                     playlistId : youtubePlaylistId
                 }
             })
-            // setTitles(response.data.titles)
             return response.data.titles
         } catch (error) {
             console.error('There was a problem witch fetching playlist titles', error.message)
@@ -51,7 +50,7 @@ const Convert = ({user}) => {
         }
     }
 
-    // Routine that performs an API call to the spotify route. Firstly, it will handle creation of
+    // Performs an API call to the Spotify route. Firstly, it will handle the creation of
     // the playlist on user's Spotify account. The return value is the ID of the newly created playlist
     async function createSpotifyPlaylist() {
         try {
@@ -64,7 +63,7 @@ const Convert = ({user}) => {
         }
     }
 
-    // This routine will take the titles that were prevoiusly extracted from a YouTube
+    // Takes the titles that were prevoiusly extracted from a YouTube
     // playlist, separate them into two parts, storing track artist and track name into 
     // two separate arrays, and afterwards returning both artists and titles
     async function separateArtistAndTitle (titlesForwarded) {
@@ -88,7 +87,7 @@ const Convert = ({user}) => {
         }
     }
     
-    // This routine searches the Spotify database based on the track tuple ([artist, title])
+    // Searched the Spotify database based on the track tuple ([artist, title])
     // It will return a whole response containing the data about the songs that matched the 
     // criteria. The response is later used to extract the spotify:track:{id} from it
     // Routine is limited to single result
@@ -119,7 +118,7 @@ const Convert = ({user}) => {
         }
     }
 
-    // Routine that adds the list of Spotify tracks to the user's Spotify playlist that 
+    // Adds the list of Spotify tracks to the user's Spotify playlist that 
     // was previously programatically generated
     async function addTracksToPlaylistModified(playlistId, trackUris) {    
         try {

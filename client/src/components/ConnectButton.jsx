@@ -21,7 +21,7 @@ const ConnectButton = ({user}) => {
             )
             :
             (
-                <div onClick={openLoginPage} className='flex flex-row justify-between items-center gap-3 nunito-sans-regular outline outline-1 rounded-full p-2 text-black bg-spotifyGreen cursor-pointer'>
+                <div onClick={openLoginPage} className='flex flex-row justify-between items-center gap-3 nunito-sans-regular outline outline-1 rounded-full p-1 text-black bg-spotifyGreen cursor-pointer'>
                     <img src={spotify} alt="Spotify Logo" className='w-8 h-8'/>
                     <p>Connect with Spotify</p>
                 </div>

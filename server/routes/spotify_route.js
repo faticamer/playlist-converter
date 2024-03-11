@@ -14,7 +14,7 @@ const getAccessTokenMiddleware = async (req, res, next) => {
       // Call the next middleware or route handler
       next();
     } catch (error) {
-      console.error('Error obtaining access token:', error.message);
+      console.error('Error obtaining authorization token:', error.message);
       res.status(500).json({
         success: false,
         message: 'Internal Server Error',
@@ -72,39 +72,6 @@ router.get('/search', async (req, res) => {
             success: false,
             message: 'Unauthorized'
         })
-    }
-})
-
-// This works (obtains necessary details from the session)
-router.get('/some/route', (req, res) => {
-    const userDetails = req.session.userDetails
-
-    if(userDetails) {
-        const { accessToken, userId, username } = userDetails
-        res.status(200).json({
-            success: true,
-            accessToken,
-            userId,
-            username,
-            message: 'User details obtained successfully'
-
-        })
-    } else {
-        res.status(401).json({
-            success: false,
-            message: 'User details could not be obtained'
-        })
-    }
-})
-
-// After debugging the Authorization Token, this now works properly
-// The issue was the missing await keyword as well
-router.get('/artist', async (req, res) => {
-    try {
-        const details = await spotifyAPI.getArtistsInfo()
-        res.send({ details })
-    } catch (error) {
-        console.error('Error while handling the artist route: ', error.message)
     }
 })
 
