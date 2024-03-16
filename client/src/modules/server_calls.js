@@ -1,14 +1,5 @@
 import axios from 'axios'
 
-function formChunkedArray(originalArray, chunkSize) {
-    const chunkedArray = []
-    for(let i = 0; i < originalArray.length; i += chunkSize) {
-        const chunk = originalArray.slice(i, i + chunkSize)
-        chunkedArray.push(chunk)
-    }
-    return chunkedArray
-}
-
 // Performs an API call to the youtube route and returns the list of titles from
 // a YouTube playlist
 async function fetchTitlesFromYoutube (youtubePlaylistId) {
@@ -25,19 +16,6 @@ async function fetchTitlesFromYoutube (youtubePlaylistId) {
     }
 }
 
-// Performs an API call to the Spotify route. Firstly, it will handle the creation of
-// the playlist on user's Spotify account. The return value is the ID of the newly created playlist
-async function createSpotifyPlaylist() {
-    try {
-        const response = await axios.get('http://localhost:5555/spotify/playlist/create', {
-            withCredentials: true
-        })            
-        return response.data.data.id
-    } catch (error) {
-        console.log(error);
-    }
-}
-
 // Takes the titles that were prevoiusly extracted from a YouTube
 // playlist, separate them into two parts, storing track artist and track name into 
 // two separate arrays, and afterwards returning both artists and titles
@@ -51,14 +29,47 @@ async function separateArtistAndTitle (titlesForwarded) {
             artistArray.push(result[0])
             titleArray.push(result[1])
         });
+        
+        const finalArtists = artistArray.map(title => stripDelimiters(title))
+        const finalTitles = titleArray.map(artist => stripDelimiters(artist))        
 
-        // setSongArtist(artistArray)
-        // setSongTitle(titleArray)
-
-        return [artistArray, titleArray]
+        return [finalArtists, finalTitles]
     } else {            
         console.log('Extraction not possible since title array is empty');
         return []
+    }
+}
+
+function stripDelimiters (songInfo) {
+    const delimiters = ['&', 'x', 'X', 'ft']
+    for (const delimiter of delimiters) {
+        const index = songInfo.indexOf(delimiter)
+        if(index != -1) {
+            return songInfo.substring(0, index).trim()
+        }
+    }
+    return songInfo
+}
+
+function formChunkedArray(originalArray, chunkSize) {
+    const chunkedArray = []
+    for(let i = 0; i < originalArray.length; i += chunkSize) {
+        const chunk = originalArray.slice(i, i + chunkSize)
+        chunkedArray.push(chunk)
+    }
+    return chunkedArray
+}
+
+// Performs an API call to the Spotify route. Firstly, it will handle the creation of
+// the playlist on user's Spotify account. The return value is the ID of the newly created playlist
+async function createSpotifyPlaylist() {
+    try {
+        const response = await axios.get('http://localhost:5555/spotify/playlist/create', {
+            withCredentials: true
+        })            
+        return response.data.data.id
+    } catch (error) {
+        console.log(error);
     }
 }
 
@@ -66,11 +77,10 @@ async function separateArtistAndTitle (titlesForwarded) {
 // It will return a whole response containing the data about the songs that matched the 
 // criteria. The response is later used to extract the spotify:track:{id} from it
 // Routine is limited to single result
-async function searchTrackOnSpotify (songTitles, songArtists) {
+async function searchTrackOnSpotify (songArtists, songTitles) {
     try {
         const spotifyIds = []                      
         if(songTitles.length != 0 && songArtists.length != 0) {
-            console.log('Condition satisfied');
             for(let i = 0; i < songTitles.length; i++) {
                 const response = await axios.get('http://localhost:5555/spotify/search', {
                     params : {
@@ -131,7 +141,9 @@ async function convert (youtubePlaylistId) {
         const youtubeTitles = await fetchTitlesFromYoutube(youtubePlaylistId)
         console.log('Titles: ', youtubeTitles);
         const [artists, titles] = await separateArtistAndTitle(youtubeTitles)
-        console.log(`Artists: ${artists} and Titles: ${titles}`);
+        for(let i = 0; i < artists.length; i++) {
+            console.log(artists[i] + ' ' + titles[i]);
+        }
         const spotifyIds = await searchTrackOnSpotify(artists, titles)
         console.log('Spotify ids: ', spotifyIds);            
         await addTracksToPlaylistModified(playlistId, spotifyIds)
