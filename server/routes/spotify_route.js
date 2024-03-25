@@ -52,11 +52,47 @@ router.get('/playlist/convert', async (req, res) => {
         if(userDetails) {
             const { accessToken, userId, username } = userDetails
             const response = await spotifyAPI.addToPlaylist(accessToken, playlistId, trackUri)
-            // console.log(response);
-            res.json({ data : response.data})
+            res.json({ data : response.data })
         }        
     } catch (error) {
         console.error('Error while handling the convert route: ', error.message)
+    }
+})
+
+// This seems to be fine for now
+router.get('/playlist/get-items', async (req, res) => {
+    try {
+        const userDetails = req.session.userDetails
+        const playlistId = req.query.playlistId
+
+        if(userDetails) {
+            const { accessToken, userId, username } = userDetails
+            const response = await spotifyAPI.getPlaylistItems(accessToken, playlistId)
+            res.json({ response })
+        }
+    } catch (error) {
+        res.status(500).json({
+            success : false,
+            message : 'Internal Server Error'
+        })
+    }
+})
+
+// Test route for getting playlist items
+router.get('/playlist/get-items/:playlistId', async (req, res) => {
+    try {
+        const userDetails = req.session.userDetails
+        const playlistId = req.params.playlistId
+
+        if(userDetails) {
+            const { accessToken, userId, username } = userDetails
+            const response = await spotifyAPI.getPlaylistItems(accessToken, playlistId)
+        }
+    } catch (error) {
+        res.status(500).json({
+            success : false,
+            message : 'Internal Server Error'
+        })
     }
 })
 

@@ -5,7 +5,7 @@ const yt_api_key = process.env.YOUTUBE_API_KEY
 const base_url = 'https://www.googleapis.com/youtube/v3/playlistItems'
 
 // Since this API call can retrieve up to 50 items in total, we will call the function recursively
-// until there are no more page tokens, this will hopefully retrieve all songs within the playlist
+// until there are no more page tokens
 const getAllTitles = async (playlistId, pageToken = '') => {
     const params = new URLSearchParams([
         ['part', 'snippet'],
@@ -24,7 +24,7 @@ const getAllTitles = async (playlistId, pageToken = '') => {
             // If there is a nextPageToken, fetch it recursively
             const nextTitles = await getAllTitles(playlistId, response.data.nextPageToken)
             return titles.concat(nextTitles)
-        } else {
+        } else {            
             return titles
         }
     } catch (error) {

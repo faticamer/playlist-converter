@@ -16,32 +16,48 @@ async function fetchTitlesFromYoutube (youtubePlaylistId) {
     }
 }
 
+const filterYoutubeTitles = (titles) => {
+    const filterKeywords = ['Deleted video', 'Private video'];
+
+    // Filter out titles that contain any of the filterKeywords
+    const filteredTitles = titles.filter(title => {
+        // Check if the title includes any of the filterKeywords
+        return !filterKeywords.some(keyword => title.includes(keyword));
+    });
+
+    return filteredTitles;
+};
+
+
 // Takes the titles that were prevoiusly extracted from a YouTube
 // playlist, separate them into two parts, storing track artist and track name into 
 // two separate arrays, and afterwards returning both artists and titles
-async function separateArtistAndTitle (titlesForwarded) {
-    var artistArray = []
-    var titleArray = []
+async function separateArtistAndTitle(titlesForwarded) {
+    const artistArray = [];
+    const titleArray = [];    
 
-    if(titlesForwarded.length !== 0) {            
+    if (titlesForwarded.length !== 0) {
         titlesForwarded.forEach(title => {
-            var result = title.split(/[(-]/).map(str => str.trim());
-            artistArray.push(result[0])
-            titleArray.push(result[1])
+            if (title.includes('-')) {
+                const result = title.split('-').map(str => str.trim());
+                artistArray.push(result[0]);
+                titleArray.push(result[1]);
+            }
         });
-        
-        const finalArtists = artistArray.map(title => stripDelimiters(title))
-        const finalTitles = titleArray.map(artist => stripDelimiters(artist))        
 
-        return [finalArtists, finalTitles]
-    } else {            
+        const finalArtists = artistArray.map(title => stripDelimiters(title));
+        const finalTitles = titleArray.map(title => stripDelimiters(title));
+
+        return [finalArtists, finalTitles];
+    } else {
         console.log('Extraction not possible since title array is empty');
-        return []
+        return [];
     }
 }
 
+
 function stripDelimiters (songInfo) {
-    const delimiters = ['&', 'x', 'X', 'ft']
+    const delimiters = ['&', 'ft']
     for (const delimiter of delimiters) {
         const index = songInfo.indexOf(delimiter)
         if(index != -1) {
@@ -92,12 +108,11 @@ async function searchTrackOnSpotify (songArtists, songTitles) {
                     const trackUri = response.data.data.tracks.items[0].uri
                     spotifyIds.push(trackUri)
                 }
-            }                
-            return spotifyIds
-        } else {
-            console.log('Condition NOT satisfied');
-            return []
-        }            
+            }                        
+        }
+
+        return spotifyIds
+
     } catch (error) {
         console.error(error)
     }
@@ -134,24 +149,43 @@ async function addTracksToPlaylistModified(playlistId, trackUris) {
     }
 }
 
+async function getPlaylistItems(playlistId) {
+    try {
+        const response = await axios.get(`http://localhost:5555/spotify/playlist/get-items`, {
+            withCredentials : true,
+            params : {
+                playlistId : playlistId
+            }
+        })
+
+        // De-structure response items into an array
+        const list = response.data.response
+
+        return list
+    } catch (error) {
+        console.error('Error', error)
+    }
+}
+
 async function convert (youtubePlaylistId) {
     try {
         const playlistId = await createSpotifyPlaylist()
         console.log('Playlist id: ', playlistId);
         const youtubeTitles = await fetchTitlesFromYoutube(youtubePlaylistId)
-        console.log('Titles: ', youtubeTitles);
-        const [artists, titles] = await separateArtistAndTitle(youtubeTitles)
-        for(let i = 0; i < artists.length; i++) {
-            console.log(artists[i] + ' ' + titles[i]);
-        }
+        const filteredTitles = filterYoutubeTitles(youtubeTitles)
+        console.log('Titles: ', filteredTitles);
+        const [artists, titles] = await separateArtistAndTitle(filteredTitles)
+        // Everything is obtained successfully.
+
         const spotifyIds = await searchTrackOnSpotify(artists, titles)
-        console.log('Spotify ids: ', spotifyIds);            
+        console.log('Spotify ids: ', spotifyIds);
         await addTracksToPlaylistModified(playlistId, spotifyIds)
         console.log('Completed');
+        // const playlistItems = await getPlaylistItems(playlistId)
+        // console.log(playlistItems);
     } catch (error) {
         console.error('There was an error in some module. ', error.message)
     }
 }
 
-// module.exports = { formChunkedArray, fetchTitlesFromYoutube, createSpotifyPlaylist, separateArtistAndTitle, searchTrackOnSpotify, addTracksToPlaylistModified, convert }
 export default convert

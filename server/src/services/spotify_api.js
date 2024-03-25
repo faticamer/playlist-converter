@@ -13,7 +13,7 @@ const getToken = async () => {
 
         const response = await axios.post(token_url, params, {
             headers: {
-                'Authorization': `Basic ${auth_token}`,
+                'Authorization': `Basic ${auth_token}`, 
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         });
@@ -43,18 +43,98 @@ const createNewPlaylist = async (access_token, userId) => {
     }
 }
 
+// MODIFICATION NEEDED : REFER TO TODO
+const getPlaylistItems = async (access_token, playlist_id) => {
+    var limit = 50
+    var offset = 0
+    const list = []
+    try {
+        var apiUrl = `https://api.spotify.com/v1/playlists/${playlist_id}/tracks?limit=${limit}&offset=${offset}`
+        
+        // Initialize response values
+        var totalTracks = 0
+        var offsetIncrements = 0
+        var finalLimitAndOffset = 0
+        let counter = 0
+        do {
+            if(counter === 0) {
+                const response = await axios.get(apiUrl, {
+                    headers : {
+                        'Authorization' : `Bearer ${access_token}`
+                    }
+                })
+                if (response !== null) {                            
+                    totalTracks = response.data.total
+                    offsetIncrements = Math.floor(totalTracks / 50)
+                    finalLimitAndOffset = totalTracks - (offsetIncrements * 50)
+                }
+            } else {
+                if(totalTracks < 50) {
+                    var limit = totalTracks
+                    var offset = 0
+                    const response = await axios.get(apiUrl, {
+                        headers : {
+                            'Authorization' : `Bearer ${access_token}`
+                        }
+                    })
+                    response.data.items.forEach(item => {
+                        list.push(item.track.uri)
+                    })
+                } else {
+                    // Last iteration, update both limit and offset
+                    if(counter == offsetIncrements + 1) {
+                        apiUrl = `https://api.spotify.com/v1/playlists/${playlist_id}/tracks?limit=${finalLimitAndOffset}&offset=${finalLimitAndOffset}`
+                    }
+                    const response = await axios.get(apiUrl, {
+                        headers : {
+                            'Authorization' : `Bearer ${access_token}`
+                        }
+                    })
+                    response.data.items.forEach(item => {
+                        list.push(item.track.uri)
+                    })
+                    
+                    // Update offset with each iteration
+                    offset += 50
+                }                
+            }
+            counter++
+        } while (counter <= offsetIncrements + 1);
+
+        const trackListJson = JSON.stringify(list)
+        return trackListJson
+
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 const searchTrack = async (access_token, track_name, track_artist) => {
     try {        
-        const apiUrl = `https://api.spotify.com/v1/search?q=remaster%2520track%3A${track_name}%2520artist%3A${track_artist}&type=track&limit=1`
+        const apiUrl = `https://api.spotify.com/v1/search?q=remaster%2520track%3A${track_name}%2520artist%3A${track_artist}&type=track&limit=1&offset=0`
         const response = await axios.get(apiUrl, {
             headers : {
                 'Authorization' : `Bearer ${access_token}`
             }
         })                     
-        return response        
+        return response
     } catch (error) {
         console.error(error)
     }    
+}
+
+const searchNoArtistTrack = async (access_token, track_name) => {
+    try {
+        const apiUrl = `https://api.spotify.com/v1/search?q=remaster%2520track%3A${track_name}%2520artist%3A&type=track&limit=1&offset=0`;
+        const response = await axios.get(apiUrl, {
+            headers : {
+                'Authorization' : `Bearer ${access_token}`
+            }
+        })
+        return response
+    } catch (error) {
+        console.error(error)        
+    }
 }
 
 const addToPlaylist = async (access_token, playlist_id, uri) => {
@@ -75,4 +155,4 @@ const addToPlaylist = async (access_token, playlist_id, uri) => {
     }
 }
 
-module.exports = { getToken, createNewPlaylist, searchTrack, addToPlaylist }
+module.exports = { getToken, createNewPlaylist, getPlaylistItems, searchTrack, searchNoArtistTrack, addToPlaylist }
