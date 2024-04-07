@@ -43,7 +43,6 @@ const createNewPlaylist = async (access_token, userId) => {
     }
 }
 
-// MODIFICATION NEEDED : REFER TO TODO
 const getPlaylistItems = async (access_token, playlist_id) => {
     var limit = 50
     var offset = 0
