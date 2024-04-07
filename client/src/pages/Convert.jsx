@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
-// import axios from 'axios'
 import Footer from "../components/Footer"
 import PropTypes from 'prop-types'
 import NavigationBar from "../components/Navigation"
 import convert from '../modules/server_calls'
+import CircularProgress from '@mui/material/CircularProgress'
 
 
 const Convert = ({user}) => {
     const [youtubePlaylistId, setyoutubePlaylistId] = useState('')
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleInputChange = (event) => {
         const regex = /list=([\w-]+)/;
@@ -20,6 +21,18 @@ const Convert = ({user}) => {
             console.error('Playlist ID not found in the URL');
             // Handle the case where the playlist ID is not found
         }
+    };    
+    
+    const callConvert = async () => {
+      setIsLoading(true);
+      try {
+        const data = await convert(youtubePlaylistId);
+        console.log('Status: ', data);        
+      } catch (error) {
+        console.error('Error:', error);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     useEffect(() => {
@@ -36,9 +49,22 @@ const Convert = ({user}) => {
                   <input onChange={handleInputChange} type='text' placeholder='Place your URL' className='p-4 w-full rounded-full bg-spotifyDarkGrey text-white' />                                        
                 </div>
                 <div className='m-5'>
-                  <button onClick={() => convert(youtubePlaylistId)} className='rounded-full w-full bg-spotifyGreen p-3 text-black'>Start Converting!</button>
+                  <button onClick={callConvert} disabled={isLoading} className='rounded-full w-full bg-spotifyGreen p-3 text-black'>{ isLoading ? 'Loading...' : 'Start Converting' }</button>
                 </div>
-              </div> 
+                <div>
+                    { isLoading ? 
+                        <div className='flex flex-col items-center justify-center mx-auto'>
+                            <div>
+                                <CircularProgress color='success'/>
+                            </div>                            
+                            <p 
+                            className='text-white'>Please wait for conversion to complete. This may take a while...</p>
+                        </div>
+                    :
+                        <div></div>
+                    }      
+                </div>
+              </div>
 
             <Footer />
         </div>
