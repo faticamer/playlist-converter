@@ -59,7 +59,6 @@ router.get('/playlist/convert', async (req, res) => {
     }
 })
 
-// This seems to be fine for now
 router.get('/playlist/get-items', async (req, res) => {
     try {
         const userDetails = req.session.userDetails
@@ -78,7 +77,62 @@ router.get('/playlist/get-items', async (req, res) => {
     }
 })
 
+router.get('/playlist/get-library', async (req, res) => {
+    try {
+        const userDetails = req.session.userDetails
+
+        if(userDetails) {
+            const { accessToken, userId, username } = userDetails
+            const response = await spotifyAPI.getUsersLibrary(accessToken, userId)      
+            res.json({ data: response.data })
+        }
+    } catch (error) {
+        res.status(500).json({
+            success : false,
+            message : 'Internal Server Error'
+        })
+    }
+})
+
+router.get('/playlist/get-tracksinfo', async (req, res) => {
+    try {
+        const userDetails = req.session.userDetails
+        const tracksId = req.query.ids
+
+        if(userDetails) {
+            const { accessToken, userId, username } = userDetails    
+            const response = await spotifyAPI.getTracksData(accessToken, tracksId)
+            res.json({ data : response.data })
+        }
+    } catch (error) {
+        res.status(500).json({
+            success : false,
+            message : 'Internal Server Error'
+        })
+    }
+})
+
+// Test route for getting track info
+router.get('/playlist/get-tracksinfo/:id', async (req, res) => {
+    try {
+        const userDetails = req.session.userDetails
+        const tracksId = req.params.id
+
+        if(userDetails) {
+            const { accessToken, userId, username } = userDetails
+            const response = await spotifyAPI.getTracksData(accessToken, tracksId)
+            res.json({ data : response.data })
+        }
+    } catch (error) {
+        res.status(500).json({
+            success : false,
+            message : 'Internal Server Error'
+        })
+    }
+})
+
 // Test route for getting playlist items
+// I believe there is 
 router.get('/playlist/get-items/:playlistId', async (req, res) => {
     try {
         const userDetails = req.session.userDetails
@@ -87,6 +141,7 @@ router.get('/playlist/get-items/:playlistId', async (req, res) => {
         if(userDetails) {
             const { accessToken, userId, username } = userDetails
             const response = await spotifyAPI.getPlaylistItems(accessToken, playlistId)
+            res.json({ response })
         }
     } catch (error) {
         res.status(500).json({

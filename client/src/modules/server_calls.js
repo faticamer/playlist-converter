@@ -230,6 +230,55 @@ async function getPlaylistItems(playlistId) {
     }
 }
 
+export async function getTracksInfo(trackIds) {
+    try {
+        const response = await axios.get(`http://localhost:5555/spotify/playlist/get-tracksinfo`, {
+            withCredentials : true,
+            params : {
+                ids : trackIds
+            }
+        })
+
+        return response.data
+    } catch (error) {
+        console.error('Error', error)        
+    }
+}
+
+export async function getLibrary() {
+    try {
+        const response = await axios.get(`http://localhost:5555/spotify/playlist/get-library`, {
+            withCredentials : true
+        })
+        
+        return response.data
+    } catch (error) {
+        console.error('Error', error)        
+    }
+}
+
+export function insertMarker(target, marker) {
+        // Create a copy of the original array
+    const newArray = [...target];
+    
+    // Insert the marker object at the beginning of the new array
+    newArray.unshift({ marker });
+
+    // Return the new array with the marker object inserted
+    return newArray;
+}
+
+export function removeMarker(target) {
+    // Create a copy of the original array
+    const newArray = [...target];
+    
+    // Remove the first element (marker object) from the new array
+    newArray.shift();
+
+    // Return the new array without the marker object
+    return newArray;
+}
+
 async function convert (youtubePlaylistId) {    
     try {
         const playlistId = await createSpotifyPlaylist()
@@ -239,16 +288,23 @@ async function convert (youtubePlaylistId) {
         // console.log('Titles: ', filteredTitles);
         const [artists, titles] = await separateArtistAndTitle(filteredTitles, youtubePlaylistId)
          
-
         const spotifyIds = await searchTrackOnSpotify(artists, titles)
         // console.log('Spotify ids: ', spotifyIds);
         await addTracksToPlaylistModified(playlistId, spotifyIds)
         console.log('Completed');
         const playlistItems = await getPlaylistItems(playlistId)
-        console.log(playlistItems);
+        console.log(playlistItems);        
+
+        const data = {
+            id : playlistId,
+            items : playlistItems,
+            success : true
+        }
+
+        localStorage.setItem('spotifyAssets', JSON.stringify(data))
 
         // I need to see if this is acceptable solution instead of throwing an error
-        return true  
+        return true
     } catch (error) {
         console.error('There was an error in some module. ', error.message)
         return false
