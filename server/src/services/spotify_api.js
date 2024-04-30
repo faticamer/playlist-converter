@@ -43,7 +43,6 @@ const createNewPlaylist = async (access_token, userId) => {
     }
 }
 
-// MODIFICATION NEEDED : REFER TO TODO
 const getPlaylistItems = async (access_token, playlist_id) => {
     var limit = 50
     var offset = 0
@@ -109,6 +108,41 @@ const getPlaylistItems = async (access_token, playlist_id) => {
     }
 }
 
+const getUsersLibrary = async (access_token, userId) => {
+    try {
+        const apiUrl = `https://api.spotify.com/v1/users/${userId}/playlists/`
+        const response = await axios.get(apiUrl, {
+            params : {
+                limit : 50
+            },
+            headers : {
+                'Authorization' : `Bearer ${access_token}`
+            }
+        })        
+        return response
+    } catch (error) {
+        console.error(error)        
+    }
+}
+
+const getTracksData = async (access_token, tracksId) => {
+    try {
+        const apiUrl = `https://api.spotify.com/v1/tracks`
+        const response = await axios.get(apiUrl, {
+            headers : {
+                'Authorization' : `Bearer ${access_token}`
+            },
+            params : {
+                ids : tracksId
+            }
+        })
+
+        return response
+    } catch (error) {
+        console.error(error)        
+    }
+}
+
 const searchTrack = async (access_token, track_name, track_artist) => {
     try {        
         const apiUrl = `https://api.spotify.com/v1/search?q=remaster%2520track%3A${track_name}%2520artist%3A${track_artist}&type=track&limit=1&offset=0`
@@ -155,4 +189,4 @@ const addToPlaylist = async (access_token, playlist_id, uri) => {
     }
 }
 
-module.exports = { getToken, createNewPlaylist, getPlaylistItems, searchTrack, searchNoArtistTrack, addToPlaylist }
+module.exports = { getToken, createNewPlaylist, getPlaylistItems, getUsersLibrary, getTracksData, searchTrack, searchNoArtistTrack, addToPlaylist }

@@ -33,4 +33,40 @@ const getAllTitles = async (playlistId, pageToken = '') => {
     }
 }
 
-module.exports = { getAllTitles }
+const getTitleJsons = async (playlistId, pageToken = '') => {
+    const params = new URLSearchParams([
+        ['part', 'snippet'],
+        ['maxResults', 50],
+        ['playlistId', playlistId],
+        ['key', yt_api_key],
+        ['pageToken', pageToken]
+    ])
+    const fullUrl = `${base_url}?${params.toString()}`
+
+    try {
+        const response = await axios.get(fullUrl)
+        const titles = response.data.items
+
+        if(response.data.nextPageToken) {
+            // If there is a nextPageToken, fetch it recursively
+            const nextTitles = await getTitleJsons(playlistId, response.data.nextPageToken)
+            return titles.concat(nextTitles)
+        } else {            
+            return titles
+        }
+    } catch (error) {
+        console.error('Error fetching data from API', error.message) 
+        throw error       
+    }
+}
+
+const getChannelIds = async (playlistId) => {
+    // We already have titles, we will just store them here and extract the rest of the details
+    // from the array
+    // Perhaps I will need to modify the function 'getAllTitles' since it only stores title (I believe)
+    const jsons = await getTitleJsons(playlistId)    
+
+    return jsons
+}
+
+module.exports = { getAllTitles, getChannelIds }
