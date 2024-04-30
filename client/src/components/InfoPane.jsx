@@ -5,7 +5,6 @@ import { removeMarker } from '../modules/server_calls';
 
 function InfoPane ({list}) {    
     let marker = list[0].marker
-    console.log('The marker is:' , marker)
 
     if(marker === 'tracks') {
         const newArr = removeMarker(list)
@@ -22,7 +21,6 @@ function InfoPane ({list}) {
         );
     } else if(marker === 'library') {
         const newArr = removeMarker(list)
-        console.log(newArr)
         return (
             <div>
                 <ul>
