@@ -293,7 +293,6 @@ async function convert (youtubePlaylistId) {
         await addTracksToPlaylistModified(playlistId, spotifyIds)
         console.log('Completed');
         const playlistItems = await getPlaylistItems(playlistId)
-        console.log(playlistItems);        
 
         const data = {
             id : playlistId,
