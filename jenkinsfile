@@ -1,0 +1,20 @@
+pipeline {
+   agent any 
+   tools {
+
+   }
+   stages{
+    stage('name of the stage'){
+        steps {
+            sh 'commands'
+        }
+    }
+
+
+    stage ('name of the stage'){
+
+    }
+
+   }
+   
+}
