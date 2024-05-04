@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types'
 import { removeMarker } from '../modules/server_calls';
 
-// Generate crypto.uuid for key
-
 function InfoPane ({list}) {    
     let marker = list[0].marker
 
@@ -11,8 +9,8 @@ function InfoPane ({list}) {
         return (                
             <div>
               <ul>
-                {newArr.map((item, index) => (
-                  <li key={index}>              
+                {newArr.map((item) => (
+                  <li key={crypto.randomUUID}>              
                     <h1>{item.name} {item.duration_ms}</h1>                
                   </li>
                 ))}
@@ -24,8 +22,8 @@ function InfoPane ({list}) {
         return (
             <div>
                 <ul>
-                    {newArr.map((item, index) => (
-                        <li key={index}>
+                    {newArr.map((item) => (
+                        <li key={crypto.randomUUID}>
                             <h1>{item.name}</h1>
                         </li>
                     ))}
