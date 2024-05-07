@@ -63,15 +63,6 @@ const Convert = ({user}) => {
       }
     }
 
-
-    function extractTrackId (strings) {
-      return strings.map(str => {
-        // Split the string by ':' and get the last part
-        const parts = str.split(':');
-        return parts[parts.length - 1].replace('"', '');
-      });
-    }
-
     const callConvert = async () => {
       // First check if user is authenticated
       if(!user) {
@@ -94,44 +85,11 @@ const Convert = ({user}) => {
           ids = retrieveFromLocalStorage('items')
           const parsedIdsFromLocalStorage = ids.replace('[', '').replace(']', '');        
           const idArray = parsedIdsFromLocalStorage.split(',') // this created an array
-
-          // Destructure the idArray into necessary data set (artist, track, icon, duration_ms)
-          const trackIds = extractTrackId(idArray)
-          
-          // Merge back into array
-          const mergedString = trackIds.join(',')
-
-          // Perform server_call to get the response with necessary data
-          const response = await getTracksInfo(mergedString)        
-
-          // Response received, separate into array of objects
-          const tracks = response.data.tracks
-
-          // Array formed, clear unnecessary keys from objects
-          // logic...
-          const keysToRemove = [
-            'album',
-            'available_markets',
-            'disc_number',
-            'explicit',
-            'external_ids',
-            'external_urls',
-            'href',
-            'id',
-            'is_local',
-            'popularity',
-            'preview_url',
-            'track_number',
-            'type',
-            'uri'
-          ]
-
-          // New array formed, keys removed
-          const finalTracks = removeKeysFromObjects(tracks, keysToRemove)        
+          const response = await getTracksInfo(idArray)
 
           // marker is added to avoid creating separate .jsx for windows
           // this way, we check the marker in InfoPane.jsx before returning the component content
-          const finalTracksWithMarker = insertMarker(finalTracks, 'tracks')
+          const finalTracksWithMarker = insertMarker(response, 'tracks')
 
           // Get library Items
           await getLibraryItems()
@@ -186,7 +144,7 @@ const Convert = ({user}) => {
       console.log('Rendered')
       // Since there is no reason (at least for now) to keep storing 
       // conversion data in localStorage, we will reset it with each
-      // render
+      // render      
       const fetchLibrary = async () => {
         try {
           const result = await getLibrary()
@@ -210,7 +168,9 @@ const Convert = ({user}) => {
           // Item set marked
           const finalLibraryWithMarker = insertMarker(library, 'library')
 
-          setLibrary(finalLibraryWithMarker)
+          if(finalLibraryWithMarker !== null) {
+            setLibrary(finalLibraryWithMarker)
+          }          
         } catch (error) {
           console.error('Error fetching playlists: ', error)
         }

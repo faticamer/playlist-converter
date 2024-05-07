@@ -239,9 +239,11 @@ export async function getTracksInfo(trackIds) {
             }
         })
 
-        return response.data
+        const arrayList = response.data
+        const finalList = arrayList.data
+        return finalList
     } catch (error) {
-        console.error('Error', error)        
+        console.error('Error', error)
     }
 }
 

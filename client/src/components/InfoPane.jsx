@@ -3,14 +3,14 @@ import { removeMarker } from '../modules/server_calls';
 
 function InfoPane ({list}) {    
     let marker = list[0].marker
-
+    
     if(marker === 'tracks') {
         const newArr = removeMarker(list)
         return (                
             <div>
               <ul>
-                {newArr.map((item) => (
-                  <li key={crypto.randomUUID}>              
+                {newArr.map((item, index) => (
+                  <li key={index}>              
                     <h1>{item.name} {item.duration_ms}</h1>                
                   </li>
                 ))}
@@ -22,8 +22,8 @@ function InfoPane ({list}) {
         return (
             <div>
                 <ul>
-                    {newArr.map((item) => (
-                        <li key={crypto.randomUUID}>
+                    {newArr.map((item, index) => (
+                        <li key={index}>
                             <h1>{item.name}</h1>
                         </li>
                     ))}

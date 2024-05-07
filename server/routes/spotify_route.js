@@ -102,7 +102,7 @@ router.get('/playlist/get-tracksinfo', async (req, res) => {
         if(userDetails) {
             const { accessToken, userId, username } = userDetails    
             const response = await spotifyAPI.getTracksData(accessToken, tracksId)
-            res.json({ data : response.data })
+            res.json({ data : response })
         }
     } catch (error) {
         res.status(500).json({
