@@ -186,7 +186,7 @@ const Convert = ({user}) => {
             <NavigationBar user={user}/>
           </div>
           <div className='flex flex-row items-center justify-center'>
-          <div className='text-white w-1/3 h-[55vh] border-2 border-spotifyDarkGrey bg-spotifyDarkGrey rounded-2xl mt-6 ml-6 overflow-auto'>
+          <div className='text-white w-1/3 h-[65vh] border-2 border-zinc-700 bg-spotifyDarkGrey rounded-2xl mt-6 ml-6 p-3 overflow-auto'>
             <h1 className='pb-3'>Songs in your New Playlist</h1>
             <div>
               {(items.length > 0) ?  <InfoPane list={items} /> : <div>No data currently available</div>}
@@ -214,7 +214,7 @@ const Convert = ({user}) => {
                 }
               </div>
             </div>
-            <div className='text-white w-1/3 h-[55vh] border-2 border-spotifyDarkGrey bg-spotifyDarkGrey rounded-2xl mt-6 mr-6 overflow-auto'>
+            <div className='text-white w-1/3 h-[65vh] border-2 border-zinc-700 bg-spotifyDarkGrey rounded-2xl mt-6 mr-6 p-3 overflow-auto'>
               <h1 className='pb-3'>Your library</h1>
               {(library.length > 0) ?  <InfoPane list={library} /> : <div>No data currently available</div>}
             </div>
