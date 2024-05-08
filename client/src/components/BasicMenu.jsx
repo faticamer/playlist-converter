@@ -22,7 +22,7 @@ export default function BasicMenu() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className='size-6'><path fill="#f6f5f4" d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className='size-5'><path fill="#f6f5f4" d="M256 0a256 256 0 1 0 0 512A256 256 0 1 0 256 0zM135 241c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l87 87 87-87c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9L273 345c-9.4 9.4-24.6 9.4-33.9 0L135 241z"/></svg>
       </Button>
       <Menu
         id="basic-menu"
@@ -35,7 +35,7 @@ export default function BasicMenu() {
       >
         <MenuItem onClick={handleClose}>Convert to YouTube</MenuItem>
         <MenuItem onClick={handleClose}>Clone Playlist</MenuItem>
-        <MenuItem onClick={handleClose}>Support Us</MenuItem>
+        <MenuItem onClick={handleClose}>Report a Bug</MenuItem>
       </Menu>
     </div>
   );
