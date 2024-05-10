@@ -43,7 +43,7 @@ npm install
 ```
 This will install all required dependencies. 
 
-Finally, start your application using: 
+Finally, start your application using. Note that you have to start both the client and the server: 
 ```bash
 npm run dev
 ```
