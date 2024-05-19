@@ -1,20 +1,70 @@
 pipeline {
-   agent any 
-   tools {
-
-   }
+  agent any
    stages{
-    stage('name of the stage'){
-        steps {
-            sh 'commands'
-        }
+    stage('CompileandRunSonarAnalysis') {
+            steps {	
+		sh 'mpm clean verify sonar:sonar -Dsonar.projectKey=asgbuggywebapp -Dsonar.organization=asgbuggywebapp -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=932558e169d66a8f1d1adf470b908a46156f5844'
+			}
     }
 
-
-    stage ('name of the stage'){
-
+	stage('RunSCAAnalysisUsingSnyk') {
+            steps {		
+				withCredentials([string(credentialsId: 'SNYK_TOKEN', variable: 'SNYK_TOKEN')]) {
+					sh 'npm snyk:test -fn'
+				}
+			}
     }
 
-   }
-   
+	stage('Build') { 
+            steps { 
+               withDockerRegistry([credentialsId: "dockerlogin", url: ""]) {
+                 script{
+                 app =  docker.build("asg")
+                 }
+               }
+            }
+    }
+
+	stage('Push') {
+            steps {
+                script{
+                    docker.withRegistry('https://YOUR_REG', 'ecr:eu-central-1:aws-credentials') {
+                    app.push("latest")
+                    }
+                }
+            }
+    	}
+	stage('Kubernetes Deployment of BaApp Web Application') {
+	   steps {
+	      withKubeConfig([credentialsId: 'kubelogin']) {
+		  sh('kubectl delete all --all -n playlistify')
+		  sh ('kubectl apply -f deployment.yaml --namespace=playlistify')
+		}
+	      }
+   	}
+    stage ('wait_for_testing'){
+	   steps {
+		   sh 'pwd; sleep 180; echo "Application Has been deployed on K8S"'
+	   	}
+	   }
+	   
+	stage('RunDASTUsingZAP') {
+          steps {
+		    withKubeConfig([credentialsId: 'kubelogin']) {
+				sh('zap.sh -cmd -quickurl http://$(kubectl get services/baapp 
+                --namespace=playlistify -o json| jq -r ".status.loadBalancer.ingress[] | 
+                .hostname") -quickprogress -quickout ${WORKSPACE}/zap_report.html')
+				archiveArtifacts artifacts: 'zap_report.html'
+		    }
+	     }
+       } 
+     stage('test') {
+            steps {
+                 sh '''
+                    npx playwright test --list
+                    npx playwright test
+                    '''
+      }
+  }
+}
 }

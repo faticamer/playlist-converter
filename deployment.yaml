@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: asgbaapp-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: playlistigy
+  template:
+    metadata:
+      labels:
+        app: asgplaylistify
+    spec:
+      containers:
+      - name: asgplaylistify
+        image: YOUR_IMAGE
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+# service type loadbalancer       
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: asgplaylistify
+    k8s-app: asgplaylistify
+  name: asgplaylistify
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  type: LoadBalancer
+  selector:
+    app: asgplaylistify
