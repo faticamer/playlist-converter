@@ -50,6 +50,10 @@ npm run dev
 After this you should see that the application started on <b>localhost:5173</b>. Open your browser and navigate to 
 <b>localhost:5173</b>. Happy converting!
 
+Terrafrom, Docker, Kubernetes, and Jenkins
+-------------
+This repo contains terraform file for infrastructure deployment of servers, autoscaling, security groups and load balancers on AWS, files for dockerization and kubernetes deployment as well as Jenkins CI/CD pipeline with SonarCloud, Synk, Playwright and OWASP ZAP testing.
+
 Pull Requests
 -------------
 Any PR's are more than welcome. 
