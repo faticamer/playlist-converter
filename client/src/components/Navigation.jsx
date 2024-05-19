@@ -1,6 +1,7 @@
 import github from '../assets/github-mark-white.svg'
 import PropTypes from 'prop-types'
 import ConnectButton from './ConnectButton'
+import BasicMenu from './BasicMenu'
 
 const NavigationBar = ({user}) => {
 
@@ -18,6 +19,7 @@ const NavigationBar = ({user}) => {
                         <button className='flex flex-row justify-center items-center rounded-full outline outline-1 hover:outline-2 p-1'><img src={github} alt="GitHub Logo" className='w-8 h-8 mr-3'/>Source Code</button>
                     </div>
                     <ConnectButton user={user} />
+                    <BasicMenu>Options</BasicMenu>
                 </div>
             </div>
         </nav>
