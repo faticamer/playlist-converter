@@ -1,0 +1,14 @@
+{
+  "name": "playlist-converter",
+  "version": "1.0.0",
+  "description": "<div align=\"center\">     <img src=\"./client/public/android-chrome-192x192.png\">     <h1>Playlistify 🎶</h1>     <img src=\"https://img.shields.io/badge/license-Apache 2.0-red\" alt=\"license MIT\"> </div>",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.44.0",
+    "@types/node": "^20.12.12"
+  }
+}
