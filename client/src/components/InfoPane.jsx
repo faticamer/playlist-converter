@@ -6,16 +6,15 @@ function InfoPane ({list}) {
     
     if(marker === 'tracks') {
         const newArr = removeMarker(list)
-        console.log('Tracks: ', newArr);
         return (                
             <div>
-              <ul>
+              <ul className = 'pt-3'>
                 {newArr.map((item, index) => (
-                  <li key={index}>
+                  <li className = 'text-lg' key={index}>
                     <h1>
                         {item.artist}
                         {item.name}
-                        <b>{Math.floor(item.duration_ms / (1000 * 60))}:{Math.floor((item.duration_ms % (1000 * 60)) / 1000)}</b>
+                        <b> {Math.floor(item.duration_ms / (1000 * 60))}:{Math.floor((item.duration_ms % (1000 * 60)) / 1000)}</b>
                     </h1>
                   </li>
                 ))}
@@ -24,12 +23,11 @@ function InfoPane ({list}) {
         );
     } else if(marker === 'library') {
         const newArr = removeMarker(list)
-        console.log('Library: ', newArr);
         return (
             <div>
-                <ul>
+                <ul className = 'pt-3'>
                     {newArr.map((item, index) => (
-                        <li key={index}>
+                        <li className = 'text-lg' key={index}>
                             <h1>{item.name}</h1>
                         </li>
                     ))}

@@ -50,11 +50,12 @@ const getToken = async () => {
 }
 
 // Sends request to Spotify to create a new Playlist in user's library
-const createNewPlaylist = async (access_token, userId) => {
+const createNewPlaylist = async (access_token, userId, playlistName) => {
     const apiUrl = `https://api.spotify.com/v1/users/${userId}/playlists`
     try {
         const response = await axios.post(apiUrl, {
-            name: 'PLAYLISTIFY - Converted',
+            //name: 'PLAYLISTIFY - Converted',
+            name: playlistName,
             description: 'Your new converted playlist!',
             public: true
         }, {

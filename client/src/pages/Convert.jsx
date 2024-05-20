@@ -13,6 +13,8 @@ const Convert = ({user}) => {
     const [items, setItems] = useState([])
     const [library, setLibrary] = useState([])
 
+    const [playlistName, setPlaylistName] = useState('')
+
     let ids = []
 
     // Clear all items from the localStorage
@@ -30,6 +32,16 @@ const Convert = ({user}) => {
           // Handle the case where the playlist ID is not found
         }
     };
+
+    const handleNameInputChange = (event) => {
+      const name = event.target.value;
+      if(name){
+        setPlaylistName(name);
+      }
+      else{
+        setPlaylistName('PLAYLISTIFY - Converted');
+      }
+    }
 
     function retrieveFromLocalStorage(key) {
       if (typeof key !== 'string') {
@@ -80,7 +92,7 @@ const Convert = ({user}) => {
           resetLocalStorage()
 
           // MAIN CALL
-          await convert(youtubePlaylistId);
+          await convert(youtubePlaylistId, playlistName);
 
           ids = retrieveFromLocalStorage('items')
           const parsedIdsFromLocalStorage = ids.replace('[', '').replace(']', '');
@@ -187,18 +199,20 @@ const Convert = ({user}) => {
           </div>
           <div className='flex flex-row items-center justify-center'>
           <div className='text-white w-1/3 h-[70vh] border-2 border-zinc-700 bg-spotifyDarkGrey rounded-2xl mt-6 ml-6 p-3 overflow-auto'>
-            <h1 className='pb-3'>Songs in your New Playlist</h1>
+            <h1 className='pb-3 text-2xl border-b-2 border-green-800'>Songs in your New Playlist</h1>
             <div>
-              {(items.length > 0) ?  <InfoPane list={items} /> : <div>No data currently available</div>}
+              {(items.length > 0) ?  <InfoPane list={items} /> : <div className = 'text-lg pt-3'>No data currently available</div>}
             </div>
           </div>
             <div className='flex flex-col items-center justify-center h-[75vh] md:w-1/2 sm:w-1/2'>
               <div className='flex flex-col items-center justify-center w-3/5'>
-                <h1 className='font-light dark:text-white text-2xl pb-8'>Paste YouTube URL in the field below!</h1>
+                <h1 className='font-light dark:text-white text-2xl pb-8 font-normal'>Paste YouTube URL in the field below!</h1>
                   <input onChange={handleInputChange} type='text' placeholder='Place your URL' className='p-4 w-full rounded-md bg-zinc-800 text-white text-center border border-green-800 focus:outline-none focus:bg-zinc-700 onfocus="this' id='convertInput' />
+                  
+                  <input onChange={handleNameInputChange} type='text' placeholder='Write playlist name' className='mt-5 p-4 w-full rounded-md bg-zinc-800 text-white text-center border border-green-800 focus:outline-none focus:bg-zinc-700 onfocus="this' maxLength={100} id='convertInput' /> 
               </div>
               <div className='flex flex-col items-center justify-center w-2/5 m-5 pt-4'>
-                <button onClick={callConvert} disabled={isLoading} className='rounded-full font-normal border-2 border-green-800 p-3 dark:text-white hover:bg-zinc-600'>{ isLoading ? 'Loading...' :<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className='size-10'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#1db954" d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM188.3 147.1c-7.6 4.2-12.3 12.3-12.3 20.9V344c0 8.7 4.7 16.7 12.3 20.9s16.8 4.1 24.3-.5l144-88c7.1-4.4 11.5-12.1 11.5-20.5s-4.4-16.1-11.5-20.5l-144-88c-7.4-4.5-16.7-4.7-24.3-.5z"/></svg><path fill="#1db954" d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM188.3 147.1c-7.6 4.2-12.3 12.3-12.3 20.9V344c0 8.7 4.7 16.7 12.3 20.9s16.8 4.1 24.3-.5l144-88c7.1-4.4 11.5-12.1 11.5-20.5s-4.4-16.1-11.5-20.5l-144-88c-7.4-4.5-16.7-4.7-24.3-.5z"/></svg> }</button>
+                <button onClick={callConvert} disabled={isLoading} className='rounded-full font-normal border-2 border-green-800 p-3 dark:text-white hover:bg-zinc-600 transition-all duration-300 ease-in-out'>{ isLoading ? 'Loading...' :<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className='size-10'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#1db954" d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM188.3 147.1c-7.6 4.2-12.3 12.3-12.3 20.9V344c0 8.7 4.7 16.7 12.3 20.9s16.8 4.1 24.3-.5l144-88c7.1-4.4 11.5-12.1 11.5-20.5s-4.4-16.1-11.5-20.5l-144-88c-7.4-4.5-16.7-4.7-24.3-.5z"/></svg><path fill="#1db954" d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM188.3 147.1c-7.6 4.2-12.3 12.3-12.3 20.9V344c0 8.7 4.7 16.7 12.3 20.9s16.8 4.1 24.3-.5l144-88c7.1-4.4 11.5-12.1 11.5-20.5s-4.4-16.1-11.5-20.5l-144-88c-7.4-4.5-16.7-4.7-24.3-.5z"/></svg> }</button>
               </div>
               <div>
                 { isLoading ? 
@@ -215,8 +229,8 @@ const Convert = ({user}) => {
               </div>
             </div>
             <div className='text-white w-1/3 h-[70vh] border-2 border-zinc-700 bg-spotifyDarkGrey rounded-2xl mt-6 mr-6 p-3 overflow-auto'>
-              <h1 className='pb-3'>Your library</h1>
-              {(library.length > 0) ?  <InfoPane list={library} /> : <div>No data currently available</div>}
+              <h1 className='pb-3 text-2xl border-b-2 border-green-800'>Your library</h1>
+              {(library.length > 0) ?  <InfoPane list={library} /> : <div className = 'text-lg pt-3'>No data currently available</div>}
             </div>
           </div>
           <Footer />

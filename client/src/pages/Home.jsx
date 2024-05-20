@@ -21,7 +21,8 @@ const Home = ({ user }) => {
                     <img src={splash} alt="Splash Art" className=' w-full h-full'/>
                 </div>
 
-                <Link to={path} className='pt-6 text-blue-400 text-xl text-center'>Start Converting</Link>
+                {/*<Link to={path} className='pt-6 text-blue-400 text-xl text-center'>Start Converting</Link>*/}
+                <Link to={path} className='mt-6 p-4 text-white text-xl font-medium text-center rounded-xl bg-green-600 hover:bg-green-800 transition-all duration-300 ease-in-out'>Start Converting</Link>
                 </div>            
             </div>
             <div>
