@@ -14,9 +14,13 @@ const ConnectButton = ({user}) => {
         <div>
             { user ?
             (
+<<<<<<< Updated upstream
                 <div onClick={logout} className='flex flex-row justify-between items-center gap-3 nunito-sans-regular outline outline-1 rounded-full p-2 text-black bg-spotifyGreen cursor-pointer'>
+=======
+                <div onClick={logout} className='flex flex-row justify-between items-center gap-3 nunito-sans-regular outline outline-1 rounded-full p-1 text-black bg-spotifyGreen cursor-pointer pr-4'>
+>>>>>>> Stashed changes
                     <img src={spotify} alt="Spotify Logo" className='w-8 h-8'/>
-                    <p>Hello, {user} (Log out)</p>
+                    <p>Log out, {user}</p>
                 </div>
             )
             :
