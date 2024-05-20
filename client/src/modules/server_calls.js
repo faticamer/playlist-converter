@@ -142,9 +142,9 @@ function formChunkedArray(originalArray, chunkSize) {
 
 // Performs an API call to the Spotify route. Firstly, it will handle the creation of
 // the playlist on user's Spotify account. The return value is the ID of the newly created playlist
-async function createSpotifyPlaylist() {
+async function createSpotifyPlaylist(playlistName) {
     try {
-        const response = await axios.get('http://localhost:5555/spotify/playlist/create', {
+        const response = await axios.get(`http://localhost:5555/spotify/playlist/create?name=${encodeURIComponent(playlistName)}`, {
             withCredentials: true
         })            
         return response.data.data.id
@@ -281,9 +281,9 @@ export function removeMarker(target) {
     return newArray;
 }
 
-async function convert (youtubePlaylistId) {    
+async function convert (youtubePlaylistId, playlistName) {    
     try {
-        const playlistId = await createSpotifyPlaylist()
+        const playlistId = await createSpotifyPlaylist(playlistName)
         console.log('Playlist id: ', playlistId);
         const youtubeTitles = await fetchTitlesFromYoutube(youtubePlaylistId)
         const filteredTitles = filterYoutubeTitles(youtubeTitles)

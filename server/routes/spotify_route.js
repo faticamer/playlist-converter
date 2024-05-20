@@ -27,10 +27,11 @@ router.use(getAccessTokenMiddleware)
 router.get('/playlist/create', async (req, res) => {
     try {
         const userDetails = req.session.userDetails
+        const playlistName = req.query.name;
 
         if(userDetails) {
             const { accessToken, userId, username } = userDetails
-            const response = await spotifyAPI.createNewPlaylist(accessToken, userId)            
+            const response = await spotifyAPI.createNewPlaylist(accessToken, userId, playlistName)          
             res.json({ data : response.data });
         } else {
             res.status(401).json({

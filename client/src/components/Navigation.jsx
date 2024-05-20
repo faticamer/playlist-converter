@@ -12,7 +12,7 @@ const NavigationBar = ({user}) => {
         <nav className='relative mx-auto p-3 text-white bg-spotifyDarkGrey'>
             <div className='flex items-center justify-between'>
                 <div className='pt-2'>
-                    <a href="/" className='text-2xl font-bold nunito-sans-bold'>Playlistify</a>
+                    <a href="/" className='text-3xl font-bold nunito-sans-bold ml-6'>Playlistify</a>
                 </div>
                 <div className='flex flex-row justify-between items-center gap-5 nunito-sans-regular'>
                     <div onClick={openSourceCode}>
