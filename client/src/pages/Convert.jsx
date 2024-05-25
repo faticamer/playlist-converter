@@ -35,10 +35,10 @@ const Convert = ({user}) => {
 
     const handleNameInputChange = (event) => {
       const name = event.target.value;
-      if(name){
+      if(name) {
         setPlaylistName(name);
       }
-      else{
+      else {
         setPlaylistName('PLAYLISTIFY - Converted');
       }
     }
@@ -154,6 +154,7 @@ const Convert = ({user}) => {
 
     useEffect(() => {      
       console.log('Rendered')
+      setPlaylistName('PLAYLISTIFY - Converted')
       // Since there is no reason (at least for now) to keep storing 
       // conversion data in localStorage, we will reset it with each
       // render      

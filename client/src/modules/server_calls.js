@@ -144,8 +144,11 @@ function formChunkedArray(originalArray, chunkSize) {
 // the playlist on user's Spotify account. The return value is the ID of the newly created playlist
 async function createSpotifyPlaylist(playlistName) {
     try {
-        const response = await axios.get(`http://localhost:5555/spotify/playlist/create?name=${encodeURIComponent(playlistName)}`, {
-            withCredentials: true
+        const response = await axios.get(`http://localhost:5555/spotify/playlist/create`, {
+            withCredentials: true,
+            params : {
+                name : playlistName
+            }
         })            
         return response.data.data.id
     } catch (error) {
