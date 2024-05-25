@@ -14,9 +14,11 @@ const ConnectButton = ({user}) => {
         <div>
             { user ?
             (
-                <div onClick={logout} className='flex flex-row justify-between items-center gap-3 nunito-sans-regular outline outline-1 rounded-full p-1 text-black bg-spotifyGreen cursor-pointer'>
-                    <img src={spotify} alt="Spotify Logo" className='w-8 h-8'/>
-                    <p>Hello, {user} (Log out)</p>
+                <div className='flex flex-row justify-between items-center gap-3'>
+                    
+                    <div onClick={logout} className='flex flex-row justify-between items-center gap-3 nunito-sans-regular outline outline-2 outline-red-800 rounded-full text-white cursor-pointer hover:bg-red-900'>
+                        <p className='px-5 py-2 text-justify font-bold'>Log Out</p>
+                    </div>
                 </div>
             )
             :
