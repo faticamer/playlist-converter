@@ -5,6 +5,8 @@ import Home from './pages/Home'
 import axios from 'axios'
 import InfoWindow from './pages/InfoWindow'
 import Convert from './pages/Convert'
+import ConvertReverse from './pages/ConvertReverse'
+import Report from './pages/Report'
 
 const App = () => {
   const [user, setUser] = useState ('')
@@ -33,11 +35,13 @@ const App = () => {
 
 return (
   <BrowserRouter>
-    <div>      
+    <div>
         <Routes>
             <Route path='/' element={<Home user={user}/>} />
             <Route path='/info' element={<InfoWindow user={user}/>} />
             <Route path='/convert' element={<Convert user={user} />} />
+            <Route path='/convert-youtube' element={<ConvertReverse user={user} />}></Route>
+            <Route path='/report-bug' element={<Report user={user} />}></Route>
         </Routes>
     </div>  
   </BrowserRouter>      
