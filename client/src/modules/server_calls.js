@@ -215,7 +215,7 @@ async function addTracksToPlaylistModified(playlistId, trackUris) {
     }
 }
 
-async function getPlaylistItems(playlistId) {
+export async function getPlaylistItems(playlistId) {
     try {
         const response = await axios.get(`http://localhost:5555/spotify/playlist/get-items`, {
             withCredentials : true,
@@ -233,6 +233,11 @@ async function getPlaylistItems(playlistId) {
     }
 }
 
+// Difference between this and 'getPlaylistItems' is that this function is more specific
+// in terms of which data is being returned from the back-end server
+// Additionally, this function passes an array of track ids, whereas 'getPlaylistItems'
+// passes playlist ID
+// Returns : Artist, track, cover image, duration_ms
 export async function getTracksInfo(trackIds) {
     try {
         const response = await axios.get(`http://localhost:5555/spotify/playlist/get-tracksinfo`, {
@@ -284,6 +289,9 @@ export function removeMarker(target) {
     return newArray;
 }
 
+// 'convert' function will store all tracks in the browser's local storage
+// so the track URIs can be accessed from the React component.
+// This was done because otherwise I would have to modify the return statement
 async function convert (youtubePlaylistId, playlistName) {    
     try {
         const playlistId = await createSpotifyPlaylist(playlistName)
@@ -316,3 +324,4 @@ async function convert (youtubePlaylistId, playlistName) {
 }
 
 export default convert
+// export getPlaylistItems
