@@ -60,6 +60,8 @@ router.get('/playlist/convert', async (req, res) => {
     }
 })
 
+
+// Uses Playlist ID
 router.get('/playlist/get-items', async (req, res) => {
     try {
         const userDetails = req.session.userDetails
@@ -95,6 +97,7 @@ router.get('/playlist/get-library', async (req, res) => {
     }
 })
 
+// Uses tracks ID array
 router.get('/playlist/get-tracksinfo', async (req, res) => {
     try {
         const userDetails = req.session.userDetails
