@@ -2,15 +2,33 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { useNavigate } from 'react-router-dom';
 
 export default function BasicMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
-    setAnchorEl(null);
+
+  const handleClose = (data) => {
+    if (data) {
+      switch (data) {
+        case 'spotify':
+          navigate('/convert')
+          break
+        case 'youtube':
+          navigate('/convert-youtube')
+          break
+        case 'report-bug':
+          navigate('/report-bug')
+          break
+        default:
+          setAnchorEl(null)
+          break;
+      }
+    }
   };
 
   return (
@@ -22,7 +40,7 @@ export default function BasicMenu() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className='size-5'><path fill="#f6f5f4" d="M256 0a256 256 0 1 0 0 512A256 256 0 1 0 256 0zM135 241c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l87 87 87-87c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9L273 345c-9.4 9.4-24.6 9.4-33.9 0L135 241z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className='size-6'><path fill="#f6f5f4" d="M256 0a256 256 0 1 0 0 512A256 256 0 1 0 256 0zM135 241c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l87 87 87-87c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9L273 345c-9.4 9.4-24.6 9.4-33.9 0L135 241z"/></svg>
       </Button>
       <Menu
         id="basic-menu"
@@ -32,10 +50,11 @@ export default function BasicMenu() {
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
+        onClickAway={handleClose}
       >
-        <MenuItem onClick={handleClose}>Convert to YouTube</MenuItem>
-        <MenuItem onClick={handleClose}>Clone Playlist</MenuItem>
-        <MenuItem onClick={handleClose}>Report a Bug</MenuItem>
+        <MenuItem onClick={() => handleClose('spotify')}>Convert to Spotify</MenuItem>
+        <MenuItem onClick={() => handleClose('youtube')}>Convert to YouTube</MenuItem>
+        <MenuItem onClick={() => handleClose('report-bug')}>Report a Bug</MenuItem>
       </Menu>
     </div>
   );
