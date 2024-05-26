@@ -60,8 +60,24 @@ router.get('/playlist/convert', async (req, res) => {
     }
 })
 
+router.get('/playlist/get-library', async (req, res) => {
+    try {
+        const userDetails = req.session.userDetails
 
-// Uses Playlist ID
+        if(userDetails) {
+            const { accessToken, userId, username } = userDetails
+            const response = await spotifyAPI.getUsersLibrary(accessToken, userId)      
+            res.json({ data: response.data })
+        }
+    } catch (error) {
+        res.status(500).json({
+            success : false,
+            message : 'Internal Server Error'
+        })
+    }
+})
+
+// Uses Playlist ID to obtain all track URIs from the playlist
 router.get('/playlist/get-items', async (req, res) => {
     try {
         const userDetails = req.session.userDetails
@@ -80,24 +96,7 @@ router.get('/playlist/get-items', async (req, res) => {
     }
 })
 
-router.get('/playlist/get-library', async (req, res) => {
-    try {
-        const userDetails = req.session.userDetails
-
-        if(userDetails) {
-            const { accessToken, userId, username } = userDetails
-            const response = await spotifyAPI.getUsersLibrary(accessToken, userId)      
-            res.json({ data: response.data })
-        }
-    } catch (error) {
-        res.status(500).json({
-            success : false,
-            message : 'Internal Server Error'
-        })
-    }
-})
-
-// Uses tracks ID array
+// Uses tracks URIs array to obtain specific information about each track
 router.get('/playlist/get-tracksinfo', async (req, res) => {
     try {
         const userDetails = req.session.userDetails
@@ -135,8 +134,6 @@ router.get('/playlist/get-tracksinfo/:id', async (req, res) => {
     }
 })
 
-// Test route for getting playlist items
-// I believe there is 
 router.get('/playlist/get-items/:playlistId', async (req, res) => {
     try {
         const userDetails = req.session.userDetails
