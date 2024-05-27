@@ -5,9 +5,7 @@ import NavigationBar from "../components/Navigation"
 import convert from '../modules/server_calls'
 import { getLibrary, getTracksInfo, insertMarker } from '../modules/server_calls'
 import InfoPane from '../components/InfoPane'
-import stylesSpinner from '../Spinner.module.css'
-import styles from '../ConvertButton.module.css'
-import convertSpinner from '../ConvertSpinner.module.css'
+import styles from '../External.module.css'
 
 const Convert = ({user}) => {
     const [youtubePlaylistId, setyoutubePlaylistId] = useState('')
@@ -225,7 +223,7 @@ const Convert = ({user}) => {
                 { isLoading ? 
                   <div className='flex flex-col items-center justify-center mx-auto'>
                     <div>
-                      <span className={convertSpinner.loader}></span>
+                      <span className={styles.convertLoader}></span>
                     </div>
                     <p 
                     className='text-white'>Please wait for conversion to complete. This may take a while...</p>
@@ -241,7 +239,7 @@ const Convert = ({user}) => {
               : 
               <div className='flex flex-col justify-center items-center h-[50vh]'>
                 <h1>Fetching library...</h1>
-                <span className={stylesSpinner.loader}></span>
+                <span className={styles.helperLoader}></span>
               </div>}
             </div>
           </div>

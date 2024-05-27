@@ -4,9 +4,7 @@ import InfoPane from "../components/InfoPane";
 import PropTypes from 'prop-types'
 import { useState } from "react";
 import { getPlaylistItems, getTracksInfo, insertMarker } from '../modules/server_calls'
-import styles from '../Spinner.module.css'
-import stylesConvert from '../ConvertButton.module.css'
-
+import styles from '../External.module.css'
 
 const ConvertReverse = ({user}) => {
     // const [spotifyPlaylistId, setSpotifyPlaylistId] = useState('')    
@@ -72,13 +70,13 @@ const ConvertReverse = ({user}) => {
                         {inputValue.length > 0 ?
                             <div>
                                 <h1>Please wait...</h1> 
-                                <span className={styles.loader}></span>
+                                <span className={styles.helperLoader}></span>
                             </div>
                             
                             :
                             <div>
                                 <h1>Waiting for URL...</h1> 
-                                <span className={styles.dots}></span>
+                                <span className={styles.staticLoader}></span>
                             </div>
                         }
                     </div>}
@@ -90,7 +88,7 @@ const ConvertReverse = ({user}) => {
                   <input onChange={handleInputField} type='text' placeholder='Place your URL' className='p-4 w-full rounded-md bg-zinc-800 text-white text-center border border-green-800 focus:outline-none focus:bg-zinc-700 onfocus="this' id='convertInput' />
               </div>
               <div className='flex flex-col items-center justify-center w-2/5 m-5 pt-4'>
-                <button className={stylesConvert.convertBtn}>
+                <button className={styles.convertBtn}>
                   <span> Convert </span>
                 </button>
               </div>
