@@ -2,21 +2,25 @@ import NavigationBar from "../components/Navigation";
 import Footer from '../components/Footer'
 import InfoPane from "../components/InfoPane";
 import PropTypes from 'prop-types'
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getPlaylistItems, getTracksInfo, insertMarker } from '../modules/server_calls'
 import styles from '../Spinner.module.css'
+import stylesConvert from '../ConvertButton.module.css'
 
 
 const ConvertReverse = ({user}) => {
-    const [spotifyPlaylistId, setSpotifyPlaylistId] = useState('')    
+    // const [spotifyPlaylistId, setSpotifyPlaylistId] = useState('')    
     const [tracks, setTracks] = useState([])
+    const [inputValue, setInputValue] = useState('')
+
 
     const handleInputField = async (event) => {
-        const valueToParse = event.target.value
+        setInputValue(event.target.value)
+        const val = event.target.value
 
-        if (valueToParse) {
-            const playlistId = extractPlaylistId(valueToParse)
-            setSpotifyPlaylistId(playlistId)
+        if(val) {
+            const playlistId = extractPlaylistId(val)
+            // setSpotifyPlaylistId(playlistId)
 
             try {
                 const response = await getPlaylistItems(playlistId)
@@ -32,14 +36,15 @@ const ConvertReverse = ({user}) => {
                 console.error('Error fetching playlist items: ', error)
             }
         } else {
-            console.error('Playlist ID not found in the URL')
+            setTracks("")
         }
     }
 
     // For handling Name input field
-    const handleNameInputChange = (event) => {
-        console.log('Hello')
-    }
+    // TODO
+    // const handleNameInputChange = (event) => {
+        // console.log('Hello')
+    // }
 
     function extractPlaylistId (url) {
         const lastSlashIndex = url.lastIndexOf('/')
@@ -63,9 +68,19 @@ const ConvertReverse = ({user}) => {
                 <div>
                 {(tracks.length > 0) ?  <InfoPane list={tracks} /> 
                 : 
-                    <div className='flex flex-col justify-center items-center h-[50vh]'>
-                        <h1>Waiting for URL...</h1>
-                        <span className={styles.loader}></span>
+                    <div className='flex flex-col justify-center items-center h-[50vh]'>                        
+                        {inputValue.length > 0 ?
+                            <div>
+                                <h1>Please wait...</h1> 
+                                <span className={styles.loader}></span>
+                            </div>
+                            
+                            :
+                            <div>
+                                <h1>Waiting for URL...</h1> 
+                                <span className={styles.dots}></span>
+                            </div>
+                        }
                     </div>}
                 </div>
             </div>
@@ -73,10 +88,11 @@ const ConvertReverse = ({user}) => {
               <div className='flex flex-col items-center justify-center w-3/5'>
                 <h1 className='font-light dark:text-white text-2xl pb-8 font-normal'>Paste Spotify Playlist URL!</h1>
                   <input onChange={handleInputField} type='text' placeholder='Place your URL' className='p-4 w-full rounded-md bg-zinc-800 text-white text-center border border-green-800 focus:outline-none focus:bg-zinc-700 onfocus="this' id='convertInput' />
-                  <input onChange={handleNameInputChange} type='text' placeholder='Name' className='p-4 w-full rounded-md bg-zinc-800 text-white text-center border border-green-800 focus:outline-none focus:bg-zinc-700 onfocus="this' id='convertInput' />
               </div>
               <div className='flex flex-col items-center justify-center w-2/5 m-5 pt-4'>
-                <button className='text-center font-normal p-3 border-0 rounded-full dark:text-white hover:bg-zinc-600 transition-all duration-300 ease-in-out'>Click me</button>
+                <button className={stylesConvert.convertBtn}>
+                  <span> Convert </span>
+                </button>
               </div>
               <div>
                 {/* */}

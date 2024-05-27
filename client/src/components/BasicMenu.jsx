@@ -50,7 +50,6 @@ export default function BasicMenu() {
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
-        onClickAway={handleClose}
       >
         <MenuItem onClick={() => handleClose('spotify')}>Convert to Spotify</MenuItem>
         <MenuItem onClick={() => handleClose('youtube')}>Convert to YouTube</MenuItem>

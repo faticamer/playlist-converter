@@ -4,10 +4,10 @@ import PropTypes from 'prop-types'
 import NavigationBar from "../components/Navigation"
 import convert from '../modules/server_calls'
 import { getLibrary, getTracksInfo, insertMarker } from '../modules/server_calls'
-import CircularProgress from '@mui/material/CircularProgress'
 import InfoPane from '../components/InfoPane'
 import stylesSpinner from '../Spinner.module.css'
 import styles from '../ConvertButton.module.css'
+import convertSpinner from '../ConvertSpinner.module.css'
 
 const Convert = ({user}) => {
     const [youtubePlaylistId, setyoutubePlaylistId] = useState('')
@@ -217,7 +217,7 @@ const Convert = ({user}) => {
                   <input onChange={handleNameInputChange} type='text' placeholder='Write playlist name' className='mt-5 p-4 w-full rounded-md bg-zinc-800 text-white text-center border border-green-800 focus:outline-none focus:bg-zinc-700 onfocus="this' maxLength={100} id='convertInput' /> 
               </div>
               <div className='flex flex-col items-center justify-center w-2/5 m-5 pt-4'>
-                <button className={styles.convertBtn}>
+                <button className={styles.convertBtn} onClick={callConvert} disabled={isLoading}>
                   <span> Convert </span>
                 </button>
               </div>
@@ -225,7 +225,7 @@ const Convert = ({user}) => {
                 { isLoading ? 
                   <div className='flex flex-col items-center justify-center mx-auto'>
                     <div>
-                      <CircularProgress color='success'/>
+                      <span className={convertSpinner.loader}></span>
                     </div>
                     <p 
                     className='text-white'>Please wait for conversion to complete. This may take a while...</p>
