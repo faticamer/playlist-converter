@@ -12,7 +12,7 @@ const Convert = ({user}) => {
     const [isLoading, setIsLoading] = useState(false)
     const [items, setItems] = useState([])
     const [library, setLibrary] = useState([])
-
+    const [inputValue, setInputValue] = useState('')
     const [playlistName, setPlaylistName] = useState('')
 
     let ids = []
@@ -22,13 +22,15 @@ const Convert = ({user}) => {
 
     const handleInputChange = (event) => {
         const regex = /list=([\w-]+)/;
-        const match = event.target.value.match(regex);
+        const match = event.target.value.match(regex)
+        setInputValue(match)
     
         if (match && match[1]) {
           const playlistId = match[1];
           setyoutubePlaylistId(playlistId);
         } else {
-          console.error('Playlist ID not found in the URL');
+          console.error('Playlist ID not found in the URL');         
+          setInputValue("") 
           // Handle the case where the playlist ID is not found
         }
     };
@@ -202,10 +204,26 @@ const Convert = ({user}) => {
           <div className='text-white w-1/3 h-[70vh] border-2 border-zinc-700 bg-spotifyDarkGrey rounded-2xl mt-6 ml-6 p-3 overflow-auto'>
             <h1 className='pb-3 text-2xl border-b-2 border-green-800'>Songs in your New Playlist</h1>
             <div>
-              {(items.length > 0) ?  <InfoPane list={items} /> 
-              : 
-              <div className = 'text-lg pt-3'>No data currently available</div>}
-            </div>
+                {(items.length > 0) ?  <InfoPane list={items} /> 
+                : 
+                    <div className='flex flex-col justify-center items-center h-[50vh]'>                        
+                        {inputValue.length > 0 ?
+                            <div>
+                              {isLoading ? 
+                              <div>
+                                <h1>List is being generated. Please wait...</h1>
+                              </div>
+                              : 
+                              <div />}
+                            </div>
+                            :
+                            <div>
+                                <h1>Waiting for URL...</h1> 
+                                <span className={styles.staticLoader}></span>
+                            </div>
+                        }
+                    </div>}
+                </div>
           </div>
             <div className='flex flex-col items-center justify-center h-[75vh] md:w-1/2 sm:w-1/2'>
               <div className='flex flex-col items-center justify-center w-3/5'>
