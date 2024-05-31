@@ -230,7 +230,7 @@ const Convert = ({user}) => {
                 <h1 className='font-light dark:text-white text-2xl pb-8 font-normal'>Paste YouTube URL in the field below!</h1>
                   <input onChange={handleInputChange} type='text' placeholder='Place your URL' className='p-4 w-full rounded-md bg-zinc-800 text-white text-center border border-green-800 focus:outline-none focus:bg-zinc-700 onfocus="this' id='convertInput' />
                   
-                  <input onChange={handleNameInputChange} type='text' placeholder='Write playlist name' className='mt-5 p-4 w-full rounded-md bg-zinc-800 text-white text-center border border-green-800 focus:outline-none focus:bg-zinc-700 onfocus="this' maxLength={100} id='convertInput' /> 
+                  <input onChange={handleNameInputChange} type='text' placeholder='Playlist name' className='mt-5 p-4 w-full rounded-md bg-zinc-800 text-white text-center border border-green-800 focus:outline-none focus:bg-zinc-700 onfocus="this' maxLength={100} id='convertInput' /> 
               </div>
               <div className='flex flex-col items-center justify-center w-2/5 m-5 pt-4'>
                 <button className={styles.convertBtn} onClick={callConvert} disabled={isLoading}>

@@ -12,10 +12,12 @@ function InfoPane ({list}) {
               <ul className = 'pt-3'>
                 {newArr.map((item, index) => (
                   <li className = 'text-lg' key={index}>
+                    { /** RE-DESIGN */}
                     <h1>
                         {index}
-                        . {item.artist}
-                        {item.name}
+                        <img src={item.album.images[2].url} alt="Cover Image"/>
+                        . {item.artists.length === 1 ? item.artists[0].name : item.artists.map(artist => artist.name).join(", ")}
+                         - {item.name}
                         <b> {Math.floor(item.duration_ms / (1000 * 60)) + ":" + 
                         (Math.floor((item.duration_ms % (1000 * 60)) / 1000) < 10 ? "0" + 
                         Math.floor((item.duration_ms % (1000 * 60)) / 1000) : 
@@ -28,7 +30,6 @@ function InfoPane ({list}) {
         );
     } else if(marker === 'library') {
         const newArr = removeMarker(list)
-        console.log(newArr)
         return (
             <div>
                 <ul className = 'pt-3'>
