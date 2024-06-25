@@ -191,7 +191,7 @@ const Convert = ({user}) => {
         }
       }
 
-      fetchLibrary()
+      setTimeout(fetchLibrary, "1000")
       resetLocalStorage()
     }, []);
 
