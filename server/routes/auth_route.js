@@ -15,6 +15,8 @@ router.get('/spotify/login/success', (req, res) => {
     if(req.user) {
         req.session.userDetails = {
             accessToken: req.user.accessToken,
+            refreshToken: req.user.refreshToken,
+            expires_in: req.user.expires_in,
             userId: req.user.profile.id,
             username: req.user.profile.displayName,
         }
