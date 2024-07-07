@@ -6,7 +6,9 @@ const Footer = () => {
 
     return (
         <div className='flex flex-col items-center justify-center h-32'>
-            <p className='text-center text-sm font-light dark:text-white w-full'>Made with ❤️ by <a href='#' className='text-blue-500 dark:text-blue-400 hover:underline'>FMS Group</a> ☕</p>
+            <p className='text-center text-sm font-light dark:text-white w-full'>
+                Made with ❤️ by <a href='https://github.com/faticamer' target="_blank" className='text-blue-500 dark:text-blue-400 hover:underline'>ΛMΞR</a> ☕
+            </p>
             <div className='flex items-center justify-center text-link gap-3 p-1 pb-3'>
                 <Link to={path} className='text-blue-500 dark:text-color-400 text-sm hover:underline'>About Playlistify</Link>
                 <Link className='text-blue-500 dark:text-color-400 text-sm hover:underline'>Privacy Policy</Link>
