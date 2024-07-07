@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const spotifyAPI = require('../src/services/spotify_api');
 
+// commit
+
 // Middleware to obtain and set the authorization token in the request object
 const getAccessTokenMiddleware = async (req, res, next) => {
     try {
