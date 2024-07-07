@@ -5,6 +5,7 @@ const spotifyAPI = require('../src/services/spotify_api');
 
 const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
+// commit
 
 // Middleware to obtain and set the authorization token in the request object
 const getAccessTokenMiddleware = async (req, res, next) => {
