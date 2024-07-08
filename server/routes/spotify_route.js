@@ -5,19 +5,16 @@ const spotifyAPI = require('../src/services/spotify_api');
 
 const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
-// commit
+const jwt_secret = process.env.JWT_SECRET;
 
 // Middleware to obtain and set the authorization token in the request object
 const getAccessTokenMiddleware = async (req, res, next) => {
     try {
-      // Your logic to obtain the authorization token
       const authorizationToken = await spotifyAPI.getToken();
   
-      // Set the token in the request object for later use in routes
-      req.authorizationToken = authorizationToken
+      req.authorizationToken = authorizationToken;
   
-      // Call the next middleware or route handler
-      next()
+      next();
     } catch (error) {
       console.error('Error obtaining authorization token:', error.message);
       res.status(500).json({
@@ -35,6 +32,67 @@ const checkUserDetails = (req, res, next) => {
     }
     next();
 };
+
+// Middleware function to check for userDetails
+// This cannot be used since Spotify's access tokens have different format compared to JWT
+// (3 parts separated by dots) - So I need to find a way to refresh the tokens without using the library
+// I would probably have to use this Date trick and that's pretty much it
+
+/* const checkUserDetailsV2 = async (req, res, next) => {
+    const userDetails = req.session.userDetails; 
+
+    if (userDetails) {
+        req.user = userDetails;
+
+        // Check if access token is present
+        const { accessToken } = userDetails;
+        if (accessToken) {
+            try {
+                // Decode the access token
+                const decoded = jwt.verify(accessToken, jwt_secret);
+
+                // Check if expiry is approaching (consider buffer time)
+                const expiry = decoded.exp;
+                const bufferTime = 60 * 5; // 5 minutes before actual expiry
+                const shouldRefresh = Date.now() / 1000 >= expiry - bufferTime;
+
+                if (shouldRefresh) {
+                    try {
+                        const response = await axios.post(
+                            'https://accounts.spotify.com/api/token',
+                            {
+                                grant_type: 'refresh_token',
+                                refresh_token: userDetails.refreshToken,
+                            },
+                            {
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded',
+                                    Authorization: 'Basic ' + Buffer.from(client_id + ':' + client_secret)
+                                },
+                            }
+                        );
+
+                        if (response.status === 200) {
+                            const { accessToken } = response.data;
+                            req.user.accessToken = accessToken;
+                            req.user.refreshTokenExpiry = Math.floor(Date.now() / 1000) + response.data.expires_in;
+                        } else {
+                            console.error('Error refreshing token in middleware: ', error);
+                            return res.status(401).json({ message : 'Internal Server Error. '});
+                        }
+                    } catch (error) {
+                        console.error('Error during refresh token request: ', error);
+                        return res.status(500).json({ message : 'Internal Server Error. '});
+                    }
+                }
+            } catch (error) {
+                // Handle potential decoding errors
+                console.error('Error decoding access token: ', error);
+            }
+        }
+    }
+    next();
+} */
 
 router.use(getAccessTokenMiddleware);
 
