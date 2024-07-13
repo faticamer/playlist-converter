@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 const Report = ({user}) => {
 
     return (
-        <div className="flex flex-col bg-spotifyBg min-h-screen">
+        <div className="flex flex-col bg-spotifyBlack min-h-screen">
             <div>
                 <NavigationBar user={user}/>
             </div>

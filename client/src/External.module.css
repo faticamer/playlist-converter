@@ -1,4 +1,38 @@
 /*------------------------------------*\
+  # GRADIENT TEXT
+\*------------------------------------*/
+
+.gradientText {
+  background: linear-gradient(
+    to right,
+    #1DB954,
+    #acffc5,
+    #38EF7D,
+    #acffc5,
+    #1DB954,
+    #acffc5,
+    #38EF7D
+  );
+  background-size: 300% 300%;
+  background-clip: text;
+}
+
+.youtubeToSpotifyGradient {
+  background: linear-gradient(
+    to right,
+    #FF0000,
+    #ff3d3d,
+    #ffacac,
+    #ff3d3d,
+    #FF0000,
+    #ff3d3d,
+    #ffacac
+  );
+  background-size: 300% 300%;
+  background-clip: text;
+}
+
+/*------------------------------------*\
   # HELPER LOADER - FETCHING DATA
 \*------------------------------------*/
 

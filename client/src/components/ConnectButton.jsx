@@ -16,7 +16,7 @@ const ConnectButton = ({user}) => {
             (
                 <div className='flex flex-row justify-between items-center gap-3'>
                     
-                    <div onClick={logout} className='flex flex-row justify-between items-center gap-3 nunito-sans-regular outline outline-2 outline-red-800 rounded-full text-white cursor-pointer hover:bg-red-900'>
+                    <div onClick={logout} className='flex flex-row justify-between items-center gap-3 nunito-sans-regular outline outline-2 outline-red-500 rounded-full text-white cursor-pointer hover:bg-red-500  hover:transition-all duration-400 ease-in-out'>
                         <p className='px-5 py-2 text-justify font-bold'>Log Out</p>
                     </div>
                 </div>
