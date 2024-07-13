@@ -4,15 +4,15 @@ import PropTypes from 'prop-types'
 import NavigationBar from "../components/Navigation"
 import convert from '../modules/server_calls'
 import { getLibrary, getTracksInfo, insertMarker } from '../modules/server_calls'
-import CircularProgress from '@mui/material/CircularProgress'
 import InfoPane from '../components/InfoPane'
+import styles from '../External.module.css'
 
 const Convert = ({user}) => {
     const [youtubePlaylistId, setyoutubePlaylistId] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [items, setItems] = useState([])
     const [library, setLibrary] = useState([])
-
+    const [inputValue, setInputValue] = useState('')
     const [playlistName, setPlaylistName] = useState('')
 
     let ids = []
@@ -22,23 +22,25 @@ const Convert = ({user}) => {
 
     const handleInputChange = (event) => {
         const regex = /list=([\w-]+)/;
-        const match = event.target.value.match(regex);
+        const match = event.target.value.match(regex)
+        setInputValue(match)
     
         if (match && match[1]) {
           const playlistId = match[1];
           setyoutubePlaylistId(playlistId);
         } else {
-          console.error('Playlist ID not found in the URL');
+          console.error('Playlist ID not found in the URL');         
+          setInputValue("") 
           // Handle the case where the playlist ID is not found
         }
     };
 
     const handleNameInputChange = (event) => {
       const name = event.target.value;
-      if(name){
+      if(name) {
         setPlaylistName(name);
       }
-      else{
+      else {
         setPlaylistName('PLAYLISTIFY - Converted');
       }
     }
@@ -153,7 +155,8 @@ const Convert = ({user}) => {
     }
 
     useEffect(() => {      
-      console.log('Rendered')
+      console.log('Rendered!')
+      setPlaylistName('PLAYLISTIFY - Converted')
       // Since there is no reason (at least for now) to keep storing 
       // conversion data in localStorage, we will reset it with each
       // render      
@@ -188,7 +191,7 @@ const Convert = ({user}) => {
         }
       }
 
-      fetchLibrary()
+      setTimeout(fetchLibrary, "1000")
       resetLocalStorage()
     }, []);
 
@@ -201,24 +204,44 @@ const Convert = ({user}) => {
           <div className='text-white w-1/3 h-[70vh] border-2 border-zinc-700 bg-spotifyDarkGrey rounded-2xl mt-6 ml-6 p-3 overflow-auto'>
             <h1 className='pb-3 text-2xl border-b-2 border-green-800'>Songs in your New Playlist</h1>
             <div>
-              {(items.length > 0) ?  <InfoPane list={items} /> : <div className = 'text-lg pt-3'>No data currently available</div>}
-            </div>
+                {(items.length > 0) ?  <InfoPane list={items} /> 
+                : 
+                    <div className='flex flex-col justify-center items-center h-[50vh]'>                        
+                        {inputValue.length > 0 ?
+                            <div>
+                              {isLoading ? 
+                              <div>
+                                <h1>List is being generated. Please wait...</h1>
+                              </div>
+                              : 
+                              <div />}
+                            </div>
+                            :
+                            <div>
+                                <h1>Waiting for URL...</h1> 
+                                <span className={styles.staticLoader}></span>
+                            </div>
+                        }
+                    </div>}
+                </div>
           </div>
             <div className='flex flex-col items-center justify-center h-[75vh] md:w-1/2 sm:w-1/2'>
               <div className='flex flex-col items-center justify-center w-3/5'>
                 <h1 className='font-light dark:text-white text-2xl pb-8 font-normal'>Paste YouTube URL in the field below!</h1>
                   <input onChange={handleInputChange} type='text' placeholder='Place your URL' className='p-4 w-full rounded-md bg-zinc-800 text-white text-center border border-green-800 focus:outline-none focus:bg-zinc-700 onfocus="this' id='convertInput' />
                   
-                  <input onChange={handleNameInputChange} type='text' placeholder='Write playlist name' className='mt-5 p-4 w-full rounded-md bg-zinc-800 text-white text-center border border-green-800 focus:outline-none focus:bg-zinc-700 onfocus="this' maxLength={100} id='convertInput' /> 
+                  <input onChange={handleNameInputChange} type='text' placeholder='Playlist name' className='mt-5 p-4 w-full rounded-md bg-zinc-800 text-white text-center border border-green-800 focus:outline-none focus:bg-zinc-700 onfocus="this' maxLength={100} id='convertInput' /> 
               </div>
               <div className='flex flex-col items-center justify-center w-2/5 m-5 pt-4'>
-                <button onClick={callConvert} disabled={isLoading} className='rounded-full font-normal border-2 border-green-800 p-3 dark:text-white hover:bg-zinc-600 transition-all duration-300 ease-in-out'>{ isLoading ? 'Loading...' :<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className='size-10'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#1db954" d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM188.3 147.1c-7.6 4.2-12.3 12.3-12.3 20.9V344c0 8.7 4.7 16.7 12.3 20.9s16.8 4.1 24.3-.5l144-88c7.1-4.4 11.5-12.1 11.5-20.5s-4.4-16.1-11.5-20.5l-144-88c-7.4-4.5-16.7-4.7-24.3-.5z"/></svg><path fill="#1db954" d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM188.3 147.1c-7.6 4.2-12.3 12.3-12.3 20.9V344c0 8.7 4.7 16.7 12.3 20.9s16.8 4.1 24.3-.5l144-88c7.1-4.4 11.5-12.1 11.5-20.5s-4.4-16.1-11.5-20.5l-144-88c-7.4-4.5-16.7-4.7-24.3-.5z"/></svg> }</button>
+                <button className={styles.convertBtn} onClick={callConvert} disabled={isLoading}>
+                  <span> Convert </span>
+                </button>
               </div>
               <div>
                 { isLoading ? 
                   <div className='flex flex-col items-center justify-center mx-auto'>
                     <div>
-                      <CircularProgress color='success'/>                                                        
+                      <span className={styles.convertLoader}></span>
                     </div>
                     <p 
                     className='text-white'>Please wait for conversion to complete. This may take a while...</p>
@@ -230,7 +253,12 @@ const Convert = ({user}) => {
             </div>
             <div className='text-white w-1/3 h-[70vh] border-2 border-zinc-700 bg-spotifyDarkGrey rounded-2xl mt-6 mr-6 p-3 overflow-auto'>
               <h1 className='pb-3 text-2xl border-b-2 border-green-800'>Your library</h1>
-              {(library.length > 0) ?  <InfoPane list={library} /> : <div className = 'text-lg pt-3'>No data currently available</div>}
+              {(library.length > 0) ?  <InfoPane list={library} />
+              : 
+              <div className='flex flex-col justify-center items-center h-[50vh]'>
+                <h1>Fetching library...</h1>
+                <span className={styles.helperLoader}></span>
+              </div>}
             </div>
           </div>
           <Footer />

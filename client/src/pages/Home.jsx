@@ -1,32 +1,34 @@
 import PropTypes from 'prop-types'
 import NavigationBar from '../components/Navigation'
 import Footer from '../components/Footer'
-import splash from '../assets/splash2.png'
+import splash2 from '../assets/undraw_mello_otq1.svg'
 import { Link } from 'react-router-dom'
+import styles from '../External.module.css'
 
 const Home = ({ user }) => {
-    const path = user ? '/convert' : '/info'
-
+    const generalPath = user ? '/select-platform' : '/info'
+    const infoPath = '/info'
     return (
-        <div className="flex flex-col bg-spotifyBg min-h-screen">
+        <div className="flex flex-col min-h-screen bg-spotifyBlack">
             <div>
             <NavigationBar user={user} />
             </div>
             <div className='flex-1 flex justify-center items-center'>            
                 <div className='flex flex-col items-center justify-center h-[75vh] w-3/4 sm:w-2/3 mx-auto'>
-                <h1 className='text-2xl text-white font-bold'>Playlistify</h1>
-                <p className='text-textDark text-md mb-5 text-center'>Playlist Converter</p>
-                <p className='text-textLight text-md text-center mb-5'>Take any playlist from YouTube and convert it to Spotify.</p>
-                <div className='w-3/4 border-t-4 border-b-4 border-zinc-400'>
-                    <img src={splash} alt="Splash Art" className=' w-full h-full'/>
-                </div>
+                    <h1 className={`${styles.gradientText} text-transparent text-3xl font-bold animate-gradient pb-6`}>Playlistify</h1>
+                    <p className='text-textLight text-lg text-center mb-5'>Take any playlist from <span className='text-red-600'>YouTube</span> and convert it to <span className='text-spotifyGreen'>Spotify</span>.</p>
+                    <div className='w-3/4 h-3/5 '>
+                        <img src={splash2} alt="Splash Art" className='object-fill h-full w-full'/>
+                    </div>
 
-                {/*<Link to={path} className='pt-6 text-blue-400 text-xl text-center'>Start Converting</Link>*/}
-                <Link to={path} className='mt-6 p-4 text-white text-xl font-medium text-center rounded-xl bg-green-600 hover:bg-green-800 transition-all duration-300 ease-in-out'>Start Converting</Link>
-                </div>            
+                    <div className='flex flex-row w-1/3 items-center justify-evenly'>
+                        <Link to={generalPath} className='mt-6 p-4 text-white text-xl font-bold text-center rounded-full border-2 border-spotifyGreen bg-green-600 hover:bg-spotifyGreen transition-all duration-300 ease-in-out'>Get Started!</Link>
+                        <Link to={infoPath} className='mt-6 p-4 text-textLight text-xl font-medium text-center rounded-full border-2 border-blue-800 hover:bg-blue-700 transition-all duration-300 ease-in-out'>Learn More!</Link>
+                    </div>
+                </div>
             </div>
             <div>
-            <Footer />
+                <Footer />
             </div>
         </div>
     );     

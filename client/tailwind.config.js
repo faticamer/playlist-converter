@@ -19,7 +19,15 @@ export default {
         spotifyDarkGrey: 'hsl(0, 0%, 18%)',
         textDark: 'hsl(218, 11%, 65%)',
         textLight: 'hsl(216, 12%, 84%)',
-        link: 'hsl(213, 94%, 68%)'        
+      },
+      keyframes: {
+        gradient: {
+          "0%": {backgroundPosition: "0% 50%"},
+          "100%": {backgroundPosition: "100% 50%"},
+        },
+      },
+      animation: {
+        gradient: "gradient 6s linear infinite",
       }
     },
   },
