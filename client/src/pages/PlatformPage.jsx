@@ -17,7 +17,7 @@ const PlatformPage = ({user}) => {
                     path='/convert'
                     link={Spotify}
                     alt='Spotify Logo'
-                    source='Spotify —>'
+                    source='Spotify'
                     destination='YouTube'
                     border='border-2 border-green-600'
                     hover='hover:bg-green-500 transition-all duration-300 ease-in-out'
@@ -27,7 +27,7 @@ const PlatformPage = ({user}) => {
                     path='/convert-youtube'
                     link={YouTube}
                     alt='Spotify Logo'
-                    source='YouTube —>'
+                    source='YouTube'
                     destination='Spotify'
                     border='border-2 border-red-600'
                     hover='hover:bg-red-500 transition-all duration-300 ease-in-out'

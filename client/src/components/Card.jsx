@@ -9,8 +9,8 @@ const Card = (props) => {
                     <img src={props.link} alt={props.alt} href={props.path} className='object-contain h-full w-full cursor-pointer'/>
                 </Link>
             </div>
-            <div className='flex flex-col w-1/2 h-1/3 pt-10 my-10 justify-between items-center'>
-                <h1 className={`${props.gradient} text-transparent text-3xl font-bold animate-gradient`}>{props.source} {props.destination}</h1>
+            <div className='flex flex-col w-1/2 h-1/3 pt-10 my-10 justify-center items-center'>
+                <h1 className={`${props.gradient} text-transparent text-3xl font-bold animate-gradient`}>{props.source} to {props.destination}</h1>
                 <Link to={props.path} className={`mt-10 py-4 pr-32 pl-32 text-zinc-100 text-transparent text-xl ${props.border} font-bold text-center rounded-full ${props.hover}`}>Go!</Link>
             </div>
         </div>
