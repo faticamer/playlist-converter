@@ -43,7 +43,7 @@ return (
             <Route path='/convert' element={<Convert user={user} />} />
             <Route path='/convert-youtube' element={<ConvertReverse user={user} />} />
             <Route path='/report-bug' element={<Report user={user} />} />
-            <Route path='/select-platform' element={<PlatformPage />} />
+            <Route path='/select-platform' element={<PlatformPage user={user} />} />
         </Routes>
     </div>  
   </BrowserRouter>      
