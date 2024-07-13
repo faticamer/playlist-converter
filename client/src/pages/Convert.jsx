@@ -6,6 +6,8 @@ import convert from '../modules/server_calls'
 import { getLibrary, getTracksInfo, insertMarker } from '../modules/server_calls'
 import InfoPane from '../components/InfoPane'
 import styles from '../External.module.css'
+import Spotify from '../assets/Spotify_Primary_Logo_RGB_Green.png'
+import YouTube from '../assets/youtube_social_circle_red.png'
 
 const Convert = ({user}) => {
     const [youtubePlaylistId, setyoutubePlaylistId] = useState('')
@@ -228,9 +230,8 @@ const Convert = ({user}) => {
             <div className='flex flex-col items-center justify-center h-[75vh] md:w-1/2 sm:w-1/2'>
               <div className='flex flex-col items-center justify-center w-3/5'>
                 <h1 className='font-light dark:text-white text-2xl pb-8 font-normal'>Paste YouTube URL in the field below!</h1>
-                  <input onChange={handleInputChange} type='text' placeholder='Place your URL' className='p-4 w-full rounded-md bg-zinc-800 text-white text-center border border-green-800 focus:outline-none focus:bg-zinc-700 onfocus="this' id='convertInput' />
-                  
-                  <input onChange={handleNameInputChange} type='text' placeholder='Playlist name' className='mt-5 p-4 w-full rounded-md bg-zinc-800 text-white text-center border border-green-800 focus:outline-none focus:bg-zinc-700 onfocus="this' maxLength={100} id='convertInput' /> 
+                <input onChange={handleInputChange} type='text' placeholder='Place your URL' className='p-4 w-full rounded-md bg-zinc-800 text-white text-center border border-green-800 focus:outline-none focus:bg-zinc-700 onfocus="this' id='convertInput' />
+                <input onChange={handleNameInputChange} type='text' placeholder='Playlist name' className='mt-5 p-4 w-full rounded-md bg-zinc-800 text-white text-center border border-green-800 focus:outline-none focus:bg-zinc-700 onfocus="this' maxLength={100} id='convertInput' /> 
               </div>
               <div className='flex flex-col items-center justify-center w-2/5 m-5 pt-4'>
                 <button className={styles.convertBtn} onClick={callConvert} disabled={isLoading}>

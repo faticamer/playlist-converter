@@ -13,10 +13,10 @@ const Home = ({ user }) => {
             <div>
             <NavigationBar user={user} />
             </div>
-            <div className='flex-1 flex justify-center items-center'>            
+            <div className='flex-1 flex justify-center items-center'>
                 <div className='flex flex-col items-center justify-center h-[75vh] w-3/4 sm:w-2/3 mx-auto'>
                     <h1 className={`${styles.gradientText} text-transparent text-3xl font-bold animate-gradient pb-6`}>Playlistify</h1>
-                    <p className='text-textLight text-lg text-center mb-5'>Take any playlist from <span className='text-red-600'>YouTube</span> and convert it to <span className='text-spotifyGreen'>Spotify</span>.</p>
+                    <p className='text-textLight text-xl text-center mb-5'>Convert your favorite playlists across streaming services!</p>
                     <div className='w-3/4 h-3/5 '>
                         <img src={splash2} alt="Splash Art" className='object-fill h-full w-full'/>
                     </div>
