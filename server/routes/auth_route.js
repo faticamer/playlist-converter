@@ -2,7 +2,7 @@ const express = require('express')
 const passport = require('passport')
 const router = express.Router()
 
-const CLIENT_URL = 'http://localhost:5173/convert'
+const CLIENT_URL = 'http://localhost:5173/select-platform'
 
 router.get('/spotify/login/failed', (req, res) => {
     res.status(401).json({
