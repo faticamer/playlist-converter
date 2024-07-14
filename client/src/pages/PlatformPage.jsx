@@ -6,11 +6,11 @@ import SpotifyNeon from '../assets/spotify-neon.png'
 import YoutubeNeon from '../assets/youtubee-neon.png'
 import styles from '../External.module.css'
 
-const PlatformPage = ({user}) => {
+const PlatformPage = (props) => {
     return (
         <div className="flex flex-col min-h-screen bg-spotifyBlack h-full">
             <div>
-                <NavigationBar user={user}/>
+                <NavigationBar user={props.user} profilePicture={props.profilePicture} profileUrl={props.profileUrl}/>
             </div>
             <div className='flex m-auto'>
                 <Card 
@@ -40,7 +40,9 @@ const PlatformPage = ({user}) => {
 }
 
 PlatformPage.propTypes = {
-    user: PropTypes.string
+    user: PropTypes.string,
+    profilePicture: PropTypes.string,
+    profileUrl: PropTypes.string
 }
 
 export default PlatformPage;
