@@ -6,8 +6,6 @@ import convert from '../modules/server_calls'
 import { getLibrary, getTracksInfo, insertMarker } from '../modules/server_calls'
 import InfoPane from '../components/InfoPane'
 import styles from '../External.module.css'
-import Spotify from '../assets/Spotify_Primary_Logo_RGB_Green.png'
-import YouTube from '../assets/youtube_social_circle_red.png'
 
 const Convert = ({user}) => {
     const [youtubePlaylistId, setyoutubePlaylistId] = useState('')

@@ -6,7 +6,6 @@ import axios from 'axios'
 import InfoWindow from './pages/InfoWindow'
 import Convert from './pages/Convert'
 import ConvertReverse from './pages/ConvertReverse'
-import Report from './pages/Report'
 import PlatformPage from './pages/PlatformPage'
 
 const App = () => {
@@ -42,7 +41,6 @@ return (
             <Route path='/info' element={<InfoWindow user={user}/>} />
             <Route path='/convert' element={<Convert user={user} />} />
             <Route path='/convert-youtube' element={<ConvertReverse user={user} />} />
-            <Route path='/report-bug' element={<Report user={user} />} />
             <Route path='/select-platform' element={<PlatformPage user={user} />} />
         </Routes>
     </div>  

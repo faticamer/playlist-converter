@@ -22,7 +22,7 @@ export default function BasicMenu() {
           navigate('/convert-youtube')
           break
         case 'report-bug':
-          navigate('/report-bug')
+          window.open('https://github.com/faticamer/playlist-converter/issues')
           break
         default:
           setAnchorEl(null)
