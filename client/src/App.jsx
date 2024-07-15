@@ -6,11 +6,12 @@ import axios from 'axios'
 import InfoWindow from './pages/InfoWindow'
 import Convert from './pages/Convert'
 import ConvertReverse from './pages/ConvertReverse'
-import Report from './pages/Report'
 import PlatformPage from './pages/PlatformPage'
 
 const App = () => {
   const [user, setUser] = useState ('')
+  const [userProfilePicture, setUserProfilePicture] = useState('')
+  const [userProfileUrl, setUserProfileUrl] = useState('')
 
   useEffect(() => {
     const getUser = async () => {
@@ -22,8 +23,10 @@ const App = () => {
             'Content-Type': 'application/json',
           },
         });
-        if (response.status === 200) {          
+        if (response.status === 200) {
           setUser(response.data.username)
+          setUserProfilePicture(response.data.profilePicture)
+          setUserProfileUrl(response.data.profileUrl)
         } else {
           throw new Error('Authentication has failed');
         }
@@ -38,12 +41,31 @@ return (
   <BrowserRouter>
     <div>
         <Routes>
-            <Route path='/' element={<Home user={user}/>} />
-            <Route path='/info' element={<InfoWindow user={user}/>} />
-            <Route path='/convert' element={<Convert user={user} />} />
-            <Route path='/convert-youtube' element={<ConvertReverse user={user} />} />
-            <Route path='/report-bug' element={<Report user={user} />} />
-            <Route path='/select-platform' element={<PlatformPage />} />
+            <Route path='/' element={<Home 
+              user={user} 
+              profilePicture={userProfilePicture}
+              profileUrl={userProfileUrl}/>} 
+            />
+            <Route path='/info' element={<InfoWindow
+              user={user}
+              profilePicture={userProfilePicture}
+              profileUrl={userProfileUrl}/>} 
+            />
+            <Route path='/convert' element={<Convert 
+              user={user} 
+              profilePicture={userProfilePicture}
+              profileUrl={userProfileUrl} />}
+            />
+            <Route path='/convert-youtube' element={<ConvertReverse 
+              user={user}  
+              profilePicture={userProfilePicture}
+              profileUrl={userProfileUrl} />}
+            />
+            <Route path='/select-platform' element={<PlatformPage 
+              user={user}  
+              profilePicture={userProfilePicture}
+              profileUrl={userProfileUrl} />}
+            />
         </Routes>
     </div>  
   </BrowserRouter>      

@@ -6,7 +6,7 @@ import { useState } from "react";
 import { getPlaylistItems, getTracksInfo, insertMarker } from '../modules/server_calls'
 import styles from '../External.module.css'
 
-const ConvertReverse = ({user}) => {
+const ConvertReverse = (props) => {
     // const [spotifyPlaylistId, setSpotifyPlaylistId] = useState('')    
     const [tracks, setTracks] = useState([])
     const [inputValue, setInputValue] = useState('')
@@ -58,7 +58,7 @@ const ConvertReverse = ({user}) => {
     return (
         <div className="flex flex-col bg-spotifyBg min-h-screen">
             <div>
-                <NavigationBar user={user}/>
+                <NavigationBar user={props.user} profilePicture={props.profilePicture} profileUrl={props.profileUrl}/>
             </div>
             <div className='flex flex-row items-center justify-center'>
             <div className='text-white w-1/3 h-[70vh] border-2 border-zinc-700 bg-spotifyDarkGrey rounded-2xl mt-6 ml-6 p-3 overflow-auto'>
@@ -107,7 +107,9 @@ const ConvertReverse = ({user}) => {
 }
 
 ConvertReverse.propTypes = {
-    user: PropTypes.string
+    user: PropTypes.string,
+    profilePicture: PropTypes.string,
+    profileUrl: PropTypes.string
 }
 
 export default ConvertReverse

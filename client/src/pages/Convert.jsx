@@ -7,7 +7,7 @@ import { getLibrary, getTracksInfo, insertMarker } from '../modules/server_calls
 import InfoPane from '../components/InfoPane'
 import styles from '../External.module.css'
 
-const Convert = ({user}) => {
+const Convert = (props) => {
     const [youtubePlaylistId, setyoutubePlaylistId] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [items, setItems] = useState([])
@@ -79,7 +79,7 @@ const Convert = ({user}) => {
 
     const callConvert = async () => {
       // First check if user is authenticated
-      if(!user) {
+      if(!props.user) {
         alert('You are not authenticated!')
         return // Terminate the call if not authenticated
       }
@@ -198,7 +198,7 @@ const Convert = ({user}) => {
     return (
         <div className="flex flex-col bg-spotifyBg min-h-screen">
           <div>
-            <NavigationBar user={user}/>
+            <NavigationBar user={props.user} profilePicture={props.profilePicture} profileUrl={props.profileUrl}/>
           </div>
           <div className='flex flex-row items-center justify-center'>
           <div className='text-white w-1/3 h-[70vh] border-2 border-zinc-700 bg-spotifyDarkGrey rounded-2xl mt-6 ml-6 p-3 overflow-auto'>
@@ -228,9 +228,8 @@ const Convert = ({user}) => {
             <div className='flex flex-col items-center justify-center h-[75vh] md:w-1/2 sm:w-1/2'>
               <div className='flex flex-col items-center justify-center w-3/5'>
                 <h1 className='font-light dark:text-white text-2xl pb-8 font-normal'>Paste YouTube URL in the field below!</h1>
-                  <input onChange={handleInputChange} type='text' placeholder='Place your URL' className='p-4 w-full rounded-md bg-zinc-800 text-white text-center border border-green-800 focus:outline-none focus:bg-zinc-700 onfocus="this' id='convertInput' />
-                  
-                  <input onChange={handleNameInputChange} type='text' placeholder='Playlist name' className='mt-5 p-4 w-full rounded-md bg-zinc-800 text-white text-center border border-green-800 focus:outline-none focus:bg-zinc-700 onfocus="this' maxLength={100} id='convertInput' /> 
+                <input onChange={handleInputChange} type='text' placeholder='Place your URL' className='p-4 w-full rounded-md bg-zinc-800 text-white text-center border border-green-800 focus:outline-none focus:bg-zinc-700 onfocus="this' id='convertInput' />
+                <input onChange={handleNameInputChange} type='text' placeholder='Playlist name' className='mt-5 p-4 w-full rounded-md bg-zinc-800 text-white text-center border border-green-800 focus:outline-none focus:bg-zinc-700 onfocus="this' maxLength={100} id='convertInput' /> 
               </div>
               <div className='flex flex-col items-center justify-center w-2/5 m-5 pt-4'>
                 <button className={styles.convertBtn} onClick={callConvert} disabled={isLoading}>
@@ -267,7 +266,9 @@ const Convert = ({user}) => {
 }
 
 Convert.propTypes = {
-    user: PropTypes.string
+    user: PropTypes.string,
+    profilePicture: PropTypes.string,
+    profileUrl: PropTypes.string
 }
 
 export default Convert

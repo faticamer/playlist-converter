@@ -22,8 +22,10 @@ export default function BasicMenu() {
           navigate('/convert-youtube')
           break
         case 'report-bug':
-          navigate('/report-bug')
+          window.open('https://github.com/faticamer/playlist-converter/issues')
           break
+        case 'source-code':
+          window.open('https://github.com/faticamer/playlist-converter')
         default:
           setAnchorEl(null)
           break;
@@ -54,6 +56,7 @@ export default function BasicMenu() {
         <MenuItem onClick={() => handleClose('spotify')}>Convert to Spotify</MenuItem>
         <MenuItem onClick={() => handleClose('youtube')}>Convert to YouTube</MenuItem>
         <MenuItem onClick={() => handleClose('report-bug')}>Report a Bug</MenuItem>
+        <MenuItem onClick={() => handleClose('source-code')}>Check it on GitHub</MenuItem>
       </Menu>
     </div>
   );
