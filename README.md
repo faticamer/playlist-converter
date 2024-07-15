@@ -6,20 +6,19 @@
 
 <b>Playlistify</b> is a web-based project that seeks to seamlessly convert playlists from one streaming service to another. It aims to:
 
+- Automate the process of creating playlists
 - Provide simple and easy-to-use UI
 - Quickly authenticate with Spotify/YouTube
-- Automate the process of transferring songs across streaming services
-- Enable additional configuration
 
 See Features for more information!
 
 Features
 --------
 
-- Convert YouTube public playlists to Spotify
-- Convert Spotify playlists to YouTube
-- Clone other user's playlist into your own library
+- Convert playlists from your YouTube profile to Spotify
+- Convert playlists from your Spotify profile to YouTube
 - List tracks from converted playlist
+- Live update of your libraries
 
 Prerequisites
 -------------
@@ -34,25 +33,20 @@ Clone this repository to any location on your PC:
 ```bash
 git clone https://github.com/faticamer/playlist-converter.git
 ```
-NOTE: It would be best to use two terminal windows, because you'll have two local ports opened and running. 
-One terminal window should be opened for the client (frontend) and one for the server (backend). 
-
-Navigate to the <b>'client'</b> in the first, and to the <b>'server'</b> in the second terminal, and run the following command:
+Navigate into cloned directory and install required dependencies:
 ```bash
 npm install
 ```
-This will install all required dependencies. 
-
-Finally, start your application using. Note that you have to start both the client and the server: 
+Run the application:
 ```bash
-npm run dev
+npm start
 ```
 After this you should see that the application started on <b>localhost:5173</b>. Open your browser and navigate to 
 <b>localhost:5173</b>. Happy converting!
 
-Terrafrom, Docker, Kubernetes, and Jenkins
+Terraform, Docker, Kubernetes, and Jenkins
 -------------
-This repo contains terraform file for infrastructure deployment of servers, autoscaling, security groups and load balancers on AWS, files for dockerization and kubernetes deployment as well as Jenkins CI/CD pipeline with SonarCloud, Synk, Playwright and OWASP ZAP testing.
+This repository contains terraform file for infrastructure deployment of servers, autoscaling, security groups and load balancers on AWS, files for dockerization and kubernetes deployment as well as Jenkins CI/CD pipeline with SonarCloud, Snyk, Playwright and OWASP ZAP testing.
 
 Pull Requests
 -------------
