@@ -1,15 +1,13 @@
 {
   "name": "playlist-converter",
+  "workspaces": ["client", "server"],
   "version": "1.0.0",
   "description": "<div align=\"center\">     <img src=\"./client/public/android-chrome-192x192.png\">     <h1>Playlistify 🎶</h1>     <img src=\"https://img.shields.io/badge/license-Apache 2.0-red\" alt=\"license MIT\"> </div>",
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
     "start:frontend": "cd client && npm run dev",
-    "start:backend": "cd server && npm run dev",
-    "install": "npm install && npm run install:client && npm run install:server",
-    "install:client": "cd client && npm install",
-    "install:server": "cd server && npm install"
+    "start:backend": "cd server && npm run dev"
   },
   "keywords": [],
   "author": "",
