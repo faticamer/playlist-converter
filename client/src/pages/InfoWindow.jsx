@@ -2,6 +2,7 @@ import NavigationBar from "../components/Navigation"
 import Footer from "../components/Footer"
 import ConnectButton from "../components/ConnectButton"
 import PropTypes from 'prop-types'
+import Spotify from '../assets/spotify.svg'
 
 const InfoWindow = (props) => {
     return (
@@ -11,7 +12,7 @@ const InfoWindow = (props) => {
             </div>
             <div className="flex flex-col items-center justify-center h-[75vh] w-full nunito-sans-regular">
                 <h1 className="text-white text-2xl pb-3">About Playlistify</h1>
-                {props.user ? <div></div> : <ConnectButton user={props.user} title="Spotify"/>}
+                {props.user ? <div></div> : <ConnectButton user={props.user} title="Spotify" source={Spotify} alt="Spotify Logo" background="bg-spotifyGreen"/>}
                 <p className="px-12 pt-6 md:w-3/4 w-full text-center text-zinc-300">
                     Disclaimer (Spotify): Spotify will ask for lots of permissions to your account. 
                     All permissions are related to features on Playlistify will not store your
