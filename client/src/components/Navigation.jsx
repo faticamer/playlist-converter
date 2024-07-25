@@ -1,10 +1,7 @@
-import github from '../assets/github-mark-white.svg'
 import PropTypes from 'prop-types'
-import ConnectButton from './ConnectButton'
+import LoginButton from './LoginButton'
 import BasicMenu from './BasicMenu'
 import logo from '../assets/favicon-32x32.png'
-import Spotify from '../assets/spotify.svg'
-import Google from '../assets/google.png'
 import { Link } from 'react-router-dom'
 
 const NavigationBar = (props) => {
@@ -30,20 +27,7 @@ const NavigationBar = (props) => {
                     :
                         <div></div>
                     }
-                    <ConnectButton
-                        user={props.user} 
-                        title="Spotify"
-                        source={Spotify}
-                        alt="Spotify Logo"
-                        background="bg-spotifyGreen"
-                    />
-                    <ConnectButton 
-                        user="Sample"
-                        title="Google" 
-                        source={Google}
-                        alt="Google Logo"
-                        background="bg-zinc-200"
-                    />
+                    <LoginButton/>
                     {props.user ? <BasicMenu>Options</BasicMenu> : <div></div>}
                 </div>
             </div>

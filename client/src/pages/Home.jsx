@@ -6,13 +6,13 @@ import { Link } from 'react-router-dom'
 import styles from '../External.module.css'
 
 const Home = (props) => {
-    const generalPath = props.user ? '/select-platform' : '/info'
+    const generalPath = (props.user || props.userG) ? '/select-platform' : '/login'
     const infoPath = '/info'
 
     return (
         <div className="flex flex-col min-h-screen bg-spotifyBlack">
             <div>
-            <NavigationBar user={props.user} profilePicture={props.profilePicture} profileUrl={props.profileUrl}/>
+                <NavigationBar user={props.user} profilePicture={props.profilePicture} profileUrl={props.profileUrl}/>
             </div>
             <div className='flex-1 flex justify-center items-center'>
                 <div className='flex flex-col items-center justify-center h-[75vh] w-3/4 sm:w-2/3 mx-auto'>
@@ -37,6 +37,7 @@ const Home = (props) => {
 
 Home.propTypes = {
     user : PropTypes.string,
+    userG : PropTypes.string,
     profilePicture : PropTypes.string,
     profileUrl : PropTypes.string,
     

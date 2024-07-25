@@ -17,15 +17,16 @@ export default function BasicMenu() {
       switch (data) {
         case 'spotify':
           navigate('/convert')
-          break
+          break;
         case 'youtube':
           navigate('/convert-youtube')
-          break
+          break;
         case 'report-bug':
           window.open('https://github.com/faticamer/playlist-converter/issues')
-          break
+          break;
         case 'source-code':
           window.open('https://github.com/faticamer/playlist-converter')
+          break;
         default:
           setAnchorEl(null)
           break;

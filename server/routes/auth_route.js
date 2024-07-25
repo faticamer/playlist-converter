@@ -1,10 +1,18 @@
 const express = require('express')
 const passport = require('passport')
 const router = express.Router()
+require('../config/passport_setup_youtube')
 
 const CLIENT_URL = 'http://localhost:5173/select-platform'
 
 router.get('/spotify/login/failed', (req, res) => {
+    res.status(401).json({
+        success: 'false',
+        message: 'Authentication Failed'
+    })
+})
+
+router.get('/google/login/failed', (req, res) => {
     res.status(401).json({
         success: 'false',
         message: 'Authentication Failed'
@@ -34,20 +42,28 @@ router.get('/spotify/login/success', (req, res) => {
     }
 })
 
-router.get('/spotify/user', (req, res) => {
-    if(req.user) {
-        res.json({user : req.user})
-    }
-})
+router.get('/google/login/success', (req, res) => {
+
+});
 
 router.get('/spotify', passport.authenticate('spotify'));
 
+router.get('/google', passport.authenticate('google', { scope: ['email', 'profile']}));
+
 router.get(
     '/spotify/callback',
-    passport.authenticate('spotify', { failureRedirect: 'http://localhost:5555/auth/spotify/login/failed' }),
-    function (req, res) {
-        res.redirect(CLIENT_URL)
-    }
+    passport.authenticate('spotify', {
+        successRedirect: CLIENT_URL,
+        failureRedirect: '/auth/spotify/login/failed'
+    })
+)
+
+router.get(
+    '/google/callback',
+    passport.authenticate('google', { 
+        successRedirect: CLIENT_URL,
+        failureRedirect: '/auth/google/login/failed' 
+    }),
 )
 
 router.get('/spotify/logout', (req, res) => {
@@ -60,5 +76,14 @@ router.get('/spotify/logout', (req, res) => {
     });
 });
 
+router.get('/google/logout', (req, res) => {
+    req.logout((err) => {
+        if (err) {
+            console.error('Error during logout: ', err);
+            return res.status(500).send('Internal Server Eror');
+        }
+        res.redirect('http://localhost:5173');
+    })
+})
 
 module.exports = { router }

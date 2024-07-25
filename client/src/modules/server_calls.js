@@ -4,7 +4,7 @@ import axios from 'axios'
 // a YouTube playlist
 async function fetchTitlesFromYoutube (youtubePlaylistId) {
     try {
-        const response = await axios.get(`http://localhost:5555/youtube/playlist`, {
+        const response = await axios.get(`/youtube/playlist`, {
             params : {
                 playlistId : youtubePlaylistId
             }
@@ -18,7 +18,7 @@ async function fetchTitlesFromYoutube (youtubePlaylistId) {
 
 async function fetchChannelObjects (youtubePlaylistId) {
     try {
-        const response = await axios.get(`http://localhost:5555/youtube/playlist/channels`, {
+        const response = await axios.get(`/youtube/playlist/channels`, {
             params : {
                 playlistId : youtubePlaylistId
             }
@@ -144,7 +144,7 @@ function formChunkedArray(originalArray, chunkSize) {
 // the playlist on user's Spotify account. The return value is the ID of the newly created playlist
 async function createSpotifyPlaylist(playlistName) {
     try {
-        const response = await axios.get(`http://localhost:5555/spotify/playlist/create`, {
+        const response = await axios.get(`/spotify/playlist/create`, {
             withCredentials: true,
             params : {
                 name : playlistName
@@ -165,7 +165,7 @@ async function searchTrackOnSpotify (songArtists, songTitles) {
         const spotifyIds = []                      
         if(songTitles.length != 0 && songArtists.length != 0) {
             for(let i = 0; i < songTitles.length; i++) {
-                const response = await axios.get('http://localhost:5555/spotify/search', {
+                const response = await axios.get('/spotify/search', {
                     params : {
                         track : songTitles[i],
                         artist : songArtists[i]
@@ -189,7 +189,7 @@ async function searchTrackOnSpotify (songArtists, songTitles) {
 async function addTracksToPlaylistModified(playlistId, trackUris) {    
     try {
         if (trackUris.length <= 100) {
-            const response = await axios.get(`http://localhost:5555/spotify/playlist/convert`, {
+            const response = await axios.get(`/spotify/playlist/convert`, {
                 withCredentials: true,
                 params: {
                     playlistId: playlistId,
@@ -201,7 +201,7 @@ async function addTracksToPlaylistModified(playlistId, trackUris) {
             const chunk = formChunkedArray(trackUris, 100)
             const iterations = Math.ceil(trackUris.length / 100)
             for(let i = 0; i < iterations; i++) {
-                await axios.get('http://localhost:5555/spotify/playlist/convert', {
+                await axios.get('/spotify/playlist/convert', {
                     withCredentials : true,
                     params : {
                         playlistId : playlistId,
@@ -217,7 +217,7 @@ async function addTracksToPlaylistModified(playlistId, trackUris) {
 
 export async function getPlaylistItems(playlistId) {
     try {
-        const response = await axios.get(`http://localhost:5555/spotify/playlist/get-items`, {
+        const response = await axios.get(`/spotify/playlist/get-items`, {
             withCredentials : true,
             params : {
                 playlistId : playlistId
@@ -240,7 +240,7 @@ export async function getPlaylistItems(playlistId) {
 // Returns : Artist, track, cover image, duration_ms
 export async function getTracksInfo(trackIds) {
     try {
-        const response = await axios.get(`http://localhost:5555/spotify/playlist/get-tracksinfo`, {
+        const response = await axios.get(`/spotify/playlist/get-tracksinfo`, {
             withCredentials : true,
             params : {
                 ids : trackIds
@@ -257,7 +257,7 @@ export async function getTracksInfo(trackIds) {
 
 export async function getLibrary() {
     try {
-        const response = await axios.get(`http://localhost:5555/spotify/playlist/get-library`, {
+        const response = await axios.get(`/spotify/playlist/get-library`, {
             withCredentials : true
         })
         

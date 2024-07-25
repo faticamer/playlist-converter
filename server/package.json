@@ -20,7 +20,7 @@
     "express-session": "^1.18.0",
     "nodemon": "^3.0.3",
     "passport": "^0.7.0",
-    "passport-google-oauth20": "^2.0.0",
+    "passport-google-oauth2": "^0.2.0",
     "passport-spotify": "^2.0.0"
   }
 }
