@@ -6,13 +6,16 @@ export default defineConfig({
   base: "/",
   plugins: [react()],
   preview: {
-   port: 5173,
-   strictPort: true,
+    port: 5173,
+    strictPort: true,
   },
   server: {
-   port: 5173,
-   strictPort: true,
-   host: true,
-   origin: "http://localhost:5173",
+    proxy: {
+      '/api': 'http://localhost:5555'
+    },
+    port: 5173,
+    strictPort: true,
+    host: true,
+    origin: "http://localhost:5173",
   },
  });

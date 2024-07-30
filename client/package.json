@@ -1,5 +1,4 @@
 {
-    "proxy": "http://localhost:5555",
     "name": "vite-project",
     "private": true,
     "version": "0.0.0",
