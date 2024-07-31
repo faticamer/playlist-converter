@@ -4,6 +4,7 @@ const router = express.Router()
 require('../config/passport_setup_youtube')
 
 const CLIENT_URL = 'http://localhost:5173/select-platform'
+const BASE_URL = 'http://localhost:5173'
 
 router.get('/spotify/login/failed', (req, res) => {
     res.status(401).json({
@@ -43,7 +44,14 @@ router.get('/spotify/login/success', (req, res) => {
 })
 
 router.get('/google/login/success', (req, res) => {
-
+    if(req.user) {
+        res.status(200).json({
+            succes: true,
+            userId: req.user.id,
+            username: req.user.displayName,
+            profilePicture: req.user._json.picture
+        })
+    }
 });
 
 router.get('/spotify', passport.authenticate('spotify'));
@@ -72,7 +80,7 @@ router.get('/spotify/logout', (req, res) => {
             console.error('Error during logout:', err);
             return res.status(500).send('Internal Server Error');
         }
-        res.redirect('http://localhost:5173');
+        res.redirect(BASE_URL);
     });
 });
 
@@ -82,7 +90,7 @@ router.get('/google/logout', (req, res) => {
             console.error('Error during logout: ', err);
             return res.status(500).send('Internal Server Eror');
         }
-        res.redirect('http://localhost:5173');
+        res.redirect(BASE_URL);
     })
 })
 
