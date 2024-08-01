@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types'
+import { useAuthContext } from '../context/useAuthContext'
 
 const loginPageRoute = 'http://localhost:5173/login'
-const logoutRoute = '/auth/spotify/logout'
+const logoutRoute = 'http://localhost:5555/auth/spotify/logout'
 
 const redirect = () => {
     window.location.href = loginPageRoute
@@ -13,23 +13,21 @@ const logout = () => {
     window.location.href = logoutRoute
 }
 
-const LoginButton = (props) => {
+const LoginButton = () => {
+    const { user } = useAuthContext()
+
     return (
        <div>
             <div className='cursor-pointer'>
-                {props.user
-                ?
-                <button onClick={redirect}>Login</button>
-                :
-                <button onClick={logout}>Logout</button>
-                }
+                {!user && (
+                    <button onClick={redirect}>Login</button>
+                )}
+                {user && (
+                    <button onClick={logout}>Logout</button>
+                )}
             </div> 
        </div>
     )
-}
-
-LoginButton.propTypes = {
-    user : PropTypes.string
 }
 
 export default LoginButton

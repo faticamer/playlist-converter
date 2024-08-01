@@ -1,28 +1,38 @@
-import { createContext, useReducer } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios';
 
-export const AuthContext = createContext()
+export const AuthContext = React.createContext({
+  user: null,
+  setUser: () => {},
+});
 
-export const authReducer = (state, action) => {
-    switch (action.type) {
-        case 'LOGIN':
-            return { user : action.payload }
-        case 'LOGOUT':
-            return { user : null}
-        default:
-            return state
-    }
-}
+// eslint-disable-next-line react/prop-types
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
 
-export const AuthContextProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(authReducer, {
-        user: null
-    })
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5555/auth/spotify/login/success', {
+          withCredentials: true,
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          }
+        })
+        console.log(response.data)
+        setUser(response.data); 
+      } catch (error) {
+          console.error('Error: ', error)
+      }
+    };
 
-    console.log('AuthContext state: ', state)
+    fetchUserData();
+  }, []);
 
-    return (
-        <AuthContext.Provider value={{...state, dispatch}}>
-            { children }
-        </AuthContext.Provider>
-    )
-}
+  return (
+    <AuthContext.Provider value={{ user, setUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};

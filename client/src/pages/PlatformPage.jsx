@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import Footer from '../components/Footer';
 import NavigationBar from '../components/Navigation'
 import Card from '../components/Card'
@@ -6,11 +5,11 @@ import SpotifyNeon from '../assets/spotify-neon.png'
 import YoutubeNeon from '../assets/youtubee-neon.png'
 import styles from '../External.module.css'
 
-const PlatformPage = (props) => {
+const PlatformPage = () => {
     return (
         <div className="flex flex-col min-h-screen bg-spotifyBlack h-full">
             <div>
-                <NavigationBar user={props.user} profilePicture={props.profilePicture} profileUrl={props.profileUrl}/>
+                <NavigationBar />
             </div>
             <div className='flex m-auto'>
                 <Card 
@@ -37,12 +36,6 @@ const PlatformPage = (props) => {
             </div>
         </div>
     );
-}
-
-PlatformPage.propTypes = {
-    user: PropTypes.string,
-    profilePicture: PropTypes.string,
-    profileUrl: PropTypes.string
 }
 
 export default PlatformPage;

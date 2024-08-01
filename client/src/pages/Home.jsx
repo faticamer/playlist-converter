@@ -1,18 +1,19 @@
-import PropTypes from 'prop-types'
 import NavigationBar from '../components/Navigation'
 import Footer from '../components/Footer'
 import splash2 from '../assets/undraw_mello_otq1.svg'
 import { Link } from 'react-router-dom'
 import styles from '../External.module.css'
+import { useAuthContext } from '../context/useAuthContext'
 
-const Home = (props) => {
-    const generalPath = (props.user || props.userG) ? '/select-platform' : '/login'
+const Home = () => {
     const infoPath = '/info'
+    const { user } = useAuthContext()
+    const generalPath = user ? '/select-platform' : '/login'
 
     return (
         <div className="flex flex-col min-h-screen bg-spotifyBlack">
             <div>
-                <NavigationBar user={props.user} profilePicture={props.profilePicture} profileUrl={props.profileUrl}/>
+                <NavigationBar />
             </div>
             <div className='flex-1 flex justify-center items-center'>
                 <div className='flex flex-col items-center justify-center h-[75vh] w-3/4 sm:w-2/3 mx-auto'>
@@ -34,13 +35,5 @@ const Home = (props) => {
         </div>
     );     
 }
-
-Home.propTypes = {
-    user : PropTypes.string,
-    userG : PropTypes.string,
-    profilePicture : PropTypes.string,
-    profileUrl : PropTypes.string,
-    
-};
 
 export default Home
