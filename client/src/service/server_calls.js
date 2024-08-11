@@ -1,5 +1,9 @@
 import axios from 'axios'
 
+// —————————————————
+// SPOTIFY SECTION |
+// —————————————————
+
 // Performs an API call to the youtube route and returns the list of titles from
 // a YouTube playlist
 async function fetchTitlesFromYoutube (youtubePlaylistId) {
@@ -323,5 +327,9 @@ async function convert (youtubePlaylistId, playlistName) {
     } 
 }
 
+// —————————————————
+// YOUTUBE SECTION |
+// —————————————————
+
+
 export default convert
-// export getPlaylistItems

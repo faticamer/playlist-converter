@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 
-export const AuthContext = React.createContext({
+export const SpotifyAuthContext = React.createContext({
   user: null,
   setUser: () => {},
 });
 
 // eslint-disable-next-line react/prop-types
-export const AuthProvider = ({ children }) => {
+export const SpotifyAuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
             'Content-Type': 'application/json'
           }
         })
-        console.log(response.data)
+
         setUser(response.data); 
       } catch (error) {
           console.error('Error: ', error)
@@ -31,8 +31,8 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <SpotifyAuthContext.Provider value={{ user, setUser }}>
       {children}
-    </AuthContext.Provider>
+    </SpotifyAuthContext.Provider>
   );
 };

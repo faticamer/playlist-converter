@@ -19,6 +19,7 @@ export default {
         spotifyDarkGrey: 'hsl(0, 0%, 18%)',
         textDark: 'hsl(218, 11%, 65%)',
         textLight: 'hsl(216, 12%, 84%)',
+        darkBorder: 'hsl(0, 0, 25%)',
       },
       keyframes: {
         gradient: {

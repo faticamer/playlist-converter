@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types' 
 
 const Card = (props) => {
+
     return (
         <div className='flex flex-col flex-wrap justify-center w-3/4 items-center m-6'>
             <div className='size-5/12'>

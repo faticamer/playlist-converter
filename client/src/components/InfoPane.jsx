@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { removeMarker } from '../modules/server_calls';
+import { removeMarker } from '../service/server_calls';
 
 function InfoPane ({list}) {    
     let marker = list[0].marker

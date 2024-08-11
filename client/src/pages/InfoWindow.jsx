@@ -3,7 +3,6 @@ import Footer from "../components/Footer"
 import PropTypes from 'prop-types'
 
 const InfoWindow = () => {
-
     return (
         <div className="flex flex-col bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-700 via-gray-900 to-black min-h-screen">
             <div>
@@ -43,6 +42,9 @@ const InfoWindow = () => {
                     Playlistify will not ask you for permissions that are not required
                     for the application to work. This applies to both Spotify and YouTube.
                 </p>
+                <div className="mt-16">
+                    <button onClick={() => { window.location.href = '/' }} className="cursor-pointer bg-zinc-200 p-2 rounded-full nunito-sans-bold">Back to Home Page</button>
+                </div>
             </div>
             <div className="pt-6">
                 <Footer />

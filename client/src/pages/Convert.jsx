@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import Footer from "../components/Footer"
 import NavigationBar from "../components/Navigation"
-import convert from '../modules/server_calls'
-import { getLibrary, getTracksInfo, insertMarker } from '../modules/server_calls'
+import convert from '../service/server_calls'
+import { getLibrary, getTracksInfo, insertMarker } from '../service/server_calls'
 import InfoPane from '../components/InfoPane'
 import styles from '../External.module.css'
-import { useAuthContext } from '../context/useAuthContext'
+import { useSpotifyAuthContext } from '../context/useSpotifyAuthContext'
 
 const Convert = () => {
     const [youtubePlaylistId, setyoutubePlaylistId] = useState('')
@@ -14,8 +14,7 @@ const Convert = () => {
     const [library, setLibrary] = useState([])
     const [inputValue, setInputValue] = useState('')
     const [playlistName, setPlaylistName] = useState('')
-
-    const { user } = useAuthContext()
+    const { user } = useSpotifyAuthContext()
 
     let ids = []
 
@@ -80,10 +79,9 @@ const Convert = () => {
     }
 
     const callConvert = async () => {
-      // First check if user is authenticated
-      if(!user.username) {
-        alert('You are not authenticated!')
-        return // Terminate the call if not authenticated
+      if(user === null) {
+        alert('Please log in with your Spotify account to continue!')
+        return
       }
 
       // Check if the input field is empty - warn the user
@@ -95,7 +93,7 @@ const Convert = () => {
         try {        
           resetLocalStorage()
 
-          // MAIN CALL
+          // Call that performs conversion to Spotify streaming service
           await convert(youtubePlaylistId, playlistName);
 
           ids = retrieveFromLocalStorage('items')
@@ -161,7 +159,7 @@ const Convert = () => {
       setPlaylistName('PLAYLISTIFY - Converted')
       // Since there is no reason (at least for now) to keep storing 
       // conversion data in localStorage, we will reset it with each
-      // render      
+      // render of the application
       const fetchLibrary = async () => {
         try {
           const result = await getLibrary()
@@ -193,7 +191,9 @@ const Convert = () => {
         }
       }
 
-      setTimeout(fetchLibrary, "1000")
+      if(user !== null) {
+        setTimeout(fetchLibrary, "1000")
+      }
       resetLocalStorage()
     }, []);
 

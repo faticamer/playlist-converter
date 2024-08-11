@@ -5,7 +5,7 @@ export const useGoogleAuthContext = () => {
     const context = useContext(GoogleAuthContext)
 
     if(!context) {
-        throw new Error('useGoogleAuthContext must be used within GoogleAuthContextProvider')
+        throw new Error('useGoogleAuthContext must be used within GoogleSpotifyAuthContextProvider')
     }
 
     return context

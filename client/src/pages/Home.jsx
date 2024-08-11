@@ -3,12 +3,10 @@ import Footer from '../components/Footer'
 import splash2 from '../assets/undraw_mello_otq1.svg'
 import { Link } from 'react-router-dom'
 import styles from '../External.module.css'
-import { useAuthContext } from '../context/useAuthContext'
 
 const Home = () => {
     const infoPath = '/info'
-    const { user } = useAuthContext()
-    const generalPath = user ? '/select-platform' : '/login'
+    const selectPlatformPath = '/select-platform'
 
     return (
         <div className="flex flex-col min-h-screen bg-spotifyBlack">
@@ -24,8 +22,8 @@ const Home = () => {
                     </div>
 
                     <div className='flex flex-row w-1/3 items-center justify-evenly'>
-                        <Link to={generalPath} className='mt-6 p-4 text-white text-xl font-bold text-center rounded-full border-2 border-spotifyGreen bg-green-600 hover:bg-spotifyGreen transition-all duration-300 ease-in-out'>Get Started!</Link>
-                        <Link to={infoPath} className='mt-6 p-4 text-textLight text-xl font-medium text-center rounded-full border-2 border-blue-800 hover:bg-blue-700 transition-all duration-300 ease-in-out'>Learn More!</Link>
+                        <Link to={selectPlatformPath} className='mt-6 p-4 text-white text-xl font-bold text-center rounded-full border-2 border-spotifyGreen bg-green-600 hover:bg-spotifyGreen transition-all duration-300 ease-in-out'>Get Started!</Link>
+                        <Link to={infoPath} className='mt-6 p-4 text-textLight text-xl font-medium text-center rounded-full border-2 border-darkBorder hover:bg-blue-700 transition-all duration-300 ease-in-out'>Learn More!</Link>
                     </div>
                 </div>
             </div>

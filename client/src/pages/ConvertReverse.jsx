@@ -2,13 +2,15 @@ import NavigationBar from "../components/Navigation";
 import Footer from '../components/Footer'
 import InfoPane from "../components/InfoPane";
 import { useState } from "react";
-import { getPlaylistItems, getTracksInfo, insertMarker } from '../modules/server_calls'
+import { getPlaylistItems, getTracksInfo, insertMarker } from '../service/server_calls'
+import { useGoogleAuthContext } from "../context/useGoogleAuthContext";
 import styles from '../External.module.css'
 
 const ConvertReverse = () => {
     // const [spotifyPlaylistId, setSpotifyPlaylistId] = useState('')    
     const [tracks, setTracks] = useState([])
     const [inputValue, setInputValue] = useState('')
+    const { userGoogle } = useGoogleAuthContext()
 
     const handleInputField = async (event) => {
         setInputValue(event.target.value)
@@ -53,6 +55,15 @@ const ConvertReverse = () => {
         return url.substring(lastSlashIndex + 1, queryStringIndex)
     }
 
+    const callConvert = async () => {
+        if(userGoogle === null) {
+            alert('Please log in with your Google account to continue!')
+            return; 
+        }
+
+        // The rest of the implementation
+    }
+
     return (
         <div className="flex flex-col bg-spotifyBg min-h-screen">
             <div>
@@ -86,8 +97,8 @@ const ConvertReverse = () => {
                   <input onChange={handleInputField} type='text' placeholder='Place your URL' className='p-4 w-full rounded-md bg-zinc-800 text-white text-center border border-green-800 focus:outline-none focus:bg-zinc-700 onfocus="this' id='convertInput' />
               </div>
               <div className='flex flex-col items-center justify-center w-2/5 m-5 pt-4'>
-                <button className={styles.convertBtn}>
-                  <span> Convert </span>
+                <button className={styles.convertBtn} onClick={callConvert}>
+                  <span>Convert</span>
                 </button>
               </div>
               <div>
