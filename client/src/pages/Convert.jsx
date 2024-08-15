@@ -80,7 +80,7 @@ const Convert = () => {
 
     const callConvert = async () => {
       if(user === null) {
-        alert('Please log in with your Spotify account to continue!')
+        alert('Please log in with your Spotify account to continue!\n\nNOTE: You first need to log out of your Google account, if logged in.')
         return
       }
 

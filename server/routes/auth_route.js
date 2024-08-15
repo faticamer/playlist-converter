@@ -21,6 +21,7 @@ router.get('/google/login/failed', (req, res) => {
 })
 
 router.get('/spotify/login/success', (req, res) => {
+    console.log(req.session)
     if(req.user) {
         req.session.userDetails = {
             accessToken: req.user.accessToken,
@@ -47,16 +48,19 @@ router.get('/google/login/success', (req, res) => {
     if(req.user) {
         res.status(200).json({
             succes: true,
-            userId: req.user.id,
-            username: req.user.displayName,
-            profilePicture: req.user._json.picture
+            accessToken: req.user[0].accessToken,
+            userId: req.user[2].profile.id,
+            username: req.user[2].profile.displayName,
+            profilePicture: req.user[2].profile._json.picture
         })
     }
 });
 
 router.get('/spotify', passport.authenticate('spotify'));
 
-router.get('/google', passport.authenticate('google', { scope: ['email', 'profile']}));
+router.get('/google', passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.profile',
+                                      'https://www.googleapis.com/auth/userinfo.email'],
+                                      accessType: 'offline', approvalPrompt: 'force' }));
 
 router.get(
     '/spotify/callback',

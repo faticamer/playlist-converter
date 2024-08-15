@@ -57,7 +57,7 @@ const ConvertReverse = () => {
 
     const callConvert = async () => {
         if(userGoogle === null) {
-            alert('Please log in with your Google account to continue!')
+            alert('Please log in with your Google account to continue!\n\nNOTE: You first need to log out of your Spotify account, if logged in.')
             return; 
         }
 

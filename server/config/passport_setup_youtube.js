@@ -23,6 +23,9 @@ passport.use(new GoogleStrategy({
     ]
   },
   function(request, accessToken, refreshToken, profile, done) {
-    return done(null, profile, accessToken, refreshToken);
+    console.log('Access Token for Google acc: ', accessToken)
+    process.nextTick(function () {
+      return done(null, [{ accessToken : accessToken }, { refreshToken : refreshToken }, { profile : profile}])
+    })
   }
 ));
