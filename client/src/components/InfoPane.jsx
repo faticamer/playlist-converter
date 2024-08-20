@@ -6,7 +6,6 @@ function InfoPane ({list}) {
     
     if(marker === 'tracks') {
         const newArr = removeMarker(list)
-        // Perhaps extract the artists here and render them later on
         console.log(newArr)
         return (
             <div>
@@ -14,7 +13,6 @@ function InfoPane ({list}) {
                 {newArr.map((item, index) => (
                   <li className = 'text-lg' key={index}>
                     { /** RE-DESIGN */}
-
                     <div className='flex flex-row justify-between hover:bg-stone-600 p-1'>
                         <div className='flex flex-row'>
                             <div className='pr-5 pl-2 flex items-center justify-center'>
@@ -24,15 +22,15 @@ function InfoPane ({list}) {
                                 <img src={item.album.images[2].url} alt="Cover Image" className='w-full h-full border border-transparent rounded-lg'/>
                             </div>
                             <div>
-                                <p className='pl-2'>{item.name}</p>
-                                <p className='pl-2 text-stone-400'>
+                                <p className='pl-2 nunito-sans-regular'>{item.name}</p>
+                                <p className='pl-2 text-stone-400 nunito-sans-regular'>
                                 {item.artists && item.artists.length > 0 && ( // Check for array existence and length
-                                    item.artists.map(artist => artist.name).join(', ') // Join names with comma
+                                    item.artists.map(artist => artist.name).join(', ')
                                 )}
                                 </p>
                             </div>
                         </div>
-                        <div className='flex flex-col items-center justify-center pr-4 text-stone-400'>
+                        <div className='flex flex-col items-center justify-center pr-4 text-stone-400 nunito-sans-regular'>
                             {Math.floor(item.duration_ms / (1000 * 60)) + ":" + 
                             (Math.floor((item.duration_ms % (1000 * 60)) / 1000) < 10 ? "0" + 
                             Math.floor((item.duration_ms % (1000 * 60)) / 1000) : 
@@ -55,7 +53,7 @@ function InfoPane ({list}) {
                                 <div className='w-16 h-16'>
                                     <img src={item.images[0].url} alt="Cover Image" className='w-full h-full border border-transparent rounded-lg'/>
                                 </div>
-                                <div className='flex flex-col w-full pl-3'>
+                                <div className='flex flex-col w-full pl-3 nunito-sans-regular'>
                                     <p>{item.name}</p>
                                     <p className='text-stone-400'>{item.type.charAt(0).toUpperCase() + item.type.slice(1)} ‧ {item.owner.display_name}</p>
                                 </div>

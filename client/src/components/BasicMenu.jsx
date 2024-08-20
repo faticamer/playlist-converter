@@ -2,12 +2,10 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { useNavigate } from 'react-router-dom';
 
 export default function BasicMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const navigate = useNavigate();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -15,17 +13,12 @@ export default function BasicMenu() {
   const handleClose = (data) => {
     if (data) {
       switch (data) {
-        case 'spotify':
-          navigate('/convert')
-          break
-        case 'youtube':
-          navigate('/convert-youtube')
-          break
         case 'report-bug':
           window.open('https://github.com/faticamer/playlist-converter/issues')
           break
         case 'source-code':
           window.open('https://github.com/faticamer/playlist-converter')
+          break
         default:
           setAnchorEl(null)
           break;
@@ -53,8 +46,6 @@ export default function BasicMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={() => handleClose('spotify')}>Convert to Spotify</MenuItem>
-        <MenuItem onClick={() => handleClose('youtube')}>Convert to YouTube</MenuItem>
         <MenuItem onClick={() => handleClose('report-bug')}>Report a Bug</MenuItem>
         <MenuItem onClick={() => handleClose('source-code')}>Check it on GitHub</MenuItem>
       </Menu>
