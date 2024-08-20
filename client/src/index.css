@@ -21,3 +21,15 @@
     "wdth" 100,
     "YTLC" 500;
 }
+
+.new-amsterdam-regular {
+  font-family: "New Amsterdam", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.new-amsterdam-bold {
+  font-family: "New Amsterdam", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}

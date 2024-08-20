@@ -1,19 +1,21 @@
 import { useEffect, useState } from 'react'
 import Footer from "../components/Footer"
-import PropTypes from 'prop-types'
 import NavigationBar from "../components/Navigation"
 import convert from '../modules/server_calls'
 import { getLibrary, getTracksInfo, insertMarker } from '../modules/server_calls'
+import { useSpotifyAuthContext } from '../context/useSpotifyAuthContext'
 import InfoPane from '../components/InfoPane'
 import styles from '../External.module.css'
 
-const Convert = (props) => {
+const Convert = () => {
     const [youtubePlaylistId, setyoutubePlaylistId] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [items, setItems] = useState([])
     const [library, setLibrary] = useState([])
     const [inputValue, setInputValue] = useState('')
     const [playlistName, setPlaylistName] = useState('')
+
+    const { user } = useSpotifyAuthContext()
 
     let ids = []
 
@@ -78,13 +80,11 @@ const Convert = (props) => {
     }
 
     const callConvert = async () => {
-      // First check if user is authenticated
-      if(!props.user) {
+      if(!user) {
         alert('You are not authenticated!')
-        return // Terminate the call if not authenticated
+        return
       }
 
-      // Check if the input field is empty - warn the user
       if(youtubePlaylistId.trim() === '') {
         alert('Input field is empty! Make sure to paste the URL first!')
       } else {
@@ -196,40 +196,41 @@ const Convert = (props) => {
     }, []);
 
     return (
-        <div className="flex flex-col bg-spotifyBg min-h-screen">
+        <div className="flex flex-col bg-spotifyBlack min-h-screen">
           <div>
-            <NavigationBar user={props.user} profilePicture={props.profilePicture} profileUrl={props.profileUrl}/>
+            <NavigationBar />
           </div>
           <div className='flex flex-row items-center justify-center'>
-          <div className='text-white w-1/3 h-[70vh] border-2 border-zinc-700 bg-spotifyDarkGrey rounded-2xl mt-6 ml-6 p-3 overflow-auto'>
-            <h1 className='pb-3 text-2xl border-b-2 border-green-800'>Songs in your New Playlist</h1>
+          <div className='text-white w-1/3 h-[70vh] bg-spotifyDarkGrey shadow shadow-zinc-600 rounded-2xl mt-6 ml-6 p-3 overflow-auto'>
+            <h1 className='pb-3 text-2xl text-center text-textLighter rounded-lg border-b-2 nunito-sans-regular border-zinc-800 shadow-md shadow-zinc-600'>Songs in your New Playlist</h1>
             <div>
                 {(items.length > 0) ?  <InfoPane list={items} /> 
                 : 
-                    <div className='flex flex-col justify-center items-center h-[50vh]'>                        
-                        {inputValue.length > 0 ?
-                            <div>
-                              {isLoading ? 
-                              <div>
-                                <h1>List is being generated. Please wait...</h1>
-                              </div>
-                              : 
-                              <div />}
-                            </div>
-                            :
-                            <div>
-                                <h1>Waiting for URL...</h1> 
-                                <span className={styles.staticLoader}></span>
-                            </div>
-                        }
-                    </div>}
-                </div>
-          </div>
+                  <div className='flex flex-col justify-center items-center h-[50vh]'>
+                    {inputValue.length > 0 ?
+                      <div>
+                        {isLoading ? 
+                        <div>
+                          <h1>List is being generated. Please wait...</h1>
+                        </div>
+                        : 
+                        <div />}
+                      </div>
+                      :
+                      <div>
+                          <h1 className='text-zinc-300'>Waiting for URL input...</h1> 
+                          <span className={styles.staticLoader}></span>
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+            </div>
             <div className='flex flex-col items-center justify-center h-[75vh] md:w-1/2 sm:w-1/2'>
               <div className='flex flex-col items-center justify-center w-3/5'>
-                <h1 className='font-light dark:text-white text-2xl pb-8 font-normal'>Paste YouTube URL in the field below!</h1>
-                <input onChange={handleInputChange} type='text' placeholder='Place your URL' className='p-4 w-full rounded-md bg-zinc-800 text-white text-center border border-green-800 focus:outline-none focus:bg-zinc-700 onfocus="this' id='convertInput' />
-                <input onChange={handleNameInputChange} type='text' placeholder='Playlist name' className='mt-5 p-4 w-full rounded-md bg-zinc-800 text-white text-center border border-green-800 focus:outline-none focus:bg-zinc-700 onfocus="this' maxLength={100} id='convertInput' /> 
+                <h1 className='font-light text-zinc-300 text-2xl nunito-sans-bold pb-8 font-normal'>Paste YouTube URL in the field below!</h1>
+                <input onChange={handleInputChange} type='text' placeholder='Place your URL' className='p-4 w-full rounded-full bg-zinc-800 text-white text-center border border-green-800 focus:outline-none shadow-md shadow-zinc-800 focus:bg-zinc-700 hover:bg-zinc-700 onfocus="this' id='convertInput' />
+                <input onChange={handleNameInputChange} type='text' placeholder='Playlist name' className='mt-5 p-4 w-full rounded-full bg-zinc-800 text-white text-center border border-green-800 focus:outline-none shadow-md shadow-zinc-800 focus:bg-zinc-700 hover:bg-zinc-700 onfocus="this' maxLength={100} id='convertInput' /> 
               </div>
               <div className='flex flex-col items-center justify-center w-2/5 m-5 pt-4'>
                 <button className={styles.convertBtn} onClick={callConvert} disabled={isLoading}>
@@ -243,32 +244,33 @@ const Convert = (props) => {
                       <span className={styles.convertLoader}></span>
                     </div>
                     <p 
-                    className='text-white'>Please wait for conversion to complete. This may take a while...</p>
+                    className='text-zinc-300'>Please wait for conversion to complete. This may take a while...</p>
                   </div>
                 :
                   <div></div>
                 }
               </div>
             </div>
-            <div className='text-white w-1/3 h-[70vh] border-2 border-zinc-700 bg-spotifyDarkGrey rounded-2xl mt-6 mr-6 p-3 overflow-auto'>
-              <h1 className='pb-3 text-2xl border-b-2 border-green-800'>Your library</h1>
+            <div className='text-white w-1/3 h-[70vh] bg-spotifyDarkGrey shadow shadow-zinc-600 rounded-2xl mt-6 mr-6 p-3 overflow-auto'>
+              <h1 className='pb-3 text-2xl text-center text-textLighter nunito-sans-regular rounded-lg border-zinc-800 shadow-md shadow-zinc-600'>Your Spotify library</h1>
               {(library.length > 0) ?  <InfoPane list={library} />
               : 
               <div className='flex flex-col justify-center items-center h-[50vh]'>
-                <h1>Fetching library...</h1>
-                <span className={styles.helperLoader}></span>
+                {user && (
+                  <div>
+                    <h1 className='text-zinc-300'>Fetching Spotify library...</h1>
+                    <span className={styles.helperLoader}></span>
+                  </div>
+                )}
+                {!user && (
+                  <h1 className='text-zinc-300'>You should be signed in to enable this feature!</h1>
+                )}
               </div>}
             </div>
           </div>
           <Footer />
         </div>
     )
-}
-
-Convert.propTypes = {
-    user: PropTypes.string,
-    profilePicture: PropTypes.string,
-    profileUrl: PropTypes.string
 }
 
 export default Convert
