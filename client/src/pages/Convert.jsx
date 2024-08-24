@@ -211,14 +211,14 @@ const Convert = () => {
                       <div>
                         {isLoading ? 
                         <div>
-                          <h1>List is being generated. Please wait...</h1>
+                          <h1 className='nunito-sans-regular'>List is being generated. Please wait...</h1>
                         </div>
                         : 
                         <div />}
                       </div>
                       :
                       <div>
-                          <h1 className='text-zinc-300'>Waiting for URL input...</h1> 
+                          <h1 className='text-zinc-300 nunito-sans-regular'>Waiting for URL input...</h1> 
                           <span className={styles.staticLoader}></span>
                       </div>
                     }
@@ -228,9 +228,9 @@ const Convert = () => {
             </div>
             <div className='flex flex-col items-center justify-center h-[75vh] md:w-1/2 sm:w-1/2'>
               <div className='flex flex-col items-center justify-center w-3/5'>
-                <h1 className='font-light text-zinc-300 text-2xl nunito-sans-bold pb-8 font-normal'>Paste YouTube URL in the field below!</h1>
-                <input onChange={handleInputChange} type='text' placeholder='Place your URL' className='p-4 w-full rounded-full bg-zinc-800 text-white text-center border border-green-800 focus:outline-none shadow-md shadow-zinc-800 focus:bg-zinc-700 hover:bg-zinc-700 onfocus="this' id='convertInput' />
-                <input onChange={handleNameInputChange} type='text' placeholder='Playlist name' className='mt-5 p-4 w-full rounded-full bg-zinc-800 text-white text-center border border-green-800 focus:outline-none shadow-md shadow-zinc-800 focus:bg-zinc-700 hover:bg-zinc-700 onfocus="this' maxLength={100} id='convertInput' /> 
+                <h1 className='font-light text-zinc-300 text-2xl text-center nunito-sans-bold pb-8 font-normal'>Paste YouTube URL in the field below!</h1>
+                <input onChange={handleInputChange} type='text' placeholder='Place your URL' className='p-4 w-full rounded-full bg-zinc-800 text-white nunito-sans-regular text-center border border-green-800 focus:outline-none shadow-md shadow-zinc-700 focus:bg-zinc-700 hover:bg-zinc-700 transition-all duration-300 ease-in-out onfocus="this' id='convertInput' />
+                <input onChange={handleNameInputChange} type='text' placeholder='Playlist name' className='mt-5 p-4 w-full rounded-full bg-zinc-800 text-white nunito-sans-regular text-center border border-green-800 focus:outline-none shadow-md shadow-zinc-700 focus:bg-zinc-700 hover:bg-zinc-700 transition-all duration-300 ease-in-out onfocus="this' maxLength={100} id='convertInput' /> 
               </div>
               <div className='flex flex-col items-center justify-center w-2/5 m-5 pt-4'>
                 <button className={styles.convertBtn} onClick={callConvert} disabled={isLoading}>
@@ -244,7 +244,7 @@ const Convert = () => {
                       <span className={styles.convertLoader}></span>
                     </div>
                     <p 
-                    className='text-zinc-300'>Please wait for conversion to complete. This may take a while...</p>
+                    className='text-zinc-300 nunito-sans-regular'>Please wait for conversion to complete. This may take a while...</p>
                   </div>
                 :
                   <div></div>
@@ -258,12 +258,12 @@ const Convert = () => {
               <div className='flex flex-col justify-center items-center h-[50vh]'>
                 {user && (
                   <div>
-                    <h1 className='text-zinc-300'>Fetching Spotify library...</h1>
+                    <h1 className='text-zinc-300 nunito-sans-regular'>Fetching Spotify library...</h1>
                     <span className={styles.helperLoader}></span>
                   </div>
                 )}
                 {!user && (
-                  <h1 className='text-zinc-300'>You should be signed in to enable this feature!</h1>
+                  <h1 className='text-zinc-300 nunito-sans-regular'>You should be signed in to enable this feature!</h1>
                 )}
               </div>}
             </div>

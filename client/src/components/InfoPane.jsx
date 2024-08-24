@@ -13,7 +13,7 @@ function InfoPane ({list}) {
                 {newArr.map((item, index) => (
                   <li className = 'text-lg' key={index}>
                     { /** RE-DESIGN */}
-                    <div className='flex flex-row justify-between hover:bg-stone-600 p-1'>
+                    <div className='flex flex-row justify-between hover:bg-stone-600 transition-all duration-200 ease-in-out p-1'>
                         <div className='flex flex-row'>
                             <div className='pr-5 pl-2 flex items-center justify-center'>
                                 <p className='text-stone-400 w-4'>{index + 1}</p>
@@ -49,7 +49,7 @@ function InfoPane ({list}) {
                 <ul className = 'pt-3'>
                     {newArr.map((item, index) => (
                         <li className = 'text-lg' key={index}>
-                            <div className='flex flex-row p-1 hover:bg-stone-600'>
+                            <div className='flex flex-row p-1 hover:bg-stone-600 transition-all duration-200 ease-in-out'>
                                 <div className='w-16 h-16'>
                                     <img src={item.images[0].url} alt="Cover Image" className='w-full h-full border border-transparent rounded-lg'/>
                                 </div>

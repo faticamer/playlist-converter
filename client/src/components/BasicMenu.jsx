@@ -19,6 +19,9 @@ export default function BasicMenu() {
         case 'source-code':
           window.open('https://github.com/faticamer/playlist-converter')
           break
+        case 'about-playlistify':
+          window.open('http://localhost:5173/info')
+          break
         default:
           setAnchorEl(null)
           break;
@@ -48,6 +51,7 @@ export default function BasicMenu() {
       >
         <MenuItem onClick={() => handleClose('report-bug')}>Report a Bug</MenuItem>
         <MenuItem onClick={() => handleClose('source-code')}>Check it on GitHub</MenuItem>
+        <MenuItem onClick={() => handleClose('about-playlistify')} className=''>About Playlistify</MenuItem>
       </Menu>
     </div>
   );

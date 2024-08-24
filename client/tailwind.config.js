@@ -19,7 +19,9 @@ export default {
         textDark: 'hsl(218, 11%, 65%)',
         textLight: 'hsl(200, 1%,60%)',
         textLighter: 'hsl(200, 1%,70%)',
-        darkGreen: 'hsl(159, 92%, 10%)'
+        darkGreen: 'hsl(159, 92%, 10%)',
+        learnMore: 'hsl(197, 95%, 17%)',
+        learnMoreHover: 'hsl(197, 95%, 15%)'
       },
       keyframes: {
         gradient: {
