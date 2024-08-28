@@ -15,7 +15,7 @@ const Home = () => {
             <div className='flex-1 flex justify-center items-center'>
                 <div className='flex flex-col items-center justify-center h-[75vh] w-3/4 sm:w-2/3 mx-auto'>
                     <h1 className={`${styles.gradientText} text-transparent text-3xl rubik-mono-one-regular animate-gradient pb-6 md:text-4xl mt-6`}>Playlistify</h1>
-                    <p className='text-white text-xl text-center nunito-sans-bold p-1 rounded-lg mb-5'>Convert your favorite playlists from
+                    <p className='text-zinc-300 text-xl text-center nunito-sans-bold p-1 rounded-lg mb-5'>Convert your favorite playlists from
                         <span className={`${styles.gradientText} text-transparent animate-gradient font-bold`}> YouTube to Spotify!</span> 
                     </p>
                     <div className='w-3/4 h-3/5 '>

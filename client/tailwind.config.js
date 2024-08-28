@@ -11,6 +11,9 @@ export default {
       lg : '976px',
       xl : '1440px'
     },
+    variants: {
+      margin: ['responsive', 'hover']
+    },
     extend: {
       colors : {
         spotifyGreen : 'hsl(141,75.5%, 48%)',
@@ -21,7 +24,8 @@ export default {
         textLighter: 'hsl(200, 1%,70%)',
         darkGreen: 'hsl(159, 92%, 10%)',
         learnMore: 'hsl(197, 95%, 17%)',
-        learnMoreHover: 'hsl(197, 95%, 15%)'
+        learnMoreHover: 'hsl(197, 95%, 15%)',
+        gradientGreen: 'hsl(158, 87%, 30%)'
       },
       keyframes: {
         gradient: {

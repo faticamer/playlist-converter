@@ -2,9 +2,11 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { useMobileDetect } from '../hooks/useMobileDetect';
 
 export default function BasicMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const isMobile = useMobileDetect()
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -51,7 +53,7 @@ export default function BasicMenu() {
       >
         <MenuItem onClick={() => handleClose('report-bug')}>Report a Bug</MenuItem>
         <MenuItem onClick={() => handleClose('source-code')}>Check it on GitHub</MenuItem>
-        <MenuItem onClick={() => handleClose('about-playlistify')} className=''>About Playlistify</MenuItem>
+        {isMobile ? <MenuItem onClick={() => handleClose('about-playlistify')} className=''>About Playlistify</MenuItem> : <MenuItem></MenuItem>}
       </Menu>
     </div>
   );

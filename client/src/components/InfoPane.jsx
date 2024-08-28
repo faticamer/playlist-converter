@@ -6,12 +6,11 @@ function InfoPane ({list}) {
     
     if(marker === 'tracks') {
         const newArr = removeMarker(list)
-        console.log(newArr)
         return (
             <div>
               <ul className = 'pt-3'>
                 {newArr.map((item, index) => (
-                  <li className = 'text-lg' key={index}>
+                  <li className='text-lg transition-opacity duration-500 ease-in-out opacity-100' key={index}>
                     { /** RE-DESIGN */}
                     <div className='flex flex-row justify-between hover:bg-stone-600 transition-all duration-200 ease-in-out p-1'>
                         <div className='flex flex-row'>

@@ -17,6 +17,99 @@
   background-clip: text;
 }
 
+.gradientConvert {
+  background: linear-gradient(
+    to right,
+    #D6EFD8,
+    #80AF81,
+    #508D4E,
+    #1A5319,
+    #D6EFD8,
+    #508D4E,
+    #80AF81
+  );
+  background-size: 300% 300%;
+  background-clip: text;
+}
+
+.gradientBorderNeutral {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid #0000;
+  border-radius: 12px;
+  background: linear-gradient(#1a1a1a, #1a1a1a) padding-box, linear-gradient(
+        var(--angle),
+        #070707,
+        #cccccc
+      ) border-box;
+  animation: 10s rotate linear infinite;
+}
+
+@keyframes rotate {
+  to {
+    --angle: 360deg;
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.gradientBorderNeutralPane {
+  padding: 12px;
+  border: 1px solid #0000;
+  border-radius: 12px;
+  background: linear-gradient(#1a1a1a, #1a1a1a) padding-box, linear-gradient(
+        var(--angle),
+        #070707,
+        #cccccc
+      ) border-box;
+  animation: 1.5s rotate linear infinite;
+}
+
+@keyframes rotate {
+  to {
+    --angle: 360deg;
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.gradientBorderGreen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  border: 2px solid #0000;
+  border-radius: 12px;
+  background: linear-gradient(#1a1a1a, #1a1a1a) padding-box, linear-gradient(
+        var(--angle),
+        #070707,
+        #0a915f 
+      ) border-box;
+  animation: 3s rotate linear infinite;
+}
+
+@keyframes rotate {
+  to {
+    --angle: 360deg;
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
 /*------------------------------------*\
   # HELPER LOADER - FETCHING DATA
 \*------------------------------------*/
@@ -65,38 +158,6 @@ transform: scale(0.5) translate(-48px, -48px);
 }
 
 /*------------------------------------*\
-# STATIC LOADER - WAITING FOR INPUT
-\*------------------------------------*/
-
-.staticLoader {
-width: 16px;
-height: 16px;
-border-radius: 50%;
-display: block;
-margin:15px auto;
-position: relative;
-background: #FFF;
-box-shadow: -24px 0 #FFF, 24px 0 #FFF;
-box-sizing: border-box;
-animation: shadowPulse 2s linear infinite;
-}
-
-@keyframes shadowPulse {
-33% {
-  background: #FFF;
-  box-shadow: -24px 0 green, 24px 0 #FFF;
-}
-66% {
-  background: green;
-  box-shadow: -24px 0 #FFF, 24px 0 #FFF;
-}
-100% {
-  background: #FFF;
-  box-shadow: -24px 0 #FFF, 24px 0 green;
-}
-}
-
-/*------------------------------------*\
 # MAIN LOADER - PERFORMING CONVERSION
 \*------------------------------------*/
 
@@ -130,168 +191,3 @@ border-left: 4px solid transparent;
   transform: rotate(360deg);
 }
 } 
-
-/*------------------------------------*\
-# CONVERT BUTTON 
-\*------------------------------------*/
-
-.convertBtn {
---btn-default-bg: black;
---btn-padding: 15px 20px;
---btn-hover-bg: green;
---btn-transition: 0.3s;
---btn-letter-spacing: 0.1rem;
---btn-animation-duration: 1.2s;
---btn-shadow-color: green;
---btn-shadow: 0 2px 10px 0 var(--btn-shadow-color);
---hover-btn-color: #7241ff;
---default-btn-color: #fff;
---font-size: 16px;
---font-weight: 600;
---font-family: Menlo, Roboto Mono, monospace;
-border-radius: 6em;
-}
-
-/* button settings 👆 */
-
-.convertBtn {
-box-sizing: border-box;
-padding: var(--btn-padding);
-display: flex;
-align-items: center;
-justify-content: center;
-color: var(--default-btn-color);
-font: var(--font-weight) var(--font-size) var(--font-family);
-background: var(--btn-default-bg);
-cursor: pointer;
-transition: var(--btn-transition);
-overflow: hidden;
-box-shadow: var(--btn-shadow);
-border-radius: 6em;
-border: 2px solid #2a2b3a;
-}
-
-.convertBtn span {
-letter-spacing: var(--btn-letter-spacing);
-transition: var(--btn-transition);
-box-sizing: border-box;
-position: relative;
-background: inherit;
-}
-
-.convertBtn span::before {
-box-sizing: border-box;
-position: absolute;
-content: "";
-background: inherit;
-}
-.convertBtn:focus {
-scale: 1.09;
-}
-.convertBtn:hover,
-.convertBtn:focus {
-background: var(--btn-default-bg);
-box-shadow: 0px 0px 10px 0px rgba(119, 68, 255, 0.7);
-border: 2px solid rgb(9, 255, 0);
-}
-
-.convertBtn:hover span,
-.convertBtn:focus span {
-color: rgb(9, 255, 0);
-}
-
-.convertBtn:hover span::before,
-.convertBtn:focus span::before {
-animation: chitchat linear both var(--btn-animation-duration);
-}
-
-@keyframes chitchat {
-0% {
-  content: "#";
-}
-
-5% {
-  content: ".";
-}
-
-10% {
-  content: "^{";
-}
-
-15% {
-  content: "-!";
-}
-
-20% {
-  content: "#$_";
-}
-
-25% {
-  content: "№:0";
-}
-
-30% {
-  content: "#{+.";}35%{content: "@}-?";
-}
-
-40% {
-  content: "?{4@%";
-}
-
-45% {
-  content: "=.,^!";
-}
-
-50% {
-  content: "?2@%";
-}
-
-55% {
-  content: "\;1}]";
-}
-
-60% {
-  content: "?{%:%";
-  right: 0;
-}
-
-65% {
-  content: "|{f[4";
-  right: 0;
-}
-
-70% {
-  content: "{4%0%";
-  right: 0;
-}
-
-75% {
-  content: "'1_0<";
-  right: 0;
-}
-
-80% {
-  content: "{0%";
-  right: 0;
-}
-
-85% {
-  content: "]>'";
-  right: 0;
-}
-
-90% {
-  content: "4";
-  right: 0;
-}
-
-95% {
-  content: "2";
-  right: 0;
-}
-
-100% {
-  content: "";
-  right: 0;
-}
-}

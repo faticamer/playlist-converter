@@ -189,14 +189,14 @@ async function searchTrackOnSpotify (songArtists, songTitles) {
 async function addTracksToPlaylistModified(playlistId, trackUris) {    
     try {
         if (trackUris.length <= 100) {
-            const response = await axios.get(`http://localhost:5555/spotify/playlist/convert`, {
+            // I removed constant declaration from here - if it turns out that it causes any issue
+            await axios.get(`http://localhost:5555/spotify/playlist/convert`, {
                 withCredentials: true,
                 params: {
                     playlistId: playlistId,
                     uri: trackUris
                 },                    
             });
-            console.log(response);                
         } else {
             const chunk = formChunkedArray(trackUris, 100)
             const iterations = Math.ceil(trackUris.length / 100)

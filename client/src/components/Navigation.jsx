@@ -11,7 +11,7 @@ const NavigationBar = () => {
     const { user } = useSpotifyAuthContext()
 
     return (
-        <nav className='relative mx-auto p-3 text-textLighter bg-spotifyDarkGrey border-b-2 border-darkGreen'>
+        <div className='relative mx-auto p-3 text-textLighter bg-spotifyDarkGrey border-b-2 border-darkGreen'>
             <div className='flex items-center justify-between nunito-sans-bold'>
                 <div className='flex'>
                     <img src={logo} alt="logo" className='w-10 h-10'/>
@@ -28,7 +28,7 @@ const NavigationBar = () => {
                         </div>
                     )}
                 </div>
-                <div className='flex flex-row justify-between items-center gap-5'>
+                <div className='flex flex-row justify-between items-center'>
                     <ConnectButton
                         title="Spotify"
                         source={Spotify}
@@ -41,7 +41,7 @@ const NavigationBar = () => {
                     )}
                 </div>
             </div>
-        </nav>
+        </div>
     )
 }
 
