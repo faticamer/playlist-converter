@@ -267,28 +267,6 @@ export async function getLibrary() {
     }
 }
 
-export function insertMarker(target, marker) {
-        // Create a copy of the original array
-    const newArray = [...target];
-    
-    // Insert the marker object at the beginning of the new array
-    newArray.unshift({ marker });
-
-    // Return the new array with the marker object inserted
-    return newArray;
-}
-
-export function removeMarker(target) {
-    // Create a copy of the original array
-    const newArray = [...target];
-    
-    // Remove the first element (marker object) from the new array
-    newArray.shift();
-
-    // Return the new array without the marker object
-    return newArray;
-}
-
 // 'convert' function will store all tracks in the browser's local storage
 // so the track URIs can be accessed from the React component.
 // This was done because otherwise I would have to modify the return statement

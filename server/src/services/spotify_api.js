@@ -210,7 +210,6 @@ const getTracksData = async (access_token, idArray) => {
         // Response list will be a 2-dimensional array with json data within
         // create object and store the content of the response list in it, then return the json object variable...
         const listJsonObject = JSON.parse(JSON.stringify(flattedResponseList))
-        console.log(listJsonObject)
 
         return listJsonObject
     } catch (error) {

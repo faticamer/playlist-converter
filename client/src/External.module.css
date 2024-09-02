@@ -88,12 +88,12 @@
   justify-content: center;
   align-items: center;
   padding: 12px;
-  border: 2px solid #0000;
+  border: 1px solid #0000;
   border-radius: 12px;
   background: linear-gradient(#1a1a1a, #1a1a1a) padding-box, linear-gradient(
         var(--angle),
         #070707,
-        #0a915f 
+        #0a915f
       ) border-box;
   animation: 3s rotate linear infinite;
 }

@@ -3,9 +3,10 @@ import { useMobileDetect } from '../hooks/useMobileDetect'
 import Footer from "../components/Footer"
 import NavigationBar from "../components/Navigation"
 import convert from '../modules/server_calls'
-import { getLibrary, getTracksInfo, insertMarker } from '../modules/server_calls'
+import { getLibrary, getTracksInfo } from '../modules/server_calls'
 import { useSpotifyAuthContext } from '../context/useSpotifyAuthContext'
-import InfoPane from '../components/InfoPane'
+import AnimatedLibrary from '../components/AnimatedLibrary'
+import AnimatedTracks from '../components/AnimatedTracks'
 import styles from '../External.module.css'
 
 const Convert = () => {
@@ -26,15 +27,15 @@ const Convert = () => {
     /** Rendering classNames conditionally for two input fields, and convert button */    
     let urlInputClass = ''
     if(!isValid) urlInputClass = styles.gradientBorderNeutral
-    else if (isValid) urlInputClass = 'border rounded-xl border-gradientGreen bg-spotifyDarkGrey'
+    else if (isValid) urlInputClass = 'border border-gradientGreen rounded-xl delay-100 transition ease-in-out duration-500'
 
     let playlistNameInputClass = ''
     if(!isPresent) playlistNameInputClass = styles.gradientBorderNeutral
-    else if (isPresent) playlistNameInputClass = 'border rounded-xl border-gradientGreen bg-spotifyDarkGrey'
+    else if (isPresent) playlistNameInputClass = 'border border-gradientGreen rounded-xl delay-100 transition ease-in-out duration-500'
 
     let btnClass = ''
-    if(isValid && isPresent) btnClass = styles.gradientBorderGreen
-    else if(!isValid || !isPresent) btnClass = 'border rounded-xl border-zinc-400'
+    if(isValid && isPresent) btnClass = styles.gradientBorderGreen + ' transition ease-in-out delay-100'
+    else if(!isValid || !isPresent) btnClass = 'border rounded-xl border-zinc-400 transition ease-in-out duration-100 delay-200 hover:border-zinc-100'
 
     let libraryPaneClass = ''
     if(library.length === 0) libraryPaneClass = styles.gradientBorderNeutralPane
@@ -140,16 +141,10 @@ const Convert = () => {
           ids = retrieveFromLocalStorage('items')
           const parsedIdsFromLocalStorage = ids.replace('[', '').replace(']', '');
           const idArray = parsedIdsFromLocalStorage.split(',')
-          const response = await getTracksInfo(idArray)
-
-          // marker is added to avoid creating separate .jsx for windows
-          // this way, we check the marker in InfoPane.jsx before returning the component content
-          const finalTracksWithMarker = insertMarker(response, 'tracks')
+          const tracksInfo = await getTracksInfo(idArray)
 
           await getLibraryItems()
-
-          setItems(finalTracksWithMarker)
-
+          setItems(tracksInfo)
         } catch (error) {
           console.error('Error:', error);
         } finally {
@@ -185,9 +180,7 @@ const Convert = () => {
 
         // Data retrieved, now insert marker to indicate which item set this is
         const library = removeKeysFromObjects(libraryObjects, keysToRemove)
-
-        const finalLibraryWithMarker = insertMarker(library, 'library')
-        setLibrary(finalLibraryWithMarker)
+        setLibrary(library)
       } catch (error) {
         console.error('Error fetching the library')
       }
@@ -221,15 +214,8 @@ const Convert = () => {
             'uri'
           ]
 
-          // Data retrieved, now insert marker to indicate which item set this is
           const library = removeKeysFromObjects(libraryObjects, keysToRemove)
-
-          // Item set marked
-          const finalLibraryWithMarker = insertMarker(library, 'library')
-
-          if(finalLibraryWithMarker !== null) {
-            setLibrary(finalLibraryWithMarker)
-          }          
+          setLibrary(library)
         } catch (error) {
           console.error('Error fetching playlists: ', error)
         }
@@ -246,9 +232,9 @@ const Convert = () => {
           </div>
           <div className='flex flex-col items-center justify-center lg:flex-row'>
           <div className={`${songPaneClass} text-white w-11/12 h-[70vh] bg-spotifyDarkGrey shadow shadow-zinc-600 rounded-2xl mt-6 p-3 overflow-auto md:w-5/6 mx-6 lg:w-3/4 xl:w-1/2`}>
-            <h1 className='pb-3 text-lg text-center text-textLighter rounded-lg border-b-2 nunito-sans-regular border-zinc-800 shadow-md shadow-zinc-600 lg:text-xl xl:text-2xl'>Songs in your New Playlist</h1>
+            <h1 className='w-full p-2 text-lg text-center text-textLighter rounded-lg border-b-2 nunito-sans-regular border-zinc-800 shadow-md shadow-zinc-600 lg:text-xl xl:text-2xl'>Songs in your New Playlist</h1>
             <div>
-                {(items.length > 0) ?  <InfoPane list={items} /> 
+                {(items.length > 0) ?  <AnimatedTracks list={items} /> 
                 : 
                   <div className='flex flex-col justify-center items-center h-[50vh]'>
                     {inputValue.length > 0 ?
@@ -274,11 +260,11 @@ const Convert = () => {
             <div className='flex flex-col w-5/6 items-center justify-center h-[75vh] md:w-3/4 lg:w-1/2'>
               <div className='flex flex-col items-center justify-center w-full xl:w-5/6'>
                 <h1 className='bg-gradient-to-r from-emerald-500 to-green-700 text-transparent bg-clip-text text-2xl text-center nunito-sans-bold pb-8'>Fill in your playlist details!</h1>
-                <input onChange={handleInputChange} type='text' placeholder='Playlist URL' className={`p-4 w-full rounded-lg ${urlInputClass} text-white text-center nunito-sans-regular focus:outline-none onfocus="this" md:rounded-lg lg:rounded-2xl' id='convertInput`} />
-                <input onChange={handleNameInputChange} type='text' placeholder='Playlist name' className={`mt-5 p-4 w-full rounded-lg ${playlistNameInputClass} text-white nunito-sans-regular text-center focus:outline-none onfocus="this" md:rounded-lg lg:rounded-2xl' maxLength={100} id='playlistName`} /> 
+                <input onChange={handleInputChange} type='text' placeholder='Playlist URL' className={`p-4 w-full rounded-lg ${urlInputClass} text-white text-center nunito-sans-regular bg-spotifyDarkGrey focus:outline-none onfocus="this" md:rounded-lg lg:rounded-2xl' id='convertInput`} />
+                <input onChange={handleNameInputChange} type='text' placeholder='Playlist name' className={`mt-5 p-4 w-full rounded-lg ${playlistNameInputClass} text-white nunito-sans-regular bg-spotifyDarkGrey text-center focus:outline-none onfocus="this" md:rounded-lg lg:rounded-2xl' maxLength={100} id='playlistName`} /> 
               </div>
-              <div className='flex flex-col items-center justify-center w-3/5 m-5 pt-4'>
-                <button onClick={callConvert} className={`${btnClass} nunito-sans-bold text-zinc-300 tracking-widest w-3/4 p-3`}>CONVERT</button>
+              <div className='flex flex-col items-center justify-center w-3/5 m-8'>
+                <button onClick={callConvert} className={`${btnClass} nunito-sans-bold bg-[#1a1a1a] text-zinc-300 tracking-widest w-3/4 p-3 mx-4 my-4`}>CONVERT</button>
               </div>
               <div>
                 { isLoading ? 
@@ -291,8 +277,8 @@ const Convert = () => {
               </div>
             </div>
             <div className={`${libraryPaneClass} text-white w-11/12 h-[70vh] bg-spotifyDarkGrey shadow shadow-zinc-600 rounded-2xl mt-6 p-3 overflow-auto md:w-5/6 mx-6 lg:3/4 xl:w-1/2`}>
-              <h1 className='pb-3 text-lg text-center text-textLighter nunito-sans-regular rounded-lg border-zinc-800 shadow-md shadow-zinc-600 lg:text-xl xl:text-2xl'>Your Spotify library</h1>
-              {(library.length > 0) ?  <InfoPane list={library} />
+              <h1 className='p-2 text-lg text-center text-textLighter nunito-sans-regular rounded-lg border-zinc-800 shadow-md shadow-zinc-600 lg:text-xl xl:text-2xl'>Your Spotify library</h1>
+              {(library.length > 0) ?  <AnimatedLibrary list={library} />
               : 
               <div className='flex flex-col justify-center items-center h-[50vh]'>
                 {user && (
@@ -306,7 +292,9 @@ const Convert = () => {
               </div>}
             </div>
           </div>
-          <Footer />
+          <div className='mt-auto'>
+            <Footer /> 
+          </div>
         </div>
     )
 }

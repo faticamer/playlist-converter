@@ -32,10 +32,15 @@ export default {
           "0%": {backgroundPosition: "0% 50%"},
           "100%": {backgroundPosition: "100% 50%"},
         },
+        fadeIn: {
+          "0%": { opacity: '0'},
+          "100%": { opacity: '1'},
+        },
       },
       animation: {
         gradient: "gradient 4s linear infinite",
-      }
+        fadeIn: "fadeIn 2s ease-in-out forwards"
+      },
     },
   },
   plugins: [],
