@@ -5,7 +5,7 @@ const AnimatedLibrary = ({list}) => {
         <div>
             <ul className='pt-3'>
                 {list.map((item, index) => (
-                    <li className='text-lg animate-fadeIn' key={index}>
+                    <li className='text-md animate-fadeIn lg:text-lg' key={index}>
                         <div className='flex flex-row p-1 hover:bg-stone-600'>
                             <div className='w-16 h-16 min-w-16 min-h-16'>
                                 <img src={item.images[0].url} alt="Cover Image" className='w-full h-full border border-transparent rounded-lg'/>

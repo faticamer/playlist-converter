@@ -25,7 +25,7 @@ const AnimatedTracks = ({list}) => {
     return (
         <ul className='pt-3'>
             {list.map((item, index) => (
-                <li className='text-lg animate-fadeIn' key={index}>
+                <li className='text-md animate-fadeIn lg:text-lg' key={index}>
                     <div className='flex flex-row justify-between hover:bg-stone-600 transition-all duration-200 ease-in-out p-1'>
                         <div className='flex flex-row'>
                             <div className='pr-5 pl-2 flex items-center justify-center'>
