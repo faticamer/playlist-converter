@@ -35,7 +35,7 @@ const Convert = () => {
 
     let btnClass = ''
     if(isValid && isPresent) btnClass = styles.gradientBorderGreen + ' transition ease-in-out delay-100'
-    else if(!isValid || !isPresent) btnClass = 'border rounded-xl border-zinc-400 transition ease-in-out duration-100 delay-200 hover:border-zinc-100'
+    else if(!isValid || !isPresent) btnClass = 'border rounded-xl border-zinc-400 transition ease-in-out duration-50 hover:border-zinc-100'
 
     let libraryPaneClass = ''
     if(library.length === 0) libraryPaneClass = styles.gradientBorderNeutralPane
@@ -264,7 +264,7 @@ const Convert = () => {
                 <input onChange={handleNameInputChange} type='text' placeholder='Playlist name' className={`mt-5 p-4 w-full rounded-lg ${playlistNameInputClass} text-white nunito-sans-regular bg-spotifyDarkGrey text-center focus:outline-none onfocus="this" md:rounded-lg lg:rounded-2xl' maxLength={100} id='playlistName`} /> 
               </div>
               <div className='flex flex-col items-center justify-center w-3/5 m-8'>
-                <button onClick={callConvert} className={`${btnClass} nunito-sans-bold bg-[#1a1a1a] text-zinc-300 tracking-widest w-3/4 p-3 mx-4 my-4`}>CONVERT</button>
+                <button onClick={callConvert} className={`${btnClass} nunito-sans-bold bg-[#1a1a1a] text-zinc-300 tracking-widest w-full p-3 mx-4 my-4 xl:w-3/4`}>CONVERT</button>
               </div>
               <div>
                 { isLoading ? 

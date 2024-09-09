@@ -5,13 +5,13 @@
 .gradientText {
   background: linear-gradient(
     to right,
-    #1DB954,
-    #F5F5DC,
-    #38EF7D,
+    #0a915f,
     #F5F5DC,
     #1DB954,
     #F5F5DC,
-    #38EF7D
+    #0a915f,
+    #F5F5DC,
+    #1DB954
   );
   background-size: 300% 300%;
   background-clip: text;

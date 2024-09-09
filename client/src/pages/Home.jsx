@@ -15,7 +15,7 @@ const Home = () => {
             <div className='flex-1 flex justify-center items-center'>
                 <div className='flex flex-col items-center justify-center h-[75vh] w-3/4 sm:w-2/3 mx-auto'>
                     <h1 className={`${styles.gradientText} text-transparent text-3xl rubik-mono-one-regular animate-gradient pb-6 md:text-4xl mt-6`}>Playlistify</h1>
-                    <p className='text-zinc-300 text-xl text-center nunito-sans-bold p-1 rounded-lg mb-5'>Convert your favorite playlists from
+                    <p className='text-zinc-300 text-xl text-center nunito-sans-regular p-1 rounded-lg mb-5'>Convert your favorite playlists from
                         <span className={`${styles.gradientText} text-transparent animate-gradient font-bold`}> YouTube to Spotify!</span> 
                     </p>
                     <div className='w-3/4 h-3/5 '>
@@ -23,7 +23,7 @@ const Home = () => {
                     </div>
 
                     <div className='flex flex-col w-3/4 sm:flex-row md:w-full justify-center'>
-                        <Link to='/convert' className='mt-6 mx-4 py-2 px-8 text-zinc-300 text-lg font-bold text-center rounded-full border border-zinc-600 shadow-md shadow-zinc-700 bg-green-600 hover:bg-spotifyGreen transition-all duration-300 ease-in-out md:text-xl'>Get Started</Link>
+                        <Link to='/convert' className='mt-6 mx-4 py-2 px-8 text-zinc-300 text-lg font-bold text-center rounded-full border border-zinc-600 shadow-md shadow-zinc-700 bg-green-700 hover:bg-spotifyGreen transition-all duration-300 ease-in-out md:text-xl'>Get Started</Link>
                         <Link to={infoPath} className='mt-6 mx-4 py-2 px-8 text-zinc-200 text-lg font-bold text-center rounded-full border border-zinc-600 shadow-md shadow-zinc-700 bg-learnMore hover:bg-learnMoreHover transition-all duration-300 ease-in-out md:text-xl'>Learn More</Link>
                     </div>
                 </div>

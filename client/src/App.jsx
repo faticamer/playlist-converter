@@ -12,9 +12,9 @@ const App = () => {
       <div>
         <SpotifyAuthProvider>
           <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/info' element={<InfoWindow />} />
-            <Route path='/convert' element={<Convert />} />
+              <Route index element={<Home />} />
+              <Route path='/info' element={<InfoWindow />} />
+              <Route path='/convert' element={<Convert />} />
           </Routes>
         </SpotifyAuthProvider>
       </div>
