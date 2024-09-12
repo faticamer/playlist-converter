@@ -12,10 +12,33 @@
 
 See Features for more information!
 
-Important Note for Local Usage (Development)
---------------------------------------------
+Connecting to Spotify's API
+---------------------------
+Instructions on how to set this up:
+1. Go to [Spotify dashboard](https://developer.spotify.com/dashboard)
+1. Click `Create an app`
+    - You can now see your `Client ID` and `Client Secret`
+1. Now click `Edit Settings`
+1. Add `http://localhost:5555/auth/spotify/callback` to the Redirect URI
+1. Scroll down and click `Save`
+1. You are now ready to authenticate with Spotify!
+1. Go back into your project's directory
+1. Navigate into `server`
+1. Locate `.env.sample` file
+1. Using Client ID and Client Secret from your Spotify application, fill `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET`
+1. You have completed the Spotify part. Now you have to create YouTube API key.
 
-If you're running this application locally, the core functionality will not work, but you will still be able to view the front-end. Reason for this is the absence of **client_id** and **client_secret** that are the part of Spotify API. This data is intentionally hidden through the use of environment variables in the development environment. Therefore, you will not be able to do conversion without these two pieces of information. Since this application is relatively simple in terms of its functionality, I've decided to drop the option of users having to manually create Spotify applications through Spotify API dashboard, and instead simply request an access to these values privately. This scenario is less likely to happen for end-users, since the application will be hosted.
+Creating YouTube API key
+------------------------
+1. Go to [Google Cloud Console](https://console.cloud.google.com)
+1. Go to APIs & Services
+1. Navigate to Credentials
+1. Click to `Create Credentials` and select API key
+1. After few seconds, Google will generate your API key. Copy it and paste it to `YOUTUBE_API_KEY` in `.env.sample` file
+1. For `MY_SECRET_KEY` you can go to any password generator web application and generate a random sequence of characters and numbers. It can be any length you want. Make sure to paste it in `.env.sample`.
+1. The `PORT` should be set to 5555.
+1. Now rename `.env.sample` to `.env` and you're all set!
+
 
 Features
 --------
@@ -55,10 +78,18 @@ This repository contains terraform file for infrastructure deployment of servers
 
 Pull Requests
 -------------
-Please open a Pull Requst for any code modifications. It is strongly advised that you consider the instructions provided in the first (Development) section of this document.
+Please open a Pull Requst for any code modifications. Pull requests may include bug fixes as well as some new features.
 
-Issues
-------
-If you face with any difficulties or inconveniences while using the application, please open a new issue in the Issue tab.
+Issues, Suggestions, Feedbacks
+------------------------------
+If you face with any difficulties or inconveniences while using the application, please open a new issue in the Issue tab. You can also contact me via e-mail at `faticamer17@gmail.com`. Additionally, if you have any new suggestions for improvement, collaboration, etc. feel free to drop a message.
 
-## Happy Converting!
+## FAQ
+
+### What to do If I don't want to set up Spotify and YouTube details?
+
+You would have to require all API keys, client IDs, and client secrets that I use for my local environment. Due to security concerns, this option is not available. Many open-source projects follow the same practice that will instruct you on how to setup everything, rather than provide these details per user request.
+
+### Why is this application not hosted?
+
+Spotify keeps all developer apps in *Development Mode*, in which only a limited number of users can issue necessary API calls to Spotify's API. In order to have unlimited number of users that can use the application, Spotify requires you to fill out the form for the app you've developed. Due to the sheer simplicity of the application, as well as the fact that this is merely a hobby project, I decided to skip the whole verification part. GitHub, Cloudflare, and some other providers have the free hosting plan, but this may introduce some complications when you request verification from Spotify for your app.
