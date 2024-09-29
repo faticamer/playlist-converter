@@ -22,14 +22,14 @@
     "YTLC" 500;
 }
 
-.new-amsterdam-regular {
-  font-family: "New Amsterdam", sans-serif;
-  font-weight: 400;
+.rubik-mono-one-regular {
+  font-family: "Rubik Mono One", monospace;
+  font-weight: normal;
   font-style: normal;
 }
 
-.new-amsterdam-bold {
+.new-amsterdam-regular {
   font-family: "New Amsterdam", sans-serif;
-  font-weight: 700;
+  font-weight: normal;
   font-style: normal;
 }

@@ -189,14 +189,14 @@ async function searchTrackOnSpotify (songArtists, songTitles) {
 async function addTracksToPlaylistModified(playlistId, trackUris) {    
     try {
         if (trackUris.length <= 100) {
-            const response = await axios.get(`http://localhost:5555/spotify/playlist/convert`, {
+            // I removed constant declaration from here - if it turns out that it causes any issue
+            await axios.get(`http://localhost:5555/spotify/playlist/convert`, {
                 withCredentials: true,
                 params: {
                     playlistId: playlistId,
                     uri: trackUris
                 },                    
             });
-            console.log(response);                
         } else {
             const chunk = formChunkedArray(trackUris, 100)
             const iterations = Math.ceil(trackUris.length / 100)
@@ -263,30 +263,8 @@ export async function getLibrary() {
         
         return response.data
     } catch (error) {
-        console.error('Error', error)        
+        console.info('User not authenticated. Failed to fetch the library.' , error)        
     }
-}
-
-export function insertMarker(target, marker) {
-        // Create a copy of the original array
-    const newArray = [...target];
-    
-    // Insert the marker object at the beginning of the new array
-    newArray.unshift({ marker });
-
-    // Return the new array with the marker object inserted
-    return newArray;
-}
-
-export function removeMarker(target) {
-    // Create a copy of the original array
-    const newArray = [...target];
-    
-    // Remove the first element (marker object) from the new array
-    newArray.shift();
-
-    // Return the new array without the marker object
-    return newArray;
 }
 
 // 'convert' function will store all tracks in the browser's local storage

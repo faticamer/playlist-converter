@@ -7,6 +7,7 @@ const ConnectButton = (props) => {
 
     const logout = () => {
         window.open('http://localhost:5555/auth/spotify/logout', '_self')
+        localStorage.setItem("loginEntryTimeframe", "") // Reset the login timeframe
     }
 
     const openLoginPage = () => {
@@ -18,15 +19,15 @@ const ConnectButton = (props) => {
             {user && (
                 <div className='flex flex-row justify-between items-center gap-3'>
                     <div onClick={logout} className='flex flex-row justify-between items-center gap-3 nunito-sans-regular outline outline-2 outline-red-500 rounded-full p-1 text-white cursor-pointer hover:bg-red-500 hover:transition-all duration-400 ease-in-out'>
-                        <img src={user.profilePicture} alt="Spotify Profile Picture" className='w-9 h-9 rounded-full'/>
-                        <p className='px-5 py-2 text-justify font-bold'>Log out</p>
+                        <img src={user.profilePicture} alt="Spotify Profile Picture" className='w-8 h-8 rounded-full'/>
+                        <p className='pr-2 text-justify font-bold'>Log out</p>
                     </div>
                 </div>
             )}
             {!user && (
                 <div onClick={openLoginPage} className={`flex flex-row justify-between items-center gap-3 nunito-sans-regular outline outline-1 rounded-full p-1 text-black cursor-pointer ${props.background}`}>
-                    <img src={props.source} alt={props.alt} className='w-9 h-9 rounded-full'/>
-                    <p>Sign in with {props.title}</p>
+                    <img src={props.source} alt={props.alt} className='w-8 h-8'/>
+                    <p className='pr-2'>Sign in</p>
                 </div>
             )}
         </div>
