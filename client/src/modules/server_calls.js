@@ -263,7 +263,7 @@ export async function getLibrary() {
         
         return response.data
     } catch (error) {
-        console.error('Error', error)        
+        console.info('User not authenticated. Failed to fetch the library.' , error)        
     }
 }
 

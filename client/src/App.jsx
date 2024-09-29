@@ -10,13 +10,13 @@ const App = () => {
   return (
     <BrowserRouter>
       <div>
-        <SpotifyAuthProvider>
-          <Routes>
-              <Route index element={<Home />} />
-              <Route path='/info' element={<InfoWindow />} />
-              <Route path='/convert' element={<Convert />} />
-          </Routes>
-        </SpotifyAuthProvider>
+          <SpotifyAuthProvider>
+            <Routes>
+                <Route index element={<Home />} />
+                <Route path='/info' element={<InfoWindow />} />
+                <Route path='/convert' element={<Convert />} />
+            </Routes>
+          </SpotifyAuthProvider>
       </div>
     </BrowserRouter>      
   )

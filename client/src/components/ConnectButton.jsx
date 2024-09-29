@@ -7,6 +7,7 @@ const ConnectButton = (props) => {
 
     const logout = () => {
         window.open('http://localhost:5555/auth/spotify/logout', '_self')
+        localStorage.setItem("loginEntryTimeframe", "") // Reset the login timeframe
     }
 
     const openLoginPage = () => {

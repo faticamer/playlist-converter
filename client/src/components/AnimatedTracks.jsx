@@ -2,25 +2,6 @@
 
 /* eslint react/prop-types: 0 */
 const AnimatedTracks = ({list}) => {
-    // const [renderedItems, setRenderedItems] = useState([])
-
-    /*
-    useEffect(() => {
-        const timeouts = []
-        if (list && list.length > 0) {
-            list.forEach((item, index) => {
-                const timeout = setTimeout(() => {
-                    setRenderedItems((prev) => [...prev, item])
-                }, index * 200)
-                timeouts.push(timeout)
-            });
-        }
-
-        return () => {
-            timeouts.forEach(clearTimeout)
-        }
-    }, [list]);
-    */
 
     return (
         <ul className='pt-3'>

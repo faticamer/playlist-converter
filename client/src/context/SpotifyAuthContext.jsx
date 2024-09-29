@@ -21,7 +21,15 @@ export const SpotifyAuthProvider = ({ children }) => {
           }
         })
 
-        setUser(response.data); 
+        if(response) {
+          setUser(response.data)
+          // Store the exact time when user logged in.
+          // We could've stored the time when user pressed the button to connect, but that does not necessarily
+          // mean that the user would be successfully authenticated
+          localStorage.setItem('loginEntryTimeframe', JSON.stringify(Date.now()))
+        } else {
+          setUser("")
+        }
       } catch (error) {
           console.error('Error: ', error)
       }

@@ -163,24 +163,28 @@ const Convert = () => {
     async function getLibraryItems() {
       try {
         const result = await getLibrary()
-        const libraryObjects = result.data.items
-        
-        const keysToRemove = [
-          'collaborative', 
-          'description', 
-          'external_urls',
-          'id', 
-          'primary_color', 
-          'public',
-          'href',
-          'snapshot_id',
-          'tracks',
-          'uri'
-        ]
+        if(result !== null) {
+          const libraryObjects = result.data.items
+          
+          const keysToRemove = [
+            'collaborative', 
+            'description', 
+            'external_urls',
+            'id', 
+            'primary_color', 
+            'public',
+            'href',
+            'snapshot_id',
+            'tracks',
+            'uri'
+          ]
 
-        // Data retrieved, now insert marker to indicate which item set this is
-        const library = removeKeysFromObjects(libraryObjects, keysToRemove)
-        setLibrary(library)
+          // Data retrieved, now insert marker to indicate which item set this is
+          const library = removeKeysFromObjects(libraryObjects, keysToRemove)
+          setLibrary(library)
+        } else {
+          console.log('Cannot fetch library items. Please authenticate first.')
+        }
       } catch (error) {
         console.error('Error fetching the library')
       }
@@ -217,6 +221,7 @@ const Convert = () => {
           const library = removeKeysFromObjects(libraryObjects, keysToRemove)
           setLibrary(library)
         } catch (error) {
+          setLibrary("")
           console.error('Error fetching playlists: ', error)
         }
       }

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import ConnectButton from './ConnectButton'
 import BasicMenu from './BasicMenu'
-import logo from '../../public/apple-touch-icon.png'
+import logo from '../../src/assets/apple-touch-icon.png'
 import Spotify from '../assets/spotify.svg'
 import { useSpotifyAuthContext } from '../context/useSpotifyAuthContext'
 
