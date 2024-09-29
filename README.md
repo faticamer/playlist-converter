@@ -26,19 +26,8 @@ Instructions on how to set this up:
 1. Navigate into `server`
 1. Locate `.env.sample` file
 1. Using Client ID and Client Secret from your Spotify application, fill `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET`
-1. You have completed the Spotify part. Now you have to create YouTube API key.
-
-Creating YouTube API key
-------------------------
-1. Go to [Google Cloud Console](https://console.cloud.google.com)
-1. Go to APIs & Services
-1. Navigate to Credentials
-1. Click to `Create Credentials` and select API key
-1. After few seconds, Google will generate your API key. Copy it and paste it to `YOUTUBE_API_KEY` in `.env.sample` file
-1. For `MY_SECRET_KEY` you can go to any password generator web application and generate a random sequence of characters and numbers. It can be any length you want. Make sure to paste it in `.env.sample`.
-1. The `PORT` should be set to 5555.
-1. Now rename `.env.sample` to `.env` and you're all set!
-
+1. You have completed the Spotify part. Now you have to create `MY_SECRET_KEY`.
+1. For `MY_SECRET_KEY` you can go to any password generator web application and generate a random sequence of characters and numbers. It can be any length you want, but make it reasonable. Make sure to paste it in `.env.sample`.
 
 Features
 --------
@@ -86,7 +75,7 @@ If you face with any difficulties or inconveniences while using the application,
 
 ## FAQ
 
-### What to do If I don't want to set up Spotify and YouTube details?
+### What to do If I don't want to set up Spotify details?
 
 You would have to require all API keys, client IDs, and client secrets that I use for my local environment. Due to security concerns, this option is not available. Many open-source projects follow the same practice that will instruct you on how to setup everything, rather than provide these details per user request.
 
