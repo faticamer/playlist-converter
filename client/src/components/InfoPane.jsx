@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import {removeMarker} from '../service/server_calls'
 
 function InfoPane({list}) {
   let marker = list[0].marker
@@ -30,13 +29,10 @@ function InfoPane({list}) {
                   <div>
                     <p className="pl-2">{item.name}</p>
                     <p className="pl-2 text-stone-400">
-                      {item.artists &&
-                        item.artists.length > 0 && // Check for array existence and length
-                        item.artists
-                          .map((artist) => artist.name)
-                          .join(
-                            ', ',
-                          ) // Join names with comma
+                      {
+                        item.artists &&
+                          item.artists.length > 0 && // Check for array existence and length
+                          item.artists.map((artist) => artist.name).join(', ') // Join names with comma
                       }
                     </p>
                   </div>
@@ -91,4 +87,3 @@ InfoPane.propTypes = {
 }
 
 export default InfoPane
-

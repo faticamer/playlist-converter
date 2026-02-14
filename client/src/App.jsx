@@ -5,6 +5,8 @@ import {GoogleAuthProvider} from './context/GoogleAuthContext'
 import Home from './pages/Home'
 import InfoWindow from './pages/InfoWindow'
 import Convert from './pages/Convert'
+import ConvertReverse from './pages/ConvertReverse'
+import PlatformPage from './pages/PlatformPage'
 
 const App = () => {
   return (
@@ -27,4 +29,3 @@ const App = () => {
 }
 
 export default App
-
