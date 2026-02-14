@@ -12,12 +12,13 @@
 
 See Features for more information!
 
-Connecting to Spotify's API
----------------------------
+## Connecting to Spotify's API
+
 Instructions on how to set this up:
+
 1. Go to [Spotify dashboard](https://developer.spotify.com/dashboard)
 1. Click `Create an app`
-    - You can now see your `Client ID` and `Client Secret`
+   - You can now see your `Client ID` and `Client Secret`
 1. Now click `Edit Settings`
 1. Add `http://localhost:5555/auth/spotify/callback` to the Redirect URI
 1. Scroll down and click `Save`
@@ -29,48 +30,51 @@ Instructions on how to set this up:
 1. You have completed the Spotify part. Now you have to create `MY_SECRET_KEY`.
 1. For `MY_SECRET_KEY` you can go to any password generator web application and generate a random sequence of characters and numbers. It can be any length you want, but make it reasonable. Make sure to paste it in `.env.sample`.
 
-Features
---------
+## Features
 
 - Convert playlists from your YouTube profile to Spotify
 - List tracks from converted playlist
 - Live update of your libraries
 
-Prerequisites
--------------
+## Prerequisites
 
 - [Node.js](https://nodejs.org/en) (Preferably LTS)
 
-Install
--------
+## Install
 
 Open your Terminal window (Command Prompt, PowerShell, bash, zsh, etc.)
 
 Clone this repository to any location on your PC:
+
 ```bash
 git clone https://github.com/faticamer/playlist-converter.git
 ```
+
 Navigate into cloned directory and install required dependencies:
+
 ```bash
 npm install
 ```
+
 Run the application:
+
 ```bash
 npm start
 ```
-After this you should see that the application started on <b>localhost:5173</b>. Open your browser and navigate to 
+
+After this you should see that the application started on <b>localhost:5173</b>. Open your browser and navigate to
 <b>localhost:5173</b>. Happy converting!
 
-Terraform, Docker, Kubernetes, and Jenkins
--------------
+## Terraform, Docker, Kubernetes, and Jenkins
+
 This repository contains terraform file for infrastructure deployment of servers, autoscaling, security groups and load balancers on AWS, files for dockerization and kubernetes deployment as well as Jenkins CI/CD pipeline with SonarCloud, Snyk, Playwright and OWASP ZAP testing.
 
-Pull Requests
--------------
+## Pull Requests
+
 Please open a Pull Requst for any code modifications. Pull requests may include bug fixes as well as some new features.
 
-Issues, Suggestions, Feedbacks
-------------------------------
+## Issues, Suggestions, Feedbacks
+
 If you face with any difficulties or inconveniences while using the application, please open a new issue in the Issue tab. You can also contact me via e-mail at `faticamer17@gmail.com`. Additionally, if you have any new suggestions for improvement, collaboration, etc. feel free to drop a message.
 
 ## FAQ
@@ -81,4 +85,5 @@ You would have to require all API keys, client IDs, and client secrets that I us
 
 ### Why is this application not hosted?
 
-Spotify keeps all developer apps in *Development Mode*, in which only a limited number of users can issue necessary API calls to Spotify's API. In order to have unlimited number of users that can use the application, Spotify requires you to fill out the form for the app you've developed. Due to the sheer simplicity of the application, as well as the fact that this is merely a hobby project, I decided to skip the whole verification part. GitHub, Cloudflare, and some other providers have the free hosting plan, but this may introduce some complications when you request verification from Spotify for your app.
+Spotify keeps all developer apps in _Development Mode_, in which only a limited number of users can issue necessary API calls to Spotify's API. In order to have unlimited number of users that can use the application, Spotify requires you to fill out the form for the app you've developed. Due to the sheer simplicity of the application, as well as the fact that this is merely a hobby project, I decided to skip the whole verification part. GitHub, Cloudflare, and some other providers have the free hosting plan, but this may introduce some complications when you request verification from Spotify for your app.
+
