@@ -6,13 +6,20 @@ export default defineConfig({
   base: "/",
   plugins: [react()],
   preview: {
-   port: 5173,
-   strictPort: true,
+    port: 5173,
+    strictPort: true,
   },
   server: {
-   port: 5173,
-   strictPort: true,
-   host: true,
-   origin: "http://localhost:5173",
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5555',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+    port: 5173,
+    strictPort: true,
+    host: true,
+    origin: "http://localhost:5173",
   },
  });

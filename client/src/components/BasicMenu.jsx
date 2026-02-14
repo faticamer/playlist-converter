@@ -1,20 +1,26 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import { useMobileDetect } from '../hooks/useMobileDetect';
+import * as React from 'react'
+import Button from '@mui/material/Button'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import {useMobileDetect} from '../hooks/useMobileDetect'
 
 export default function BasicMenu() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState(null)
   const isMobile = useMobileDetect()
-  const open = Boolean(anchorEl);
+  const open = Boolean(anchorEl)
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+    setAnchorEl(event.currentTarget)
+  }
 
   const handleClose = (data) => {
     if (data) {
       switch (data) {
+        case 'spotify':
+          navigate('/convert')
+          break
+        case 'youtube':
+          navigate('/convert-youtube')
+          break
         case 'report-bug':
           window.open('https://github.com/faticamer/playlist-converter/issues')
           break
@@ -26,10 +32,10 @@ export default function BasicMenu() {
           break
         default:
           setAnchorEl(null)
-          break;
+          break
       }
     }
-  };
+  }
 
   return (
     <div>
@@ -40,7 +46,16 @@ export default function BasicMenu() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className='size-6'><path fill="#f6f5f4" d="M256 0a256 256 0 1 0 0 512A256 256 0 1 0 256 0zM135 241c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l87 87 87-87c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9L273 345c-9.4 9.4-24.6 9.4-33.9 0L135 241z"/></svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+          className="size-6"
+        >
+          <path
+            fill="#f6f5f4"
+            d="M256 0a256 256 0 1 0 0 512A256 256 0 1 0 256 0zM135 241c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l87 87 87-87c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9L273 345c-9.4 9.4-24.6 9.4-33.9 0L135 241z"
+          />
+        </svg>
       </Button>
       <Menu
         id="basic-menu"
@@ -51,10 +66,24 @@ export default function BasicMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={() => handleClose('report-bug')}>Report a Bug</MenuItem>
-        <MenuItem onClick={() => handleClose('source-code')}>Check it on GitHub</MenuItem>
-        {isMobile ? <MenuItem onClick={() => handleClose('about-playlistify')} className=''>About Playlistify</MenuItem> : <MenuItem></MenuItem>}
+        <MenuItem onClick={() => handleClose('report-bug')}>
+          Report a Bug
+        </MenuItem>
+        <MenuItem onClick={() => handleClose('source-code')}>
+          Check it on GitHub
+        </MenuItem>
+        {isMobile ? (
+          <MenuItem
+            onClick={() => handleClose('about-playlistify')}
+            className=""
+          >
+            About Playlistify
+          </MenuItem>
+        ) : (
+          <MenuItem></MenuItem>
+        )}
       </Menu>
     </div>
-  );
+  )
 }
+

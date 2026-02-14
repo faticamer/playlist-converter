@@ -1,25 +1,30 @@
-import { Routes, Route } from 'react-router-dom'
-import { BrowserRouter } from 'react-router-dom'
-import { SpotifyAuthProvider } from './context/SpotifyAuthContext'
+import {Routes, Route} from 'react-router-dom'
+import {BrowserRouter} from 'react-router-dom'
+import {SpotifyAuthProvider} from './context/SpotifyAuthContext'
+import {GoogleAuthProvider} from './context/GoogleAuthContext'
 import Home from './pages/Home'
 import InfoWindow from './pages/InfoWindow'
 import Convert from './pages/Convert'
 
 const App = () => {
-
   return (
     <BrowserRouter>
       <div>
-          <SpotifyAuthProvider>
+        <SpotifyAuthProvider>
+          <GoogleAuthProvider>
             <Routes>
-                <Route index element={<Home />} />
-                <Route path='/info' element={<InfoWindow />} />
-                <Route path='/convert' element={<Convert />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/info" element={<InfoWindow />} />
+              <Route path="/convert" element={<Convert />} />
+              <Route path="/convert-youtube" element={<ConvertReverse />} />
+              <Route path="/select-platform" element={<PlatformPage />} />
             </Routes>
-          </SpotifyAuthProvider>
+          </GoogleAuthProvider>
+        </SpotifyAuthProvider>
       </div>
-    </BrowserRouter>      
+    </BrowserRouter>
   )
-};
+}
 
 export default App
+

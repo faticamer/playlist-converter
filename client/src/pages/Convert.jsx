@@ -2,12 +2,11 @@ import { useEffect, useState, useRef } from 'react'
 import { useMobileDetect } from '../hooks/useMobileDetect'
 import Footer from "../components/Footer"
 import NavigationBar from "../components/Navigation"
-import convert from '../modules/server_calls'
-import { getLibrary, getTracksInfo } from '../modules/server_calls'
-import { useSpotifyAuthContext } from '../context/useSpotifyAuthContext'
-import AnimatedLibrary from '../components/AnimatedLibrary'
-import AnimatedTracks from '../components/AnimatedTracks'
+import convert from '../service/server_calls'
+import { getLibrary, getTracksInfo, insertMarker } from '../service/server_calls'
+import InfoPane from '../components/InfoPane'
 import styles from '../External.module.css'
+import { useSpotifyAuthContext } from '../context/useSpotifyAuthContext'
 
 const Convert = () => {
     const [youtubePlaylistId, setyoutubePlaylistId] = useState('')
@@ -20,7 +19,7 @@ const Convert = () => {
     const [isPresent, setIsPresent] = useState(false)
     const inputRef = useRef(null)
     const isMobile = useMobileDetect()
-
+    const { user } = useSpotifyAuthContext()
     const { user } = useSpotifyAuthContext()
     let ids = []
 
@@ -120,8 +119,8 @@ const Convert = () => {
     }
 
     const callConvert = async () => {
-      if(!user) {
-        alert('You are not authenticated!')
+      if(user === null) {
+        alert('Please log in with your Spotify account to continue!\n\nNOTE: You first need to log out of your Google account, if logged in.')
         return
       }
 
@@ -132,10 +131,10 @@ const Convert = () => {
         scrollToTop() // Scroll to top if on mobile
         setItems([]) // Reset the Pane view
 
-        try {        
+        try {
           resetLocalStorage()
 
-          // Main call
+          // Call that performs conversion to Spotify streaming service
           await convert(youtubePlaylistId, playlistName);
 
           ids = retrieveFromLocalStorage('items')
@@ -190,12 +189,12 @@ const Convert = () => {
       }
     }
 
-    useEffect(() => {      
+    useEffect(() => {
       console.log('Rendered!')
       setPlaylistName('PLAYLISTIFY - Converted')
       // Since there is no reason (at least for now) to keep storing 
       // conversion data in localStorage, we will reset it with each
-      // render      
+<<<<<<< HEAD
       if(isMobile && inputRef.current) {
         // Scroll logic
         const scrollPosition = inputRef.current.offsetTop + inputRef.current.offsetHeight / 2 - window.innerHeight / 2
@@ -226,7 +225,9 @@ const Convert = () => {
         }
       }
 
-      setTimeout(fetchLibrary, "1000")
+      if(user !== null) {
+        setTimeout(fetchLibrary, "1000")
+      }
       resetLocalStorage()
     }, [isMobile]);
 
@@ -298,7 +299,7 @@ const Convert = () => {
             </div>
           </div>
           <div className='mt-auto'>
-            <Footer /> 
+            <Footer />
           </div>
         </div>
     )
