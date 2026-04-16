@@ -241,7 +241,10 @@ const Convert = () => {
   }, [isMobile])
 
   return (
-    <div ref={inputRef} className="flex flex-col bg-spotifyBlack min-h-screen">
+    <div
+      ref={inputRef}
+      className="flex flex-col bg-gradient-to-r from-neutral-800 to-neutral-950 min-h-screen"
+    >
       <div>
         <NavigationBar />
       </div>
@@ -249,7 +252,7 @@ const Convert = () => {
         <div
           className={`${songPaneClass} text-white w-11/12 h-[70vh] bg-spotifyDarkGrey shadow shadow-zinc-600 rounded-2xl mt-6 p-3 overflow-auto md:w-5/6 mx-6 lg:w-3/4 xl:w-1/2`}
         >
-          <h1 className="w-full p-2 text-lg text-center text-textLighter rounded-lg border-b-2 nunito-sans-regular border-zinc-800 shadow-md shadow-zinc-600 lg:text-xl xl:text-2xl">
+          <h1 className="w-full p-2 text-lg text-center text-textLighter rounded-lg border-b-2 poppins-regular border-zinc-800 shadow-md shadow-zinc-600 lg:text-xl xl:text-2xl">
             Songs in your New Playlist
           </h1>
           <div>
@@ -261,7 +264,7 @@ const Convert = () => {
                   <div>
                     {isLoading ? (
                       <div className="flex flex-col justify-center items-center">
-                        <h1 className="nunito-sans-regular p-4">
+                        <h1 className="poppins-regular p-4">
                           List is being generated. Please wait...
                         </h1>
                         {isMobile ? (
@@ -276,7 +279,7 @@ const Convert = () => {
                   </div>
                 ) : (
                   <div>
-                    <h1 className="text-zinc-400 nunito-sans-regular">
+                    <h1 className="text-zinc-400 poppins-regular">
                       Waiting for URL input...
                     </h1>
                   </div>
@@ -288,26 +291,26 @@ const Convert = () => {
         </div>
         <div className="flex flex-col w-5/6 items-center justify-center h-[75vh] md:w-3/4 lg:w-1/2">
           <div className="flex flex-col items-center justify-center w-full xl:w-5/6">
-            <h1 className="bg-gradient-to-r from-emerald-500 to-green-700 text-transparent bg-clip-text text-2xl text-center nunito-sans-bold pb-8">
+            <h1 className="bg-gradient-to-r from-emerald-500 to-green-700 text-transparent bg-clip-text text-2xl text-center poppins-bold pb-8">
               Fill in your playlist details!
             </h1>
             <input
               onChange={handleInputChange}
               type="text"
               placeholder="Playlist URL"
-              className={`p-4 w-full rounded-lg ${urlInputClass} text-white text-center nunito-sans-regular bg-spotifyDarkGrey focus:outline-none onfocus="this" md:rounded-lg lg:rounded-2xl' id='convertInput`}
+              className={`p-4 w-full rounded-lg ${urlInputClass} text-white text-center poppins-regular bg-spotifyDarkGrey focus:outline-none onfocus="this" md:rounded-lg lg:rounded-2xl' id='convertInput`}
             />
             <input
               onChange={handleNameInputChange}
               type="text"
               placeholder="Playlist name"
-              className={`mt-5 p-4 w-full rounded-lg ${playlistNameInputClass} text-white nunito-sans-regular bg-spotifyDarkGrey text-center focus:outline-none onfocus="this" md:rounded-lg lg:rounded-2xl' maxLength={100} id='playlistName`}
+              className={`mt-5 p-4 w-full rounded-lg ${playlistNameInputClass} text-white poppins-regular bg-spotifyDarkGrey text-center focus:outline-none onfocus="this" md:rounded-lg lg:rounded-2xl' maxLength={100} id='playlistName`}
             />
           </div>
           <div className="flex flex-col items-center justify-center w-3/5 m-8">
             <button
               onClick={callConvert}
-              className={`${btnClass} nunito-sans-bold bg-[#1a1a1a] text-zinc-300 tracking-widest w-full p-3 mx-4 my-4 xl:w-3/4`}
+              className={`${btnClass} poppins-bold bg-[#1a1a1a] text-zinc-300 tracking-widest w-full p-3 mx-4 my-4 xl:w-3/4`}
             >
               CONVERT
             </button>
@@ -315,7 +318,7 @@ const Convert = () => {
           <div>
             {isLoading ? (
               <div className="flex flex-col items-center justify-center mx-auto">
-                <p className="text-zinc-400 text-center nunito-sans-bold">
+                <p className="text-zinc-400 text-center poppins-bold">
                   Please wait for conversion to complete. This may take a
                   while...
                 </p>
@@ -328,7 +331,7 @@ const Convert = () => {
         <div
           className={`${libraryPaneClass} text-white w-11/12 h-[70vh] bg-spotifyDarkGrey shadow shadow-zinc-600 rounded-2xl mt-6 p-3 overflow-auto md:w-5/6 mx-6 lg:3/4 xl:w-1/2`}
         >
-          <h1 className="p-2 text-lg text-center text-textLighter nunito-sans-regular rounded-lg border-zinc-800 shadow-md shadow-zinc-600 lg:text-xl xl:text-2xl">
+          <h1 className="p-2 text-lg text-center text-textLighter poppins-regular rounded-lg border-zinc-800 shadow-md shadow-zinc-600 lg:text-xl xl:text-2xl">
             Your Spotify library
           </h1>
           {library.length > 0 ? (
@@ -337,13 +340,13 @@ const Convert = () => {
             <div className="flex flex-col justify-center items-center h-[50vh]">
               {user && (
                 <div>
-                  <h1 className="text-zinc-400 nunito-sans-regular">
+                  <h1 className="text-zinc-400 poppins-regular">
                     Fetching Spotify library...
                   </h1>
                 </div>
               )}
               {!user && (
-                <h1 className="text-zinc-400 text-center nunito-sans-regular">
+                <h1 className="text-zinc-400 text-center poppins-regular">
                   You should be signed in to enable this feature!
                 </h1>
               )}

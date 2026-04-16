@@ -19,7 +19,7 @@ const ConnectButton = (props) => {
         <div className="flex flex-row justify-between items-center gap-3">
           <div
             onClick={logout}
-            className="flex flex-row justify-between items-center gap-3 nunito-sans-regular outline outline-2 outline-red-500 rounded-full p-1 text-white cursor-pointer hover:bg-red-500 hover:transition-all duration-400 ease-in-out"
+            className="flex flex-row justify-between items-center gap-3 poppins-regular outline outline-2 outline-red-500 rounded-full p-1 text-white cursor-pointer hover:bg-red-500 hover:transition-all duration-400 ease-in-out"
           >
             <img
               src={user.profilePicture}
@@ -33,7 +33,7 @@ const ConnectButton = (props) => {
       {!user && (
         <div
           onClick={openLoginPage}
-          className={`flex flex-row justify-between items-center gap-3 nunito-sans-regular outline outline-1 rounded-full p-1 text-black cursor-pointer ${props.background}`}
+          className={`flex flex-row justify-between items-center gap-3 poppins-regular outline outline-1 rounded-full p-1 text-black cursor-pointer ${props.background}`}
         >
           <img src={props.source} alt={props.alt} className="w-8 h-8" />
           <p className="pr-2">Sign in</p>

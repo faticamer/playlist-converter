@@ -5,11 +5,11 @@ import PropTypes from 'prop-types'
 
 const InfoWindow = () => {
   return (
-    <div className="flex flex-col bg-spotifyBlack min-h-screen overflow-y-auto">
+    <div className="flex flex-col bg-gradient-to-r from-neutral-800 to-neutral-950 min-h-screen overflow-y-auto">
       <div>
         <NavigationBar />
       </div>
-      <div className="flex flex-col items-center justify-center h-[75vh] w-full nunito-sans-regular">
+      <div className="flex flex-col items-center justify-center h-[75vh] w-full poppins-regular">
         <h1 className="text-white text-2xl pb-3">About Playlistify</h1>
         <p className="px-12 pt-6 md:w-3/4 w-full text-center text-zinc-300">
           Disclaimer (Spotify): Spotify will ask for lots of permissions to your
@@ -50,7 +50,7 @@ const InfoWindow = () => {
             onClick={() => {
               window.location.href = '/'
             }}
-            className="cursor-pointer bg-zinc-200 p-2 rounded-full nunito-sans-bold"
+            className="cursor-pointer bg-zinc-200 p-2 rounded-full poppins-regular"
           >
             Back to Home Page
           </button>

@@ -4,7 +4,7 @@ import {useSpotifyAuthContext} from '../context/useSpotifyAuthContext'
 import {useGoogleAuthContext} from '../context/useGoogleAuthContext'
 import SpotifyConnect from './SpotifyConnect'
 import GoogleConnect from './GoogleConnect'
-import Spotify from '../assets/spotify.svg'
+import Spotify from '../assets/Spotify_Primary_Logo_RGB_White.png'
 import Google from '../assets/google.png'
 
 const NavigationBar = () => {
@@ -12,17 +12,14 @@ const NavigationBar = () => {
   const {userGoogle} = useGoogleAuthContext()
 
   return (
-    <nav className="relative mx-auto p-3 text-white bg-spotifyDarkGrey">
+    <nav className="relative mx-auto p-3 text-white bg-spotifyDarkGrey border-b border-neutral-600">
       <div className="flex items-center justify-between">
         <div className="flex">
           <img src={logo} alt="logo" className="pl-2" />
           <div className="flex flex-row">
             {!user && userGoogle && (
               <div className="flex flex-row">
-                <a
-                  href="/"
-                  className="text-3xl font-bold nunito-sans-bold ml-6"
-                >
+                <a href="/" className="text-3xl font-bold poppins-bold ml-6">
                   Playlistify{' '}
                   <span className="pl-2 text-md font-normal text-stone-500">
                     {' '}
@@ -37,10 +34,7 @@ const NavigationBar = () => {
             )}
             {user && !userGoogle && (
               <div className="flex flex-row">
-                <a
-                  href="/"
-                  className="text-3xl font-bold nunito-sans-bold ml-6"
-                >
+                <a href="/" className="text-3xl font-bold poppins-bold ml-6">
                   Playlistify{' '}
                   <span className="pl-2 text-md font-normal text-stone-500">
                     {' '}
@@ -55,7 +49,7 @@ const NavigationBar = () => {
             )}
           </div>
           {!user && !userGoogle && (
-            <a href="/" className="text-3xl font-bold nunito-sans-bold ml-6">
+            <a href="/" className="text-3xl font-bold poppins-bold ml-6">
               Playlistify{' '}
               <span className="pl-2 text-md font-normal text-stone-500">
                 {' '}
@@ -65,7 +59,7 @@ const NavigationBar = () => {
             </a>
           )}
         </div>
-        <div className="flex flex-row justify-between items-center gap-5 nunito-sans-regular">
+        <div className="flex flex-row justify-between items-center gap-5 poppins-regular">
           {user === null && userGoogle === null && (
             <div className="flex-1 flex justify-center items-center">
               <SpotifyConnect

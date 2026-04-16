@@ -7,7 +7,7 @@ import styles from '../External.module.css'
 
 const PlatformPage = () => {
   return (
-    <div className="flex flex-col min-h-screen bg-spotifyBlack h-full">
+    <div className="flex flex-col min-h-screen bg-gradient-to-r from-neutral-800 to-neutral-950 h-full">
       <div>
         <NavigationBar />
       </div>
@@ -39,4 +39,3 @@ const PlatformPage = () => {
 }
 
 export default PlatformPage
-

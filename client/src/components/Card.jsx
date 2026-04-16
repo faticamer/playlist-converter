@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const Card = (props) => {
   return (
-    <div className="flex flex-col flex-wrap justify-center w-3/4 items-center m-6">
+    <div className="flex flex-col flex-wrap justify-center w-3/4 items-center m-6 poppins-bold">
       <div className="size-80">
         <Link to={props.path}>
           <img
@@ -14,15 +14,15 @@ const Card = (props) => {
           />
         </Link>
       </div>
-      <div className="flex flex-col w-1/2 h-1/3 pt-10 my-10 justify-center items-center">
+      <div className="flex flex-col w-3/4 h-1/3 pt-10 my-10 justify-center items-center">
         <h1
-          className={`${props.gradient} text-transparent text-3xl font-bold animate-gradient`}
+          className={`${props.gradient} text-transparent text-center text-3xl font-bold animate-gradient`}
         >
           Convert to {props.destination}
         </h1>
         <Link
           to={props.path}
-          className={`mt-10 py-4 pr-32 pl-32 text-zinc-100 text-transparent text-xl ${props.border} font-bold text-center rounded-3xl ${props.hover}`}
+          className={`mt-10 py-4 pr-32 pl-32 text-zinc-100 bg-neutral-800 text-transparent text-xl ${props.border} font-bold text-center rounded-3xl`}
         >
           Go!
         </Link>

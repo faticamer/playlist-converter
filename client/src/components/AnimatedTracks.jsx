@@ -16,15 +16,15 @@ const AnimatedTracks = ({list}) => {
                                 <img src={item.album.images[2].url} alt="Cover Image" className='w-full h-full border border-transparent rounded-lg'/>
                             </div>
                             <div>
-                                <p className='pl-2 nunito-sans-regular'>{item.name}</p>
-                                <p className='pl-2 text-stone-400 nunito-sans-regular'>
+                                <p className='pl-2 poppins-regular'>{item.name}</p>
+                                <p className='pl-2 text-stone-400 poppins-regular'>
                                     {item.artists && item.artists.length > 0 && (
                                         item.artists.map(artist => artist.name).join(', ')
                                     )}
                                 </p>
                             </div>
                         </div>
-                        <div className='flex flex-col items-center justify-center pr-4 text-stone-400 nunito-sans-regular'>
+                        <div className='flex flex-col items-center justify-center pr-4 text-stone-400 poppins-regular'>
                             {Math.floor(item.duration_ms / (1000 * 60)) + ":" + 
                             (Math.floor((item.duration_ms % (1000 * 60)) / 1000) < 10 ? "0" + 
                             Math.floor((item.duration_ms % (1000 * 60)) / 1000) : 
